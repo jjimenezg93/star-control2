@@ -1,4 +1,5 @@
 # Star Control 2
+
 Remake of the classic game **Star Control 2**, developed putting together:
 
 - [U-gine](https://github.com/jjimenezg93/U-gine "U-gine"). Extended with Audio manager (OpenAL)
