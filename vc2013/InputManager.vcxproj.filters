@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\InputManager">
+      <UniqueIdentifier>{917636dd-8d50-4f7b-bf8e-c1d350fc67d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\InputManager">
+      <UniqueIdentifier>{79c96af3-64b0-4d03-bdd3-f5b566113d0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Ugine">
+      <UniqueIdentifier>{e2ab19f5-bff1-44c8-b50a-b5b7652e4f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Ugine">
+      <UniqueIdentifier>{3b087804-2dc9-4e2a-b11f-1fedd5ffdf2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{408fc97b-e15c-4de4-891c-13bde7070f3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{87bfe2c4-4913-4cb7-8310-b068215aa874}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rapidjson">
+      <UniqueIdentifier>{838ed07b-c36b-4c81-9905-320d44153dbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StarControl2">
+      <UniqueIdentifier>{974c7e7a-0cbd-41ba-bdf2-22e4359dbc84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\StarControl2">
+      <UniqueIdentifier>{c533aec7-e501-4630-8824-e005a454f3e0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\event.h">
+      <Filter>Header Files\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\inputmanager.h">
+      <Filter>Header Files\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mousecontroller.h">
+      <Filter>Header Files\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nsinputmanagercontroller.h">
+      <Filter>Header Files\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nsinputmanagerentity.h">
+      <Filter>Header Files\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\affector.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\array.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\bone.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\bonedata.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\camera.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\circlecollision.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\collision.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\collisionmanager.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\collisionpixeldata.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\emitter.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\font.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\frame.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\glinclude.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\glyph.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\image.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\map.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mapscene.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parallaxscene.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\particle.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\pixelcollision.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rectcollision.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\renderer.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\resourcemanager.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\scene.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\screen.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\skeletondata.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\skeletonsprite.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sprite.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\string.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\types.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\u-gine.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\keyboardcontroller.h">
+      <Filter>Header Files\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\clickgesture.h">
+      <Filter>Header Files\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\igesture.h">
+      <Filter>Header Files\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\iregistrable.h">
+      <Filter>Header Files\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\buttonui.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\controlmanagerui.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\controlui.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ieventlistener.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\guirender.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\checkboxui.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sliderui.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sliderrender.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\allocators.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\document.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\encodedstream.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\encodings.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\filereadstream.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\filewritestream.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\fwd.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\istreamwrapper.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\memorybuffer.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\memorystream.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\ostreamwrapper.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\pointer.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\prettywriter.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\rapidjson.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\reader.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\schema.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\stream.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\stringbuffer.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rapidjson\writer.h">
+      <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\app_state.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\as_start_menu.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\defs.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\menu_defs.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\as_game_conf_menu.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\affector.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\bone.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\camera.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\collisionmanager.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\collisionpixeldata.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\emitter.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\font.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\glyph.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\image.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\map.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mapscene.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\math.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\parallaxscene.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\particle.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\renderer.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\resourcemanager.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\scene.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\screen.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\skeletondata.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\skeletonsprite.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sprite.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\stb_image.c">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\event.cpp">
+      <Filter>Source Files\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\inputmanager.cpp">
+      <Filter>Source Files\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mousecontroller.cpp">
+      <Filter>Source Files\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\nsinputmanagercontroller.cpp">
+      <Filter>Source Files\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\nsinputmanagerentity.cpp">
+      <Filter>Source Files\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\keyboardcontroller.cpp">
+      <Filter>Source Files\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\clickgesture.cpp">
+      <Filter>Source Files\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\buttonui.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\controlmanagerui.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\controlui.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\guirender.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\checkboxui.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sliderui.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sliderrender.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\app_state.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\as_start_menu.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\as_game_conf_menu.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

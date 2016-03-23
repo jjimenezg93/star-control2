@@ -1,0 +1,29 @@
+{
+  "DreadNought" : {
+    "components" : {
+      "primaryWeapon" : {
+        "name" : "fusionBlaster"
+        },
+      "secondaryWeapon" : {
+        "name" : "laserBots"
+      },
+      "ai" : {
+        "name" : "dreadnoughtAI"
+      }
+    },
+    "parameters": {
+      "linearSpeed" : 10,
+      "angularSpeed" : 20,
+      "energy" : 20,
+      "hitpoints" : 50
+    },
+    "controls" : {
+      "up" : "W",
+      "down" : "S",
+      "left" : "A",
+      "right" : "D",
+      "weapon1" : "C",
+      "weapon2" : "V"
+    }
+  }
+}
