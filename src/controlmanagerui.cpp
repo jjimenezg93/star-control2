@@ -17,7 +17,9 @@ void CControlManagerUI::Notify(const CEvent * const ev) {
 	std::vector<CControlUI *>::reverse_iterator itr = m_controls.rbegin();
 	while(itr != m_controls.rend()) {
 		if ((*itr++)->ManageEvent(ev)) {
-			break;
+			if (ev->GetId() != EME_MOUSE_MOVED && ev->GetController() == EEC_MOUSE)
+				//without this conditions, only 1 button displays properly after moving mouse out
+				break;
 		}
 	}
 }
@@ -26,14 +28,17 @@ void CControlManagerUI::AddControl(CControlUI * const control) {
 	m_controls.push_back(control);
 }
 
-void CControlManagerUI::RemoveControl(CControlUI * const control) {
+bool CControlManagerUI::RemoveControl(CControlUI * const control) {
+	bool ret = false;
 	std::vector<CControlUI *>::iterator itr = m_controls.begin();
 	while (itr != m_controls.end()) {
 		if ((*itr) == control) {
 			itr = m_controls.erase(itr);
+			ret = true;
 			break;
 		}
 	}
+	return ret;
 }
 
 void CControlManagerUI::Update() {

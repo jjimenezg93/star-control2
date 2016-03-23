@@ -1,4 +1,5 @@
 #include "../include/checkboxui.h"
+#include "../include/checkboxgroup.h"
 #include "../include/event.h"
 #include "../include/guirender.h"
 #include "../include/ieventlistener.h"
@@ -6,8 +7,11 @@
 #include "../include/types.h"
 #include "../include/renderer.h"
 
+CCheckBoxUI::~CCheckBoxUI() {}
+
 uint8 CCheckBoxUI::Init() {
 	uint8 ret = 0;
+	ret = GetGUIRender().Init();
 	return ret;
 }
 
@@ -21,12 +25,11 @@ uint8 CCheckBoxUI::Init(int32 x, int32 y) {
 	return ret;
 }
 
-uint8 CCheckBoxUI::Init(int32 x, int32 y, Image * default, Image * onHover, Image * inactive) {
+uint8 CCheckBoxUI::Init(int32 x, int32 y, Image * defaultImg,
+		Image * onClickImg, Image * inactiveImg) {
 	uint8 ret = 0;
 	ret = Init(x, y);
-	GetGUIRender().SetDefaultImg(default);
-	GetGUIRender().SetOnClickImg(onHover);
-	GetGUIRender().SetInactiveImg(inactive);
+	ret = GetGUIRender().Init(defaultImg, onClickImg, inactiveImg);
 	return ret;
 }
 
@@ -46,15 +49,9 @@ bool CCheckBoxUI::ManageEvent(const CEvent * const ev) {
 			switch (ev->GetId()) {
 			case EME_LMB_CLICK:
 				if (MouseIsOver(ev)) {
-					if (GetCurrentState() == EGUICS_DEFAULT)
+					if (GetCurrentState() == EGUICS_DEFAULT) {
 						SetCurrentState(EGUICS_ONCLICK);
-					//must be replaced with ControlGroup
-					std::vector<CControlUI *>::iterator itr = m_complementaries.begin();
-					while (itr != m_complementaries.end()) {
-						if ((*itr)->GetType() == ECT_CHECKBOX) {
-							((CCheckBoxUI*)(*itr))->UpdateComplementariesState();
-						}
-						itr++;
+						m_group->MarkActiveCheckBox(this);
 					}
 					consumed = true;
 				}
@@ -66,21 +63,6 @@ bool CCheckBoxUI::ManageEvent(const CEvent * const ev) {
 		}
 	}
 	return consumed;
-}
-
-void CCheckBoxUI::AddComplementary(CControlUI * compl) {
-	m_complementaries.push_back(compl);
-}
-
-void CCheckBoxUI::UpdateComplementariesState() {
-	std::vector<CControlUI *>::iterator itr = m_complementaries.begin();
-	while (itr != m_complementaries.end()) {
-		if ((*itr)->GetCurrentState() == EGUICS_ONCLICK) {
-			SetCurrentState(EGUICS_DEFAULT);
-		}
-
-		++itr;
-	}
 }
 
 bool CCheckBoxUI::MouseIsOver(const CEvent * const ev) {

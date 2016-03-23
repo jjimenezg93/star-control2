@@ -93,6 +93,7 @@
     <ClInclude Include="..\include\bonedata.h" />
     <ClInclude Include="..\include\buttonui.h" />
     <ClInclude Include="..\include\camera.h" />
+    <ClInclude Include="..\include\checkboxgroup.h" />
     <ClInclude Include="..\include\checkboxui.h" />
     <ClInclude Include="..\include\circlecollision.h" />
     <ClInclude Include="..\include\clickgesture.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="..\src\bone.cpp" />
     <ClCompile Include="..\src\buttonui.cpp" />
     <ClCompile Include="..\src\camera.cpp" />
+    <ClCompile Include="..\src\checkboxgroup.cpp" />
     <ClCompile Include="..\src\checkboxui.cpp" />
     <ClCompile Include="..\src\clickgesture.cpp" />
     <ClCompile Include="..\src\collisionmanager.cpp" />

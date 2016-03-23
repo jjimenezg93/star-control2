@@ -5,7 +5,8 @@
 #include "../include/sliderrender.h"
 
 #include <assert.h>
-#include <iostream>
+
+#define SLIDER_BUTTON_MARGIN 10
 
 uint8 CSliderUI::Init() {
 	SetType(ECT_SLIDER);
@@ -50,38 +51,38 @@ void CSliderUI::Render() {
 	int32 offset = 0;
 
 	//lButton
-	m_sliderRender.Render(ESI_LEFT_BUTTON, m_x + offset, m_y);
-	offset += m_sliderRender.GetImageWidth(ESI_LEFT_BUTTON)/2;
+	m_sliderRender.Render(ESI_LEFT_BUTTON, m_x + offset,
+		m_y - static_cast<int32>(m_sliderRender.GetImage(ESI_LEFT_BUTTON)->GetHandleY()) / 2);
+	offset += m_sliderRender.GetImageWidth(ESI_LEFT_BUTTON)/2 + SLIDER_BUTTON_MARGIN;
 	
 	//bar
-	m_sliderRender.Render(ESI_BAR, m_x + offset, m_y);
+	m_sliderRender.Render(ESI_BAR, m_x + offset,
+		m_y - static_cast<int32>(m_sliderRender.GetImage(ESI_BAR)->GetHandleY()));
 	
 	//ball
 	int32 ballPos = static_cast<int32>((m_sliderRender.GetImageWidth(ESI_BAR)
 		/ (m_maxValue - m_minValue)) * m_ballValue);
 
-	m_sliderRender.Render(ESI_BALL, m_x + offset + ballPos,
-		m_y - m_sliderRender.GetImageWidth(ESI_BALL) / 2); //provisional fix for y-axis
+	m_sliderRender.Render(ESI_BALL, m_x + offset + ballPos,	m_y);
 
 	offset += m_sliderRender.GetImageWidth(ESI_BAR)
-		+ (m_sliderRender.GetImageWidth(ESI_RIGHT_BUTTON) / 2);
+		+ (m_sliderRender.GetImageWidth(ESI_RIGHT_BUTTON) / 2) + SLIDER_BUTTON_MARGIN;
 
 	//rButton
-	m_sliderRender.Render(ESI_RIGHT_BUTTON, m_x + offset, m_y);
+	m_sliderRender.Render(ESI_RIGHT_BUTTON, m_x + offset,
+		m_y - static_cast<int32>(m_sliderRender.GetImage(ESI_RIGHT_BUTTON)->GetHandleY()) / 2);
 }
 
 void CSliderUI::ManageControlEvent(CControlUI * const sender) {
 	switch (sender->GetType()) {
 	case ECT_BUTTON:
 		if (sender->GetId() == 0) { //leftButton
-			std::cout << "SLIDER LEFT!" << std::endl;
 			if (m_ballValue - m_ballRate >= 0)
 				m_ballValue -= m_ballRate;
 			else
 				m_ballValue = 0.f;
 			NotifyListeners(this);
 		} else if (sender->GetId() == 1) { //rightButton
-			std::cout << "SLIDER RIGHT!" << std::endl;
 			if (m_ballValue + m_ballRate <= m_maxValue)
 				m_ballValue += m_ballRate;
 			else
@@ -97,8 +98,6 @@ float CSliderUI::GetValue() const {
 
 bool CSliderUI::ManageEvent(const CEvent * const ev) {
 	bool ret = false;
-
 	ret = m_sliderRender.MangeEventButtons(ev);
-
 	return ret;
 }

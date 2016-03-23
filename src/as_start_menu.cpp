@@ -36,7 +36,8 @@ void ASStartMenu::Init() {
 	uint16 screenHeight = Screen::Instance().GetHeight();
 
 	CButtonUI * playButton = new CButtonUI();
-	playButton->Init(screenWidth / 2, screenHeight / 2, defaultButtonImg, onclickButtonImg, inactiveButtonImg);
+	playButton->Init(screenWidth / 2, screenHeight / 2,
+		defaultButtonImg, onclickButtonImg, inactiveButtonImg);
 	playButton->SetId(0);
 	str = "Play";
 	playButton->SetText(str);
@@ -51,9 +52,20 @@ void ASStartMenu::Init() {
 	exitButton->SetText(str);
 	exitButton->AddEventListener(this);
 	m_menuControls.push_back(exitButton);
+
+	CButtonUI * exitButton2 = new CButtonUI();
+	exitButton2->Init(screenWidth / 2, (screenHeight / 2) + 200,
+		defaultButtonImg, onclickButtonImg, inactiveButtonImg);
+	exitButton2->SetId(1);
+	str = "Exit";
+	exitButton2->SetText(str);
+	exitButton2->AddEventListener(this);
+	m_menuControls.push_back(exitButton2);
+
 	
 	m_controlManager.AddControl(playButton);
 	m_controlManager.AddControl(exitButton);
+	m_controlManager.AddControl(exitButton2);
 }
 
 void ASStartMenu::Deactivate() {
@@ -70,11 +82,12 @@ void ASStartMenu::Update() {
 void ASStartMenu::Draw() {
 	Renderer::Instance().Clear();
 	Renderer::Instance().SetBlendMode(Renderer::BlendMode::ALPHA);
-	std::vector<CControlUI *>::reverse_iterator itrControls;
+	/*std::vector<CControlUI *>::reverse_iterator itrControls;
 	for (itrControls = m_menuControls.rbegin(); itrControls != m_menuControls.rend();
 	++itrControls) {
 		(*itrControls)->Render();
-	}
+	}*/
+	m_controlManager.Render();
 
 	Screen::Instance().Refresh();
 }

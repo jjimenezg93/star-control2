@@ -98,12 +98,16 @@ int32 CSliderRender::GetImageWidth(const ESliderImg eImg) {
 	return img->GetWidth() * img->GetHFrames();
 }
 
+int32 CSliderRender::GetImageHeight(const ESliderImg eImg) {
+	Image * img = GetImage(eImg);
+	return img->GetHeight() * img->GetVFrames();
+}
+
 bool CSliderRender::MangeEventButtons(const CEvent * const ev) {
 	bool ret = false;
 
 	ret = m_leftButton->ManageEvent(ev);
-	if (!ret)
-		ret = m_rightButton->ManageEvent(ev);
+	ret = m_rightButton->ManageEvent(ev);
 
 	return ret;
 }

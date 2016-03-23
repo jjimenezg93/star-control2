@@ -3,9 +3,9 @@
 #include "../include/ieventlistener.h"
 
 CControlUI::~CControlUI() {
-	for (std::vector<CControlUI *>::iterator itr = m_controls.begin();
-	itr != m_controls.end(); ++itr) {
-		delete (*itr);
+	std::vector<CControlUI *>::iterator itr = m_controls.begin();
+	while (itr != m_controls.end()) {
+		itr = m_controls.erase(itr);
 	}
 	m_controls.clear();
 	m_listeners.clear(); //mustn't delete listeners
@@ -33,7 +33,9 @@ bool CControlUI::ManageEvent(const CEvent * const ev) {
 	while (itr != m_controls.rend()) {
 		if ((*itr++)->ManageEvent(ev)) {
 			consumed = true;
-			break;
+			if (ev->GetId() != EME_MOUSE_MOVED && ev->GetController() == EEC_MOUSE)
+				//without this conditions, only 1 button displays properly after moving mouse out
+				break;
 		}
 	}
 
@@ -49,6 +51,7 @@ void CControlUI::RemoveEventListener(IEventListener * const eventListener) {
 	while (itr != m_listeners.end()) {
 		if ((*itr) == eventListener) {
 			m_listeners.erase(itr);
+			break;
 		}
 		++itr;
 	}
@@ -58,14 +61,18 @@ void CControlUI::AddControl(CControlUI * const control) {
 	m_controls.push_back(control);
 }
 
-void CControlUI::RemoveControl(CControlUI * const control) {
+bool CControlUI::RemoveControl(CControlUI * const control) {
+	bool ret = false;
 	std::vector<CControlUI *>::iterator itr = m_controls.begin();
 	while (itr != m_controls.end()) {
 		if ((*itr) == control) {
 			m_controls.erase(itr);
+			ret = true;
+			break;
 		}
 		++itr;
 	}
+	return ret;
 }
 
 CGUIRender & CControlUI::GetGUIRender() {
@@ -85,4 +92,8 @@ void CControlUI::NotifyListeners(CControlUI * const sender) {
 	itr != m_listeners.end(); ++itr) {
 		(*itr)->ManageControlEvent(sender);
 	}
+}
+
+const std::vector<CControlUI *> & CControlUI::GetControls() const {
+	return m_controls;
 }

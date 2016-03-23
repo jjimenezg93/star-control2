@@ -14,7 +14,7 @@ public:
 	uint8 Init(); // needs CInputManager
 	virtual void Notify(const CEvent * const);
 	void AddControl(CControlUI * const);
-	void RemoveControl(CControlUI * const);
+	bool RemoveControl(CControlUI * const);
 
 	void Update();
 	void Render();

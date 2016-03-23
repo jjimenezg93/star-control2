@@ -18,7 +18,6 @@ public:
 	CSliderRender() {}
 	~CSliderRender();
 
-	//images always with midHandle
 	uint8 Init(Image * const bar, Image * const ball, Image * const lDefault,
 		Image * const lOnClick, Image * const rDefault, Image * const rOnClick);
 
@@ -32,6 +31,7 @@ public:
 	Image * GetImage(const ESliderImg eImg);
 
 	int32 GetImageWidth(const ESliderImg eImg);
+	int32 GetImageHeight(const ESliderImg eImg);
 
 	CButtonUI & GetLButton() const { return *m_leftButton; }
 	CButtonUI & GetRButton() const { return *m_rightButton; }

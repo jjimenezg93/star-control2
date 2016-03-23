@@ -11,6 +11,7 @@ enum EControlType {
 	ECT_BUTTON,
 	ECT_SLIDER,
 	ECT_CHECKBOX,
+	ECT_CHECKBOX_GROUP,
 	ECT_COUNT
 };
 
@@ -36,7 +37,7 @@ public:
 	virtual void RemoveEventListener(IEventListener * const eventListener);
 
 	virtual void AddControl(CControlUI * const control);
-	virtual void RemoveControl(CControlUI * const control);
+	virtual bool RemoveControl(CControlUI * const control);
 
 	int32 GetId() const { return m_id; }
 	void SetId(int32 id) { m_id = id; }
@@ -49,6 +50,7 @@ public:
 protected:
 	void SetType(const EControlType type);
 	void NotifyListeners(CControlUI * const sender);
+	const std::vector<CControlUI *> & GetControls() const; //read-only
 private:
 	std::vector<IEventListener *> m_listeners;
 	std::vector<CControlUI *> m_controls;

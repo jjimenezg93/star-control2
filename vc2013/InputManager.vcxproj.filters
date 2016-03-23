@@ -261,6 +261,9 @@
     <ClInclude Include="..\include\as_game_conf_menu.h">
       <Filter>Header Files\StarControl2</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\checkboxgroup.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\affector.cpp">
@@ -382,6 +385,9 @@
     </ClCompile>
     <ClCompile Include="..\src\as_game_conf_menu.cpp">
       <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\checkboxgroup.cpp">
+      <Filter>Source Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

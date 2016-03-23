@@ -24,13 +24,12 @@ uint8 CGUIRender::Init() {
 }
 
 uint8 CGUIRender::Init(Image * const defaultImg, Image * const onClickImg,
-		Image * const inactiveImg) {
+	Image * const inactiveImg) {
 	uint8 ret = 0;
 	ret = Init();
 	m_defaultImg = defaultImg;
 	m_onClickImg = onClickImg;
 	m_inactiveImg = inactiveImg;
-	m_fontType->SetHandle(0.f, static_cast<float>(m_fontType->GetTextHeight(m_buttonText)));
 	return ret;
 }
 
@@ -38,20 +37,18 @@ void CGUIRender::Render(const EGUICurrentState state, const int32 x, const int32
 	Renderer::Instance().DrawImage(GetCurrentImg(state), static_cast<double>(x),
 		static_cast<double>(y));
 	Renderer::Instance().SetColor(255, 255, 255, 255);
+	double textOffset = ((GetCurrImgWidth(state)
+		- m_fontType->GetTextWidth(m_buttonText)) / 2);
 	Renderer::Instance().DrawText(m_fontType, m_buttonText,
-		static_cast<double>(x) - (m_fontType->GetTextWidth(m_buttonText) / 2),
-		static_cast<double>(y) + m_fontType->GetHandleY() / 2);
+		static_cast<double>(x - GetCurrentImg(state)->GetHandleX()) + textOffset,
+		static_cast<double>(y));
 }
 
 void CGUIRender::SetDefaultImg(Image * const img) {
-	if (img)
-		img->SetMidHandle();
 	m_defaultImg = img;
 }
 
 void CGUIRender::SetOnClickImg(Image * const img) {
-	if (img)
-		img->SetMidHandle();
 	m_onClickImg = img;
 }
 
@@ -88,6 +85,6 @@ uint16 CGUIRender::GetCurrImgHeight(EGUICurrentState state) const {
 
 void CGUIRender::SetText(const String &newText) {
 	m_buttonText = newText;
-	m_fontType->SetHandle(m_fontType->GetHandleX(),
-		static_cast<float>(m_fontType->GetTextHeight(m_buttonText)));
+	float yHandle = static_cast<float>(m_fontType->GetTextHeight(m_buttonText) / 2);
+	m_fontType->SetHandle(m_fontType->GetHandleX(), yHandle);
 }
