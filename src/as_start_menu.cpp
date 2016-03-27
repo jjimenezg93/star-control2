@@ -82,11 +82,6 @@ void ASStartMenu::Update() {
 void ASStartMenu::Draw() {
 	Renderer::Instance().Clear();
 	Renderer::Instance().SetBlendMode(Renderer::BlendMode::ALPHA);
-	/*std::vector<CControlUI *>::reverse_iterator itrControls;
-	for (itrControls = m_menuControls.rbegin(); itrControls != m_menuControls.rend();
-	++itrControls) {
-		(*itrControls)->Render();
-	}*/
 	m_controlManager.Render();
 
 	Screen::Instance().Refresh();

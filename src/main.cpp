@@ -62,6 +62,4 @@ int main() {
 	if (document.IsObject() && document.HasMember("DreadNought")) {
 		std::cout << "Has DreadNought" << std::endl;
 	}*/
-
-	
 }

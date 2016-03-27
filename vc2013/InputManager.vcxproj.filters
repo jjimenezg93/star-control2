@@ -264,6 +264,27 @@
     <ClInclude Include="..\include\checkboxgroup.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\windowui.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\audiobuffer.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\audioengine.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\audiosource.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\audiostream.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\listener.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\file.h">
+      <Filter>Header Files\Ugine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\affector.cpp">
@@ -388,6 +409,27 @@
     </ClCompile>
     <ClCompile Include="..\src\checkboxgroup.cpp">
       <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\windowui.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\audiobuffer.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\audioengine.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\audiosource.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\audiostream.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\listener.cpp">
+      <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\stb_vorbis.c">
+      <Filter>Source Files\Ugine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

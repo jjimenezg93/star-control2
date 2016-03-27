@@ -54,12 +54,13 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../lib/openal;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw.win32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OpenAL32.lib;glfw.win32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../lib;../lib/openal</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>MSVCRT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
@@ -72,14 +73,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../lib/openal;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw.win32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OpenAL32.lib;glfw.win32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../lib;../lib/openal</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>MSVCRT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
@@ -89,6 +91,10 @@
     <ClInclude Include="..\include\array.h" />
     <ClInclude Include="..\include\as_game_conf_menu.h" />
     <ClInclude Include="..\include\as_start_menu.h" />
+    <ClInclude Include="..\include\audiobuffer.h" />
+    <ClInclude Include="..\include\audioengine.h" />
+    <ClInclude Include="..\include\audiosource.h" />
+    <ClInclude Include="..\include\audiostream.h" />
     <ClInclude Include="..\include\bone.h" />
     <ClInclude Include="..\include\bonedata.h" />
     <ClInclude Include="..\include\buttonui.h" />
@@ -104,6 +110,7 @@
     <ClInclude Include="..\include\defs.h" />
     <ClInclude Include="..\include\emitter.h" />
     <ClInclude Include="..\include\event.h" />
+    <ClInclude Include="..\include\file.h" />
     <ClInclude Include="..\include\font.h" />
     <ClInclude Include="..\include\frame.h" />
     <ClInclude Include="..\include\guirender.h" />
@@ -114,6 +121,7 @@
     <ClInclude Include="..\include\image.h" />
     <ClInclude Include="..\include\inputmanager.h" />
     <ClInclude Include="..\include\keyboardcontroller.h" />
+    <ClInclude Include="..\include\listener.h" />
     <ClInclude Include="..\include\map.h" />
     <ClInclude Include="..\include\mapscene.h" />
     <ClInclude Include="..\include\math.h" />
@@ -158,13 +166,19 @@
     <ClInclude Include="..\include\types.h" />
     <ClInclude Include="..\include\u-gine.h" />
     <ClInclude Include="..\include\controlui.h" />
+    <ClInclude Include="..\include\windowui.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\lib\stb_image.c" />
+    <ClCompile Include="..\lib\stb_vorbis.c" />
     <ClCompile Include="..\src\affector.cpp" />
     <ClCompile Include="..\src\app_state.cpp" />
     <ClCompile Include="..\src\as_game_conf_menu.cpp" />
     <ClCompile Include="..\src\as_start_menu.cpp" />
+    <ClCompile Include="..\src\audiobuffer.cpp" />
+    <ClCompile Include="..\src\audioengine.cpp" />
+    <ClCompile Include="..\src\audiosource.cpp" />
+    <ClCompile Include="..\src\audiostream.cpp" />
     <ClCompile Include="..\src\bone.cpp" />
     <ClCompile Include="..\src\buttonui.cpp" />
     <ClCompile Include="..\src\camera.cpp" />
@@ -182,6 +196,7 @@
     <ClCompile Include="..\src\image.cpp" />
     <ClCompile Include="..\src\inputmanager.cpp" />
     <ClCompile Include="..\src\keyboardcontroller.cpp" />
+    <ClCompile Include="..\src\listener.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\map.cpp" />
     <ClCompile Include="..\src\mapscene.cpp" />
@@ -201,6 +216,7 @@
     <ClCompile Include="..\src\sliderui.cpp" />
     <ClCompile Include="..\src\sprite.cpp" />
     <ClCompile Include="..\src\controlui.cpp" />
+    <ClCompile Include="..\src\windowui.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

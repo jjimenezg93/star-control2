@@ -13,4 +13,4 @@ The main goal of this project is to develop a game mixing different systems prev
 ___
 
 ###Version
-Project is currently at **v0.1.0**
+Project is currently at **v0.1.1**
