@@ -42,10 +42,16 @@ void CCheckBoxGroup::MarkActiveCheckBox(CControlUI * const control) {
 	for (std::vector<CControlUI *>::const_iterator itr = controls.begin();
 	itr != controls.end(); ++itr) {
 		if ((*itr)->GetType() == ECT_CHECKBOX) {
-			if ((*itr) == control)
+			if ((*itr) == control) {
 				(*itr)->SetCurrentState(EGUICS_ONCLICK);
-			else
+				m_active = reinterpret_cast<CCheckBoxUI *>(*itr);
+			} else
 				(*itr)->SetCurrentState(EGUICS_DEFAULT);
 		}
 	}
+	CControlUI::NotifyListeners(this);
+}
+
+CCheckBoxUI * CCheckBoxGroup::GetActive() const {
+	return m_active;
 }

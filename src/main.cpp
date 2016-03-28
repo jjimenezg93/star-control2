@@ -21,7 +21,6 @@ void GSetWantedState(EStarControlAS newState) {
 }
 
 void DestroyState(IAppState *stateToDestroy) {
-	stateToDestroy->Deactivate();
 	delete stateToDestroy;
 }
 

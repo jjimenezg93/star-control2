@@ -36,6 +36,8 @@ bool CControlManagerUI::RemoveControl(CControlUI * const control) {
 			itr = m_controls.erase(itr);
 			ret = true;
 			break;
+		} else {
+			itr++;
 		}
 	}
 	return ret;

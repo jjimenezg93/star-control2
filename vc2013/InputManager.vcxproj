@@ -108,6 +108,7 @@
     <ClInclude Include="..\include\collisionpixeldata.h" />
     <ClInclude Include="..\include\controlmanagerui.h" />
     <ClInclude Include="..\include\defs.h" />
+    <ClInclude Include="..\include\draggesture.h" />
     <ClInclude Include="..\include\emitter.h" />
     <ClInclude Include="..\include\event.h" />
     <ClInclude Include="..\include\file.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="..\src\collisionmanager.cpp" />
     <ClCompile Include="..\src\collisionpixeldata.cpp" />
     <ClCompile Include="..\src\controlmanagerui.cpp" />
+    <ClCompile Include="..\src\draggesture.cpp" />
     <ClCompile Include="..\src\emitter.cpp" />
     <ClCompile Include="..\src\event.cpp" />
     <ClCompile Include="..\src\font.cpp" />

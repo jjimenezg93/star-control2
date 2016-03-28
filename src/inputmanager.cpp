@@ -1,5 +1,6 @@
 #include "../include/clickgesture.h"
 #include "../include/controlmanagerui.h"
+#include "../include/draggesture.h"
 #include "../include/event.h"
 #include "../include/inputmanager.h"
 #include "../include/iregistrable.h"
@@ -42,6 +43,7 @@ uint8 CInputManager::Init() {
 	}
 
 	m_gestureManagers.Add(new CClickGesture());
+	m_gestureManagers.Add(new CDragGesture());
 
 	return ret;
 }

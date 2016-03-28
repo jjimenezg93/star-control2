@@ -285,6 +285,9 @@
     <ClInclude Include="..\include\file.h">
       <Filter>Header Files\Ugine</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\draggesture.h">
+      <Filter>Header Files\InputManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\affector.cpp">
@@ -430,6 +433,9 @@
     </ClCompile>
     <ClCompile Include="..\lib\stb_vorbis.c">
       <Filter>Source Files\Ugine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\draggesture.cpp">
+      <Filter>Source Files\InputManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -59,7 +59,6 @@ bool CCheckBoxUI::ManageEvent(const CEvent * const ev) {
 			default:
 				break;
 			}
-
 		}
 	}
 	return consumed;

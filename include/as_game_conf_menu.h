@@ -17,7 +17,6 @@ public:
 	virtual ~ASGameConfMenu();
 
 	virtual void Init();
-	virtual void Deactivate();
 
 	virtual void ProcessInput();
 	virtual void Update();
