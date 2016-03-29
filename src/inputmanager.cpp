@@ -54,8 +54,9 @@ CInputManager::~CInputManager() {
 	}
 }
 
-void CInputManager::Register(IRegistrable * const obj, const EEventController controller,
+uint8 CInputManager::Register(IRegistrable * const obj, const EEventController controller,
 const uint32 eventId) {
+	uint8 ret = 0;
 	uint32 i = 0;
 	bool alreadyIn = false;
 	while (i < m_observers.Size()) { //inefficient -> sort array (binary search)
@@ -69,21 +70,24 @@ const uint32 eventId) {
 
 	if (!alreadyIn)
 		m_observers.Add(new IMObserver(obj, controller, eventId));
+	else ret = 1;
+
+	return ret;
 }
 
-/* returns false if obj was not in the list */
-bool CInputManager::Unregister(IRegistrable * const obj, const EEventController controller,
+uint8 CInputManager::Unregister(IRegistrable * const obj, const EEventController controller,
 		const uint32 eventId) {
+	uint8 ret = 1;
 	uint32 i = 0;
 	while (i < m_observers.Size()) { //inefficient -> sort array (binary search)
 		if (m_observers[i]->m_observer == obj && m_observers[i]->m_controller == controller
 				&& m_observers[i]->m_id == eventId) {    
 			m_observers.RemoveAt(i);
-			return true;
+			ret = 0;
 		}
 		i++;
 	}
-	return false;
+	return ret;
 }
 
 void CInputManager::Update() {

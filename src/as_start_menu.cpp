@@ -15,13 +15,13 @@
 ASStartMenu::~ASStartMenu() {
 	if (g_wantedState == ESC_EXIT_APP) {
 		ResourceManager::Instance().FreeResources();
-		for (std::vector<CControlUI *>::iterator itr = m_menuControls.begin();
-		itr != m_menuControls.end(); ++itr) {
-			m_controlManager.RemoveControl((*itr));
-			delete (*itr);
-		}
-		m_menuControls.clear();
 	}
+	for (std::vector<CControlUI *>::iterator itr = m_menuControls.begin();
+	itr != m_menuControls.end(); ++itr) {
+		m_controlManager.RemoveControl((*itr));
+		delete (*itr);
+	}
+	m_menuControls.clear();
 }
 
 void ASStartMenu::Init() {
@@ -34,15 +34,15 @@ void ASStartMenu::Init() {
 	Image * inactiveButtonImg = ResourceManager::Instance().LoadImage(BUTTON_INACTIVE_IMG);
 	inactiveButtonImg->SetMidHandle();
 
-	Image * windowImg = ResourceManager::Instance().LoadImage(WINDOW_IMG);
+	Image * windowImg = ResourceManager::Instance().LoadImage(WINDOW_DEFAULT_IMG);
 	windowImg->SetMidHandle();
 
 	Image * backgroundImg = ResourceManager::Instance().LoadImage(MENU_BACKGROUND_IMG);
 
-	m_controlManager.Init();
-
 	uint16 screenWidth = Screen::Instance().GetWidth();
 	uint16 screenHeight = Screen::Instance().GetHeight();
+
+	m_controlManager.Init();
 
 	//Background
 	CWindowUI * background = new CWindowUI();

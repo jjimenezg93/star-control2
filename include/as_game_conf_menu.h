@@ -11,6 +11,8 @@
 #include <vector>
 
 class CControlUI;
+class Font;
+class String;
 
 class ASGameConfMenu: public IAppState, public IEventListener {
 public:
@@ -27,6 +29,9 @@ private:
 	std::vector<CControlUI *> m_menuControls;
 
 	CControlManagerUI m_controlManager;
+
+	String * m_text; //manually displaying "IA"
+	Font * m_font;
 };
 
 #endif //!_AS_GAME_CONF_MENU_H

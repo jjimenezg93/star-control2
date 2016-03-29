@@ -11,6 +11,8 @@ class CControlUI;
 
 class CControlManagerUI: public IRegistrable {
 public:
+	CControlManagerUI::~CControlManagerUI();
+
 	uint8 Init(); // needs CInputManager
 	virtual void Notify(const CEvent * const);
 	void AddControl(CControlUI * const);

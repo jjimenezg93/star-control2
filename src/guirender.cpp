@@ -5,7 +5,7 @@
 #include "../include/resourcemanager.h"
 #include "../include/types.h"
 
-#define FONT_FILENAME "data/monospaced.png"
+#define FONT_FILENAME "data/fonts/monospaced.png"
 
 CGUIRender::CGUIRender() {
 	m_fontType = nullptr;

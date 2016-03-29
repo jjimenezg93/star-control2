@@ -13,9 +13,9 @@ enum EEventController;
 class CInputManager {
 public:
 	static CInputManager &Instance();
-	void Register(IRegistrable * const obj, const EEventController controller,
+	uint8 Register(IRegistrable * const obj, const EEventController controller,
 			const uint32 eventId);
-	bool Unregister(IRegistrable * const obj, const EEventController controller,
+	uint8 Unregister(IRegistrable * const obj, const EEventController controller,
 			const uint32 eventId);
 	void ProcessGestures();
 	void ManageEvents();

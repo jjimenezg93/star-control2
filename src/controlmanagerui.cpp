@@ -4,11 +4,21 @@
 #include "../include/ieventlistener.h"
 #include "../include/inputmanager.h"
 
+#include <assert.h>
+
+CControlManagerUI::~CControlManagerUI() {
+	uint16 undeleted = 0;
+	for (uint16 mouseId = 0; mouseId < EMouseEventID::EME_COUNT; ++mouseId) {
+		undeleted += CInputManager::Instance().Unregister(this, EEC_MOUSE, EMouseEventID(mouseId));
+	}
+	assert(undeleted == 0); //Unregister() returns 0 if observer can be deleted
+}
+
 uint8 CControlManagerUI::Init() {
 	uint8 ret = 0;
 	// GUI receives only mouse events
 	for (uint16 mouseId = 0; mouseId < EMouseEventID::EME_COUNT; ++mouseId) {
-		CInputManager::Instance().Register(this, EEC_MOUSE, EMouseEventID(mouseId));
+		ret += CInputManager::Instance().Register(this, EEC_MOUSE, EMouseEventID(mouseId));
 	}
 	return ret;
 }
