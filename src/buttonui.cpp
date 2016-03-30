@@ -5,8 +5,6 @@
 #include "../include/renderer.h"
 #include "../include/types.h"
 
-#include <iostream>
-
 double genRandomF(double min, double max);
 
 CButtonUI::~CButtonUI() {}
@@ -60,7 +58,6 @@ bool CButtonUI::ManageEvent(const CEvent * const ev) {
 			case EME_LMB_RELEASE:
 				if (m_pressed && MouseIsOver(ev)) {
 					m_pressed = false;
-					std::cout << "CLICK!" << std::endl;
 					NotifyListeners(this);
 					SetCurrentState(EGUICS_DEFAULT);
 					ret = true;

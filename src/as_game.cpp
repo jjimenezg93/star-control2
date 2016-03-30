@@ -9,6 +9,7 @@
 #include "../include/resourcemanager.h"
 #include "../include/renderer.h"
 #include "../include/screen.h"
+#include "../include/sprite.h"
 
 ASGame::~ASGame() {
 	if (g_wantedState == ESC_EXIT_APP) {
@@ -50,6 +51,10 @@ void ASGame::Init() {
 	itr != m_menuControls.end(); itr++) {
 		m_controlManager.AddControl((*itr));
 	}
+
+	m_player = new Sprite(ResourceManager::Instance().LoadImage("data/avatar_spritesheet.png", 8, 8));
+	m_player->SetFrameRange(0, 64);
+	m_player->SetFPS(30);
 }
 
 void ASGame::ProcessInput() {
@@ -58,12 +63,15 @@ void ASGame::ProcessInput() {
 
 void ASGame::Update() {
 	m_controlManager.Update();
+	m_player->Update(Screen::Instance().ElapsedTime());
 }
 
 void ASGame::Draw() {
 	Renderer::Instance().Clear();
 	Renderer::Instance().SetBlendMode(Renderer::BlendMode::ALPHA);
 	m_controlManager.Render();
+
+	m_player->Render();
 
 	Screen::Instance().Refresh();
 }

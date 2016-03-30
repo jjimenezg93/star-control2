@@ -9,20 +9,6 @@ CComponentCollision::CComponentCollision(CEntity * et, Sprite * sprt) {
 }
 
 void CComponentCollision::ReceiveMessage(SMessage * msg) {
-	IsCollisionMessage * colMsg = dynamic_cast<IsCollisionMessage *>(msg);
-	if (colMsg) {
-		GetSpriteMessage sprtMsg(m_sprite);
-		colMsg->m_entity->ReceiveMessage(&sprtMsg);
-
-		if (sprtMsg.m_modified) {
-			colMsg->m_collided = m_sprite->CheckCollision(sprtMsg.m_sprt);
-		}
-	}
-
-	UpdateSpriteMessage * updateSprtMsg = dynamic_cast<UpdateSpriteMessage *>(msg);
-	if (updateSprtMsg) {
-		m_sprite = updateSprtMsg->m_sprt;
-	}
 }
 
 void CComponentCollision::Update(float) {}

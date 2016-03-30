@@ -13,6 +13,7 @@
 class CControlUI;
 class Font;
 class String;
+class Sprite;
 
 class ASGame: public IAppState, public IEventListener {
 public:
@@ -37,6 +38,7 @@ private:
 
 	String * m_text;
 	Font * m_font;
+	Sprite * m_player;
 };
 
 #endif //!_AS_GAME_H
