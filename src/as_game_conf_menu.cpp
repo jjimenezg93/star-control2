@@ -215,7 +215,7 @@ void ASGameConfMenu::ManageControlEvent(CControlUI * const sender) {
 	switch (sender->GetType()) {
 	case ECT_BUTTON:
 		if (sender->GetId() == 0) {
-			//PLAY!
+			GSetWantedState(ESC_GAME);
 		} else if (sender->GetId() == 1) {
 			GSetWantedState(ESC_START_MENU);
 		}

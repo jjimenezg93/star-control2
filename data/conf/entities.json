@@ -16,14 +16,6 @@
       "angularSpeed" : 20,
       "energy" : 20,
       "hitpoints" : 50
-    },
-    "controls" : {
-      "up" : "W",
-      "down" : "S",
-      "left" : "A",
-      "right" : "D",
-      "weapon1" : "C",
-      "weapon2" : "V"
     }
   }
 }

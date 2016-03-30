@@ -89,6 +89,7 @@
     <ClInclude Include="..\include\affector.h" />
     <ClInclude Include="..\include\app_state.h" />
     <ClInclude Include="..\include\array.h" />
+    <ClInclude Include="..\include\as_game.h" />
     <ClInclude Include="..\include\as_game_conf_menu.h" />
     <ClInclude Include="..\include\as_start_menu.h" />
     <ClInclude Include="..\include\audiobuffer.h" />
@@ -106,10 +107,17 @@
     <ClInclude Include="..\include\collision.h" />
     <ClInclude Include="..\include\collisionmanager.h" />
     <ClInclude Include="..\include\collisionpixeldata.h" />
+    <ClInclude Include="..\include\component.h" />
+    <ClInclude Include="..\include\component_collision.h" />
+    <ClInclude Include="..\include\component_playercontrol.h" />
+    <ClInclude Include="..\include\component_position.h" />
+    <ClInclude Include="..\include\component_render.h" />
     <ClInclude Include="..\include\controlmanagerui.h" />
     <ClInclude Include="..\include\defs.h" />
     <ClInclude Include="..\include\draggesture.h" />
     <ClInclude Include="..\include\emitter.h" />
+    <ClInclude Include="..\include\entities_factory.h" />
+    <ClInclude Include="..\include\entity.h" />
     <ClInclude Include="..\include\event.h" />
     <ClInclude Include="..\include\file.h" />
     <ClInclude Include="..\include\font.h" />
@@ -127,6 +135,7 @@
     <ClInclude Include="..\include\mapscene.h" />
     <ClInclude Include="..\include\math.h" />
     <ClInclude Include="..\include\menu_defs.h" />
+    <ClInclude Include="..\include\messages.h" />
     <ClInclude Include="..\include\mousecontroller.h" />
     <ClInclude Include="..\include\nsinputmanagercontroller.h" />
     <ClInclude Include="..\include\nsinputmanagerentity.h" />
@@ -168,12 +177,14 @@
     <ClInclude Include="..\include\u-gine.h" />
     <ClInclude Include="..\include\controlui.h" />
     <ClInclude Include="..\include\windowui.h" />
+    <ClInclude Include="..\include\world.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\lib\stb_image.c" />
     <ClCompile Include="..\lib\stb_vorbis.c" />
     <ClCompile Include="..\src\affector.cpp" />
     <ClCompile Include="..\src\app_state.cpp" />
+    <ClCompile Include="..\src\as_game.cpp" />
     <ClCompile Include="..\src\as_game_conf_menu.cpp" />
     <ClCompile Include="..\src\as_start_menu.cpp" />
     <ClCompile Include="..\src\audiobuffer.cpp" />
@@ -188,9 +199,15 @@
     <ClCompile Include="..\src\clickgesture.cpp" />
     <ClCompile Include="..\src\collisionmanager.cpp" />
     <ClCompile Include="..\src\collisionpixeldata.cpp" />
+    <ClCompile Include="..\src\component_collision.cpp" />
+    <ClCompile Include="..\src\component_playercontrol.cpp" />
+    <ClCompile Include="..\src\component_position.cpp" />
+    <ClCompile Include="..\src\component_render.cpp" />
     <ClCompile Include="..\src\controlmanagerui.cpp" />
     <ClCompile Include="..\src\draggesture.cpp" />
     <ClCompile Include="..\src\emitter.cpp" />
+    <ClCompile Include="..\src\entities_factory.cpp" />
+    <ClCompile Include="..\src\entity.cpp" />
     <ClCompile Include="..\src\event.cpp" />
     <ClCompile Include="..\src\font.cpp" />
     <ClCompile Include="..\src\glyph.cpp" />
@@ -219,6 +236,7 @@
     <ClCompile Include="..\src\sprite.cpp" />
     <ClCompile Include="..\src\controlui.cpp" />
     <ClCompile Include="..\src\windowui.cpp" />
+    <ClCompile Include="..\src\world.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

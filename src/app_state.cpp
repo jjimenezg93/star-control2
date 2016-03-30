@@ -1,6 +1,7 @@
 #include "../include/app_state.h"
 #include "../include/as_start_menu.h"
 #include "../include/as_game_conf_menu.h"
+#include "../include/as_game.h"
 
 IAppState * newAppState(EStarControlAS wanted) {
 	switch (wanted) {
@@ -14,7 +15,7 @@ IAppState * newAppState(EStarControlAS wanted) {
 		return new ASGameConfMenu();
 		break;
 	case ESC_GAME:
-		return nullptr;
+		return new ASGame();
 		break;
 	case ESC_END_GAME:
 		return nullptr;

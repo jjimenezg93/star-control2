@@ -1,0 +1,22 @@
+{
+    "Player1": {
+        "controls" : {
+            "up" : "W",
+            "down" : "S",
+            "left" : "A",
+            "right" : "D",
+            "weapon1" : "C",
+            "weapon2" : "V"
+        }
+    },
+    "Player2": {
+        "controls" : {
+            "up" : "Up",
+            "down" : "Down",
+            "left" : "Left",
+            "right" : "Right",
+            "weapon1" : "K",
+            "weapon2" : "L"
+        }
+    }
+}

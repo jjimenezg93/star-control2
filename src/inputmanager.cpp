@@ -81,7 +81,7 @@ uint8 CInputManager::Unregister(IRegistrable * const obj, const EEventController
 	uint32 i = 0;
 	while (i < m_observers.Size()) { //inefficient -> sort array (binary search)
 		if (m_observers[i]->m_observer == obj && m_observers[i]->m_controller == controller
-				&& m_observers[i]->m_id == eventId) {    
+				&& m_observers[i]->m_id == eventId) {
 			m_observers.RemoveAt(i);
 			ret = 0;
 		}

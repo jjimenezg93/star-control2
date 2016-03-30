@@ -7,7 +7,7 @@ namespace IInputManagerEntity {
 		CInputManager::Instance().Register(obj, controller, id);
 	}
 
-	bool Unregister(IRegistrable * const obj, const EEventController controller,
+	uint8 Unregister(IRegistrable * const obj, const EEventController controller,
 			const uint32 id) {
 		return CInputManager::Instance().Unregister(obj, controller, id);
 	}

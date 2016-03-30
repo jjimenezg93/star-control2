@@ -288,6 +288,36 @@
     <ClInclude Include="..\include\draggesture.h">
       <Filter>Header Files\InputManager</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\entities_factory.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\component.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\component_collision.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\component_playercontrol.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\component_position.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\component_render.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\entity.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\messages.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\as_game.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\world.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\affector.cpp">
@@ -436,6 +466,30 @@
     </ClCompile>
     <ClCompile Include="..\src\draggesture.cpp">
       <Filter>Source Files\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\entities_factory.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\component_collision.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\component_playercontrol.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\component_position.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\component_render.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\entity.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\as_game.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\world.cpp">
+      <Filter>Source Files\StarControl2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
