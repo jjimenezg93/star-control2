@@ -24,14 +24,15 @@ ASGame::~ASGame() {
 
 
 void ASGame::Init() {
+	String str = "";
 	Image * defaultButtonImg = ResourceManager::Instance().LoadImage(BUTTON_DEFAULT_IMG);
 	defaultButtonImg->SetMidHandle();
 	Image * onClickButtonImg = ResourceManager::Instance().LoadImage(BUTTON_ONCLICK_IMG);
 	onClickButtonImg->SetMidHandle();
 
-	int32 x = Screen::Instance().GetWidth() + defaultButtonImg->GetHandleX()
+	int32 x = Screen::Instance().GetWidth() + static_cast<int32>(defaultButtonImg->GetHandleX())
 		- (defaultButtonImg->GetWidth() * defaultButtonImg->GetHFrames());
-	int32 y = Screen::Instance().GetHeight() + defaultButtonImg->GetHandleY()
+	int32 y = Screen::Instance().GetHeight() + static_cast<int32>(defaultButtonImg->GetHandleY())
 		- defaultButtonImg->GetHeight() * defaultButtonImg->GetVFrames();
 
 	m_controlManager.Init();
@@ -39,7 +40,8 @@ void ASGame::Init() {
 	CButtonUI * exitButton = new CButtonUI();
 	exitButton->Init(x, y, defaultButtonImg, onClickButtonImg);
 	exitButton->SetId(0);
-	exitButton->SetText(String("Exit"));
+	str = "Exit";
+	exitButton->SetText(str);
 	exitButton->AddEventListener(this);
 	m_menuControls.push_back(exitButton);
 
