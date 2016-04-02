@@ -1,29 +1,26 @@
-#ifndef _AS_GAME_H
-#define _AS_GAME_H
+#ifndef _C_HUD_H
+#define _C_HUD_H
 
 #pragma warning(disable: 4820)
 
 #include "app_state.h"
 #include "controlmanagerui.h"
 #include "ieventlistener.h"
-#include "hud.h"
 #include "types.h"
 #include "world.h"
 
 #include <vector>
 
 class CControlUI;
-class CEntity;
 class Font;
 class String;
 
-class ASGame: public IAppState, public IEventListener {
+class CHud: public IAppState, public IEventListener {
 public:
-	virtual ~ASGame();
+	virtual ~CHud();
 
 	virtual void Init();
 
-	virtual void ProcessInput();
 	virtual void Update();
 	virtual void Render();
 
@@ -35,10 +32,10 @@ private:
 		String * m_str;
 	};
 
-	//CControlManagerUI m_controlManager;
-	CHud m_hud;
+	CControlManagerUI m_controlManager;
 
-	CWorld m_world;
+	String * m_text;
+	Font * m_font;
 };
 
-#endif //!_AS_GAME_H
+#endif //!_C_HUD_H

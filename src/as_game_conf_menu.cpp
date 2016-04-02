@@ -19,12 +19,6 @@ ASGameConfMenu::~ASGameConfMenu() {
 	if (g_wantedState == ESC_EXIT_APP) {
 		ResourceManager::Instance().FreeResources();
 	}
-	for (std::vector<CControlUI *>::iterator itr = m_menuControls.begin();
-	itr != m_menuControls.end(); ++itr) {
-		m_controlManager.RemoveControl((*itr));
-		delete (*itr);
-	}
-	m_menuControls.clear();
 }
 
 void ASGameConfMenu::Init() {
@@ -71,13 +65,13 @@ void ASGameConfMenu::Init() {
 	CWindowUI * background = new CWindowUI();
 	background->Init(0, 0, backgroundImg);
 	background->SetId(0);
-	m_menuControls.push_back(background);
+	m_controlManager.AddControl(background);
 
 	/* LEFT WINDOW */
 	CWindowUI * windowLeft = new CWindowUI();
 	windowLeft->Init(screenWidth / 5, screenHeight / 2, windowImg);
 	windowLeft->SetId(1);
-	m_menuControls.push_back(windowLeft);
+	m_controlManager.AddControl(windowLeft);
 
 	//player Ship
 	CCheckBoxUI * lPlayerShip1 = new CCheckBoxUI();
@@ -95,7 +89,7 @@ void ASGameConfMenu::Init() {
 	lPlayerShipCBG->SetId(0);
 	lPlayerShipCBG->AddControl(lPlayerShip1);
 	lPlayerShipCBG->AddControl(lPlayerShip2);
-	m_menuControls.push_back(lPlayerShipCBG);
+	m_controlManager.AddControl(lPlayerShipCBG);
 
 	//playerAI
 	CCheckBoxUI * lPlayerAI1 = new CCheckBoxUI();
@@ -113,13 +107,13 @@ void ASGameConfMenu::Init() {
 	lPlayerAICBG->SetId(1);
 	lPlayerAICBG->AddControl(lPlayerAI1);
 	lPlayerAICBG->AddControl(lPlayerAI2);
-	m_menuControls.push_back(lPlayerAICBG);
+	m_controlManager.AddControl(lPlayerAICBG);
 
 	/* CENTER WINDOW */
 	CWindowUI * windowCenter = new CWindowUI();
 	windowCenter->Init(screenWidth / 2, screenHeight / 2, windowImg);
 	windowCenter->SetId(2);
-	m_menuControls.push_back(windowCenter);
+	m_controlManager.AddControl(windowCenter);
 
 	CButtonUI * playButton = new CButtonUI();
 	playButton->Init(screenWidth / 2, screenHeight / 2 - 50,
@@ -128,7 +122,7 @@ void ASGameConfMenu::Init() {
 	str = "Play";
 	playButton->SetText(str);
 	playButton->AddEventListener(this);
-	m_menuControls.push_back(playButton);
+	m_controlManager.AddControl(playButton);
 
 	CButtonUI * exitButton = new CButtonUI();
 	exitButton->Init(screenWidth / 2, (screenHeight / 2) + 50,
@@ -137,13 +131,13 @@ void ASGameConfMenu::Init() {
 	str = "Back";
 	exitButton->SetText(str);
 	exitButton->AddEventListener(this);
-	m_menuControls.push_back(exitButton);
+	m_controlManager.AddControl(exitButton);
 
 	/* RIGHT WINDOW */
 	CWindowUI * windowRight = new CWindowUI();
 	windowRight->Init(screenWidth / 5 * 4, screenHeight / 2, windowImg);
 	windowRight->SetId(3);
-	m_menuControls.push_back(windowRight);
+	m_controlManager.AddControl(windowRight);
 
 	//player Ship
 	CCheckBoxUI * rPlayerShip1 = new CCheckBoxUI();
@@ -161,7 +155,7 @@ void ASGameConfMenu::Init() {
 	rPlayerShipCBG->SetId(0);
 	rPlayerShipCBG->AddControl(rPlayerShip1);
 	rPlayerShipCBG->AddControl(rPlayerShip2);
-	m_menuControls.push_back(rPlayerShipCBG);
+	m_controlManager.AddControl(rPlayerShipCBG);
 
 	//playerAI
 	CCheckBoxUI * rPlayerAI1 = new CCheckBoxUI();
@@ -179,13 +173,7 @@ void ASGameConfMenu::Init() {
 	rPlayerAICBG->SetId(1);
 	rPlayerAICBG->AddControl(rPlayerAI1);
 	rPlayerAICBG->AddControl(rPlayerAI2);
-	m_menuControls.push_back(rPlayerAICBG);
-
-	//adding to controlManager all private menuControls
-	for (std::vector<CControlUI *>::iterator itr = m_menuControls.begin();
-	itr != m_menuControls.end(); itr++) {
-		m_controlManager.AddControl((*itr));
-	}
+	m_controlManager.AddControl(rPlayerAICBG);
 }
 
 void ASGameConfMenu::ProcessInput() {
@@ -196,7 +184,7 @@ void ASGameConfMenu::Update() {
 	m_controlManager.Update();
 }
 
-void ASGameConfMenu::Draw() {
+void ASGameConfMenu::Render() {
 	Renderer::Instance().Clear();
 	Renderer::Instance().SetBlendMode(Renderer::BlendMode::ALPHA);
 	m_controlManager.Render();

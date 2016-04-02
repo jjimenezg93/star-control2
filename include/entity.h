@@ -4,16 +4,16 @@
 #include <vector>
 
 class CComponent;
-enum EDodgerEntityType;
+enum EGameSide {
+	EGS_PLAYER_1,
+	EGS_PLAYER_2
+};
 struct SMessage;
 
 class CEntity {
 public:
-	CEntity();
+	CEntity(EGameSide side);
 	virtual ~CEntity();
-
-	virtual EDodgerEntityType GetType() const { return m_type; }
-	virtual void SetType(const EDodgerEntityType newType) { m_type = newType; } //not in use atm
 
 	void AddComponent(CComponent * const comp);
 
@@ -22,7 +22,7 @@ public:
 private:
 	std::vector<CComponent *> m_components;
 
-	EDodgerEntityType m_type;
+	EGameSide m_side;
 };
 
 #endif //!_C_ENTITY_H

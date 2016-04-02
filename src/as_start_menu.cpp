@@ -16,12 +16,6 @@ ASStartMenu::~ASStartMenu() {
 	if (g_wantedState == ESC_EXIT_APP) {
 		ResourceManager::Instance().FreeResources();
 	}
-	for (std::vector<CControlUI *>::iterator itr = m_menuControls.begin();
-	itr != m_menuControls.end(); ++itr) {
-		m_controlManager.RemoveControl((*itr));
-		delete (*itr);
-	}
-	m_menuControls.clear();
 }
 
 void ASStartMenu::Init() {
@@ -48,13 +42,13 @@ void ASStartMenu::Init() {
 	CWindowUI * background = new CWindowUI();
 	background->Init(0, 0, backgroundImg);
 	background->SetId(0);
-	m_menuControls.push_back(background);
+	m_controlManager.AddControl(background);
 
 	//Window
 	CWindowUI * window = new CWindowUI();
 	window->Init(screenWidth / 2, screenHeight / 2, windowImg);
 	window->SetId(1);
-	m_menuControls.push_back(window);
+	m_controlManager.AddControl(window);
 
 	//Buttons
 	CButtonUI * playButton = new CButtonUI();
@@ -64,7 +58,7 @@ void ASStartMenu::Init() {
 	str = "Play";
 	playButton->SetText(str);
 	playButton->AddEventListener(this);
-	m_menuControls.push_back(playButton);
+	m_controlManager.AddControl(playButton);
 
 	CButtonUI * exitButton = new CButtonUI();
 	exitButton->Init(screenWidth / 2, (screenHeight / 2) + 50,
@@ -73,13 +67,7 @@ void ASStartMenu::Init() {
 	str = "Exit";
 	exitButton->SetText(str);
 	exitButton->AddEventListener(this);
-	m_menuControls.push_back(exitButton);
-	
-	//adding to controlManager all private menuControls
-	for (std::vector<CControlUI *>::iterator itr = m_menuControls.begin();
-	itr != m_menuControls.end(); itr++) {
-		m_controlManager.AddControl((*itr));
-	}
+	m_controlManager.AddControl(exitButton);
 }
 
 void ASStartMenu::ProcessInput() {
@@ -90,7 +78,7 @@ void ASStartMenu::Update() {
 	m_controlManager.Update();
 }
 
-void ASStartMenu::Draw() {
+void ASStartMenu::Render() {
 	Renderer::Instance().Clear();
 	Renderer::Instance().SetBlendMode(Renderer::BlendMode::ALPHA);
 	m_controlManager.Render();

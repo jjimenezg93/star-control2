@@ -318,6 +318,9 @@
     <ClInclude Include="..\include\world.h">
       <Filter>Header Files\StarControl2</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\hud.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\affector.cpp">
@@ -489,6 +492,9 @@
       <Filter>Source Files\StarControl2</Filter>
     </ClCompile>
     <ClCompile Include="..\src\world.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hud.cpp">
       <Filter>Source Files\StarControl2</Filter>
     </ClCompile>
   </ItemGroup>

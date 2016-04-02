@@ -11,7 +11,14 @@ CControlManagerUI::~CControlManagerUI() {
 	for (uint16 mouseId = 0; mouseId < EMouseEventID::EME_COUNT; ++mouseId) {
 		undeleted += CInputManager::Instance().Unregister(this, EEC_MOUSE, EMouseEventID(mouseId));
 	}
+
 	assert(undeleted == 0); //Unregister() returns 0 if observer can be deleted
+
+	for (std::vector<CControlUI *>::iterator itr = m_controls.begin();
+	itr != m_controls.end(); ++itr) {
+		delete (*itr);
+	}
+	m_controls.clear();
 }
 
 uint8 CControlManagerUI::Init() {
@@ -43,6 +50,7 @@ bool CControlManagerUI::RemoveControl(CControlUI * const control) {
 	std::vector<CControlUI *>::iterator itr = m_controls.begin();
 	while (itr != m_controls.end()) {
 		if ((*itr) == control) {
+			delete *itr;
 			itr = m_controls.erase(itr);
 			ret = true;
 			break;

@@ -4,10 +4,15 @@
 #include "../include/component.h"
 #include "../include/messages.h"
 
-CEntity::CEntity() {
-}
+CEntity::CEntity(EGameSide side): m_side(side) {}
 
-CEntity::~CEntity() {}
+CEntity::~CEntity() {
+	for (std::vector<CComponent *>::iterator it = m_components.begin();
+	it != m_components.end(); it++) {
+		delete *it;
+	}
+	m_components.clear();
+}
 
 void CEntity::AddComponent(CComponent * const comp) {
 	m_components.insert(m_components.end(), comp);

@@ -22,12 +22,10 @@ public:
 
 	virtual void ProcessInput();
 	virtual void Update();
-	virtual void Draw();
+	virtual void Render();
 
 	virtual void ManageControlEvent(CControlUI * const sender);
 private:
-	std::vector<CControlUI *> m_menuControls;
-
 	CControlManagerUI m_controlManager;
 
 	String * m_text; //manually displaying "IA"

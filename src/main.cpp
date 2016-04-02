@@ -49,7 +49,7 @@ int main() {
 		if (g_currentAppState != nullptr) {
 			g_currentAppState->ProcessInput();
 			g_currentAppState->Update();
-			g_currentAppState->Draw();
+			g_currentAppState->Render();
 		}
 	}
 	/*FILE* pFile = fopen("data/entities.json", "rb");

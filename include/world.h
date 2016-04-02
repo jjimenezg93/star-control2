@@ -1,7 +1,7 @@
 #ifndef _C_WORLD_H
 #define _C_WORLD_H
 
-#include "../include/string.h"
+#include "types.h"
 
 #include <vector>
 
@@ -11,19 +11,17 @@ class Scene;
 
 class CWorld {
 public:
-	CWorld(const String background);
+	CWorld() {} //needed for ASGame default constructor
 	~CWorld();
 
-	void Run();
-	void Draw();
+	uint8 Init();
 
-	CEntity * GetPlayer() { return m_player; }
+	void Update();
+	void Render();
 private:
 	void DespawnEntity(unsigned int pos);
 
-	Scene * m_scene;
 	std::vector<CEntity *> m_entities;
-	CEntity * m_player; //makes collision detection easier
 };
 
 #endif //!_C_WORLD_H
