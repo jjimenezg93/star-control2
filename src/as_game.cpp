@@ -36,8 +36,7 @@ void ASGame::Update() {
 void ASGame::Render() {
 	Renderer::Instance().Clear();
 	Renderer::Instance().SetBlendMode(Renderer::BlendMode::ALPHA);
-	//render World
-	//m_world.Update();
+	m_world.Render();
 	m_hud.Render();
 	Screen::Instance().Refresh();
 }

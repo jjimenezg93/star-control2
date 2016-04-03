@@ -3,6 +3,7 @@
 #include "../include/component_playercontrol.h"
 #include "../include/component_position.h"
 #include "../include/component_render.h"
+#include "../include/entities_factory.h"
 #include "../include/entity.h"
 #include "../include/image.h"
 #include "../include/messages.h"
@@ -22,7 +23,9 @@ CWorld::~CWorld() {
 uint8 CWorld::Init() {
 	uint8 ret = 0;
 
-	Image * avatar = ResourceManager::Instance().LoadImage("data/avatar/avatar_ship.png");
+	m_entitiesFactory.Init();
+
+	/*Image * avatar = ResourceManager::Instance().LoadImage("data/avatar/avatar_ship.png");
 	avatar->SetMidHandle();
 	m_entities.push_back(new CEntity(EGS_PLAYER_1));
 	m_entities.push_back(new CEntity(EGS_PLAYER_2));
@@ -33,9 +36,11 @@ uint8 CWorld::Init() {
 
 	std::vector<CEntity *>::iterator itr = m_entities.begin();
 	CComponentRender * renderComp = new CComponentRender(*itr, sprt);
+	m_renderingEntities.push_back(*itr);
 	(*itr++)->AddComponent(renderComp);
 	CComponentRender * renderComp2 = new CComponentRender(*itr, sprt2);
 	(*itr)->AddComponent(renderComp2);
+	m_renderingEntities.push_back(*itr);*/
 
 	return ret;
 }
@@ -49,9 +54,15 @@ void CWorld::Update() {
 }
 
 void CWorld::Render() {
-	
+	for (std::vector<CEntity *>::reverse_iterator itr = m_renderingEntities.rbegin();
+	itr != m_renderingEntities.rend(); itr++) {
+		(*itr)->Render();
+	}
 }
 
-void CWorld::DespawnEntity(unsigned int pos) {
-	
+void CWorld::AddEntity(CEntity * et, bool render) {
+	m_entities.push_back(et);
+	if (render) {
+		m_renderingEntities.push_back(et);
+	}
 }

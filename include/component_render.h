@@ -11,6 +11,7 @@ public:
 
 	virtual void ReceiveMessage(SMessage * const msg);
 	virtual void Update(float elapsed);
+	void Render();
 private:
 	Sprite * m_sprite;
 };

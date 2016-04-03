@@ -13,8 +13,6 @@
 #include "../include/string.h"
 #include "../include/windowui.h"
 
-#define FONT_FILENAME "data/fonts/monospaced.png"
-
 ASGameConfMenu::~ASGameConfMenu() {
 	if (g_wantedState == ESC_EXIT_APP) {
 		ResourceManager::Instance().FreeResources();

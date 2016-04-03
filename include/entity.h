@@ -4,11 +4,18 @@
 #include <vector>
 
 class CComponent;
+enum EComponent;
+struct SMessage;
+
 enum EGameSide {
 	EGS_PLAYER_1,
 	EGS_PLAYER_2
 };
-struct SMessage;
+
+enum EEntityType {
+	EET_SHIP,
+	EET_SHOT
+};
 
 class CEntity {
 public:
@@ -18,8 +25,11 @@ public:
 	void AddComponent(CComponent * const comp);
 
 	void ReceiveMessage(SMessage * const msg);
-	virtual void Update(float elapsed);
+	void Update(float elapsed);
+	void Render();
 private:
+	CComponent * GetComponent(EComponent comp) const;
+
 	std::vector<CComponent *> m_components;
 
 	EGameSide m_side;

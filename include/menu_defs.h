@@ -1,6 +1,7 @@
 #ifndef _MENU_DEFS_H
 #define _MENU_DEFS_H
 
+#define FONT_FILENAME "data/fonts/monospaced.png"
 #define MENU_BACKGROUND_IMG "data/menu/background.jpg"
 
 #define BUTTON_DEFAULT_IMG "data/menu/button_default.png"

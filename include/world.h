@@ -1,6 +1,7 @@
 #ifndef _C_WORLD_H
 #define _C_WORLD_H
 
+#include "entities_factory.h"
 #include "types.h"
 
 #include <vector>
@@ -18,10 +19,13 @@ public:
 
 	void Update();
 	void Render();
-private:
-	void DespawnEntity(unsigned int pos);
 
+	void AddEntity(CEntity * et, bool render);
+private:
 	std::vector<CEntity *> m_entities;
+	std::vector<CEntity *> m_renderingEntities;
+
+	CEntitiesFactory m_entitiesFactory;
 };
 
 #endif //!_C_WORLD_H

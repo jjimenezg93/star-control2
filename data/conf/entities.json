@@ -1,21 +1,26 @@
 {
-  "DreadNought" : {
-    "components" : {
-      "primaryWeapon" : {
-        "name" : "fusionBlaster"
+    "DreadNought" : {
+        "parameters": {
+            "image": "data/dreadnought/dreadnought_ship.png",
+            "linearSpeed" : 10,
+            "angularSpeed" : 20,
+            "energy" : 20,
+            "hitpoints" : 50
         },
-      "secondaryWeapon" : {
-        "name" : "laserBots"
-      },
-      "ai" : {
-        "name" : "dreadnoughtAI"
-      }
-    },
-    "parameters": {
-      "linearSpeed" : 10,
-      "angularSpeed" : 20,
-      "energy" : 20,
-      "hitpoints" : 50
+        "components" : {
+            "primaryWeapon" : {
+                "name" : "fusionBlaster",
+                "energyConsumed" : 2,
+                "cooldown" : 5
+            },
+            "secondaryWeapon" : {
+                "name" : "laserBots",
+                "energyConsumed" : 2,
+                "cooldown" : 5
+            },
+            "ai" : {
+                "name" : "dreadnoughtAI"
+            }
+        }
     }
-  }
 }

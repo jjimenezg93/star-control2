@@ -8,12 +8,12 @@
 #include "ieventlistener.h"
 #include "types.h"
 #include "world.h"
+#include "string.h"
 
 #include <vector>
 
 class CControlUI;
 class Font;
-class String;
 
 class CHud: public IAppState, public IEventListener {
 public:
@@ -27,14 +27,14 @@ public:
 	virtual void ManageControlEvent(CControlUI * const sender);
 private:
 	struct UIText {
-		UIText(uint32 x, uint32 y, String * str): m_x(x), m_y(y), m_str(str) {}
+		UIText(uint32 x, uint32 y, String str): m_x(x), m_y(y), m_str(str) {}
 		uint32 m_x, m_y;
-		String * m_str;
+		String m_str;
 	};
 
 	CControlManagerUI m_controlManager;
+	std::vector<UIText *> m_texts;
 
-	String * m_text;
 	Font * m_font;
 };
 
