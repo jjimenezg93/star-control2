@@ -13,6 +13,7 @@
 class CControlUI;
 class Font;
 class String;
+struct SEntityParams;
 
 class ASGameConfMenu: public IAppState, public IEventListener {
 public:
@@ -26,6 +27,9 @@ public:
 
 	virtual void ManageControlEvent(CControlUI * const sender);
 private:
+	void CreatePlayersParams();
+	void ConvertMenuImgToShip(String &str) const;
+
 	CControlManagerUI m_controlManager;
 
 	String * m_text; //manually displaying "IA"

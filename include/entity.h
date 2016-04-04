@@ -5,12 +5,8 @@
 
 class CComponent;
 enum EComponent;
+enum EGameSide;
 struct SMessage;
-
-enum EGameSide {
-	EGS_PLAYER_1,
-	EGS_PLAYER_2
-};
 
 enum EEntityType {
 	EET_SHIP,

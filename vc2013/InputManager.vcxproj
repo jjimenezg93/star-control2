@@ -118,6 +118,7 @@
     <ClInclude Include="..\include\emitter.h" />
     <ClInclude Include="..\include\entities_factory.h" />
     <ClInclude Include="..\include\entity.h" />
+    <ClInclude Include="..\include\entity_params.h" />
     <ClInclude Include="..\include\event.h" />
     <ClInclude Include="..\include\file.h" />
     <ClInclude Include="..\include\font.h" />

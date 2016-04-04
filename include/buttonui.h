@@ -5,7 +5,7 @@
 #include "guirender.h"
 #include "types.h"
 
-class SMessage;
+struct SMessage;
 class CGUIRender;
 class String;
 

@@ -8,6 +8,7 @@ class Image;
 class Font;
 
 enum EGUICurrentState {
+	EGUICS_NONE,
 	EGUICS_DEFAULT,
 	EGUICS_ONCLICK,
 	EGUICS_INACTIVE,

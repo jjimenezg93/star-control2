@@ -8,6 +8,8 @@
 
 class CEvent;
 class CControlUI;
+enum EGUICurrentState;
+enum EControlType;
 
 class CControlManagerUI: public IRegistrable {
 public:
@@ -20,6 +22,9 @@ public:
 
 	void Update();
 	void Render();
+
+	EGUICurrentState GetControlState(EControlType type, int32 id) const;
+	CControlUI * GetControl(EControlType type, int32 id);
 private:
 	std::vector<CControlUI *> m_controls;
 };

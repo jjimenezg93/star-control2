@@ -1,5 +1,5 @@
 {
-    "DreadNought" : {
+    "dreadnought" : {
         "parameters": {
             "image": "data/dreadnought/dreadnought_ship.png",
             "linearSpeed" : 10,

@@ -17,10 +17,10 @@ enum EControlType {
 };
 
 class CEvent;
-class SMessage;
 class IEventListener;
 class CGUIRender;
 enum EGUICurrentState;
+struct SMessage;
 
 class CControlUI {
 public:

@@ -321,6 +321,9 @@
     <ClInclude Include="..\include\hud.h">
       <Filter>Header Files\StarControl2</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\entity_params.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\affector.cpp">

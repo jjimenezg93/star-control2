@@ -74,3 +74,25 @@ void CControlManagerUI::Render() {
 		(*itr)->Render();
 	}
 }
+
+EGUICurrentState CControlManagerUI::GetControlState(EControlType type, int32 id) const {
+	std::vector<CControlUI *>::const_iterator itr = m_controls.begin();
+	while (itr != m_controls.end()) {
+		if ((*itr)->GetType() == type && (*itr)->GetId() == id) {
+			return (*itr)->GetCurrentState();
+		}
+		++itr;
+	}
+	return EGUICS_NONE;
+}
+
+CControlUI * CControlManagerUI::GetControl(EControlType type, int32 id) {
+	std::vector<CControlUI *>::const_iterator itr = m_controls.begin();
+	while (itr != m_controls.end()) {
+		if ((*itr)->GetType() == type && (*itr)->GetId() == id) {
+			return *itr;
+		}
+		++itr;
+	}
+	return nullptr;
+}

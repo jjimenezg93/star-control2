@@ -2,7 +2,9 @@
 #include "../include/buttonui.h"
 #include "../include/checkboxgroup.h"
 #include "../include/checkboxui.h"
+#include "../include/controlui.h"
 #include "../include/defs.h"
+#include "../include/entity_params.h"
 #include "../include/font.h"
 #include "../include/inputmanager.h"
 #include "../include/image.h"
@@ -12,6 +14,10 @@
 #include "../include/screen.h"
 #include "../include/string.h"
 #include "../include/windowui.h"
+
+#include <assert.h>
+
+std::vector<SEntityParams> g_entitiesParams;
 
 ASGameConfMenu::~ASGameConfMenu() {
 	if (g_wantedState == ESC_EXIT_APP) {
@@ -77,10 +83,12 @@ void ASGameConfMenu::Init() {
 		enabledAvatarImg);
 	lPlayerShip1->SetId(0);
 	lPlayerShip1->SetCurrentState(EGUICS_ONCLICK);
+	m_controlManager.AddControl(lPlayerShip1);
 	CCheckBoxUI * lPlayerShip2 = new CCheckBoxUI();
 	lPlayerShip2->Init(screenWidth / 5 + 100, screenHeight / 2 - 100, disabledDreadNoughtImg,
 		enabledDreadNoughtImg);
 	lPlayerShip2->SetId(1);
+	m_controlManager.AddControl(lPlayerShip2);
 
 	CCheckBoxGroup * lPlayerShipCBG = new CCheckBoxGroup();
 	lPlayerShipCBG->Init();
@@ -93,12 +101,14 @@ void ASGameConfMenu::Init() {
 	CCheckBoxUI * lPlayerAI1 = new CCheckBoxUI();
 	lPlayerAI1->Init(screenWidth / 5 - 50, screenHeight / 2 + 50, disabledCheckBoxImg,
 		enabledCheckBoxImg);
-	lPlayerAI1->SetId(0);
+	lPlayerAI1->SetId(2);
 	lPlayerAI1->SetCurrentState(EGUICS_ONCLICK);
+	m_controlManager.AddControl(lPlayerAI1);
 	CCheckBoxUI * lPlayerAI2 = new CCheckBoxUI();
 	lPlayerAI2->Init(screenWidth / 5 + 50, screenHeight / 2 + 50, disabledCheckBoxImg,
 		enabledCheckBoxImg);
-	lPlayerAI2->SetId(1);
+	lPlayerAI2->SetId(3);
+	m_controlManager.AddControl(lPlayerAI2);
 
 	CCheckBoxGroup * lPlayerAICBG = new CCheckBoxGroup();
 	lPlayerAICBG->Init();
@@ -141,16 +151,18 @@ void ASGameConfMenu::Init() {
 	CCheckBoxUI * rPlayerShip1 = new CCheckBoxUI();
 	rPlayerShip1->Init(screenWidth / 5 * 4 - 100, screenHeight / 2 - 100, disabledAvatarImg,
 		enabledAvatarImg);
-	rPlayerShip1->SetId(0);
+	rPlayerShip1->SetId(4);
 	rPlayerShip1->SetCurrentState(EGUICS_ONCLICK);
+	m_controlManager.AddControl(rPlayerShip1);
 	CCheckBoxUI * rPlayerShip2 = new CCheckBoxUI();
 	rPlayerShip2->Init(screenWidth / 5 * 4 + 100, screenHeight / 2 - 100, disabledDreadNoughtImg,
 		enabledDreadNoughtImg);
-	rPlayerShip2->SetId(1);
+	rPlayerShip2->SetId(5);
+	m_controlManager.AddControl(rPlayerShip2);
 
 	CCheckBoxGroup * rPlayerShipCBG = new CCheckBoxGroup();
 	rPlayerShipCBG->Init();
-	rPlayerShipCBG->SetId(0);
+	rPlayerShipCBG->SetId(2);
 	rPlayerShipCBG->AddControl(rPlayerShip1);
 	rPlayerShipCBG->AddControl(rPlayerShip2);
 	m_controlManager.AddControl(rPlayerShipCBG);
@@ -159,16 +171,18 @@ void ASGameConfMenu::Init() {
 	CCheckBoxUI * rPlayerAI1 = new CCheckBoxUI();
 	rPlayerAI1->Init(screenWidth / 5 * 4 - 50, screenHeight / 2 + 50, disabledCheckBoxImg,
 		enabledCheckBoxImg);
-	rPlayerAI1->SetId(0);
+	rPlayerAI1->SetId(6);
 	rPlayerAI1->SetCurrentState(EGUICS_ONCLICK);
+	m_controlManager.AddControl(rPlayerAI1);
 	CCheckBoxUI * rPlayerAI2 = new CCheckBoxUI();
 	rPlayerAI2->Init(screenWidth / 5 * 4 + 50, screenHeight / 2 + 50, disabledCheckBoxImg,
 		enabledCheckBoxImg);
-	rPlayerAI2->SetId(1);
+	rPlayerAI2->SetId(7);
+	m_controlManager.AddControl(rPlayerAI2);
 
 	CCheckBoxGroup * rPlayerAICBG = new CCheckBoxGroup();
 	rPlayerAICBG->Init();
-	rPlayerAICBG->SetId(1);
+	rPlayerAICBG->SetId(3);
 	rPlayerAICBG->AddControl(rPlayerAI1);
 	rPlayerAICBG->AddControl(rPlayerAI2);
 	m_controlManager.AddControl(rPlayerAICBG);
@@ -202,11 +216,66 @@ void ASGameConfMenu::ManageControlEvent(CControlUI * const sender) {
 	case ECT_BUTTON:
 		if (sender->GetId() == 0) {
 			GSetWantedState(ESC_GAME);
+			CreatePlayersParams();
 		} else if (sender->GetId() == 1) {
 			GSetWantedState(ESC_START_MENU);
 		}
 		break;
 	default:
 		break;
+	}
+}
+
+void ASGameConfMenu::CreatePlayersParams() {
+	CControlUI * control = nullptr;
+	String str;
+	bool isAI = true;
+
+	/* PLAYER 1 */
+	//name
+	if (m_controlManager.GetControlState(ECT_CHECKBOX, 0) == EGUICS_ONCLICK) {
+		control = m_controlManager.GetControl(ECT_CHECKBOX, 0);
+	} else if (m_controlManager.GetControlState(ECT_CHECKBOX, 1) == EGUICS_ONCLICK) {
+		control = m_controlManager.GetControl(ECT_CHECKBOX, 1);
+	}
+	assert(control != nullptr && "Player1 ship checkbox control is nullptr");
+	str = ((CCheckBoxUI *)(control))->GetGUIRender().GetCurrentImg(EGUICS_ONCLICK)->
+		GetFilename().StripDir().StripExt();
+	ConvertMenuImgToShip(str);
+
+	//isAI
+	if (m_controlManager.GetControlState(ECT_CHECKBOX, 2) == EGUICS_ONCLICK) {
+		isAI = true;
+	} else if (m_controlManager.GetControlState(ECT_CHECKBOX, 3) == EGUICS_ONCLICK) {
+		isAI = false;
+	}
+	g_entitiesParams.push_back(SEntityParams(str, isAI, EGameSide::EGS_PLAYER_1));
+
+	/* PLAYER 2 */
+	//name
+	if (m_controlManager.GetControlState(ECT_CHECKBOX, 4) == EGUICS_ONCLICK) {
+		control = m_controlManager.GetControl(ECT_CHECKBOX, 4);
+	} else if (m_controlManager.GetControlState(ECT_CHECKBOX, 5) == EGUICS_ONCLICK) {
+		control = m_controlManager.GetControl(ECT_CHECKBOX, 5);
+	}
+	assert(control != nullptr && "Player2 ship checkbox control is nullptr");
+	str = ((CCheckBoxUI *)(control))->GetGUIRender().GetCurrentImg(EGUICS_ONCLICK)->
+		GetFilename().StripDir().StripExt();
+	ConvertMenuImgToShip(str);
+
+	//isAI
+	if (m_controlManager.GetControlState(ECT_CHECKBOX, 6) == EGUICS_ONCLICK) {
+		isAI = true;
+	} else if (m_controlManager.GetControlState(ECT_CHECKBOX, 7) == EGUICS_ONCLICK) {
+		isAI = false;
+	}
+	g_entitiesParams.push_back(SEntityParams(str, isAI, EGameSide::EGS_PLAYER_2));
+}
+
+void ASGameConfMenu::ConvertMenuImgToShip(String &str) const{
+	if (str == "avatar_enabled") {
+		str = "avatar";
+	} else if (str == "dreadnought_enabled") {
+		str = "dreadnought";
 	}
 }

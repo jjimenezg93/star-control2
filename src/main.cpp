@@ -1,10 +1,6 @@
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 #include "../include/app_state.h"
 #include "../include/defs.h"
-#pragma warning(disable: 4512) //encodedstream.h warning
-#include "../include/rapidjson/document.h"
-#include "../include/rapidjson/filereadstream.h"
-#pragma warning(default: 4512)
 #include "../include/u-gine.h"
 
 #include <assert.h>
@@ -52,13 +48,4 @@ int main() {
 			g_currentAppState->Render();
 		}
 	}
-	/*FILE* pFile = fopen("data/entities.json", "rb");
-	char buffer[65536];
-	FileReadStream is(pFile, buffer, sizeof(buffer));
-	Document document;
-	document.ParseStream<0, UTF8<>, FileReadStream>(is);
-	
-	if (document.IsObject() && document.HasMember("DreadNought")) {
-		std::cout << "Has DreadNought" << std::endl;
-	}*/
 }
