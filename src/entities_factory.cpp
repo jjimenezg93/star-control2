@@ -7,6 +7,7 @@
 #include "../include/rapidjson/document.h"
 #include "../include/rapidjson/filereadstream.h"
 #pragma warning(default: 4512 4244)
+#include "../include/world.h"
 #include <iostream>
 
 uint8 CEntitiesFactory::Init() {
@@ -15,8 +16,8 @@ uint8 CEntitiesFactory::Init() {
 	return ret;
 }
 
-CEntity * CEntitiesFactory::SpawnEntity(SEntityParams params) {
-	FILE* pFile = fopen("data/conf/entities.json", "rb");
+uint8 CEntitiesFactory::Init(CWorld &world) {
+	/*FILE* pFile = fopen("data/conf/entities.json", "rb");
 	char buffer[65536];
 	rapidjson::FileReadStream is(pFile, buffer, sizeof(buffer));
 	rapidjson::Document document;
@@ -25,13 +26,16 @@ CEntity * CEntitiesFactory::SpawnEntity(SEntityParams params) {
 	//need to empty g_entitiesParams before starting world again
 	if (document.IsObject() && document.HasMember(g_entitiesParams.begin()->m_name.ToCString())) {
 		std::cout << "Has dreadnought" << std::endl;
-	}
+	}*/
 
+	//CEntity * newEntity = SpawnEntity(paramms);
+	//world.AddEntity(newEntity);
+}
+
+CEntity * CEntitiesFactory::SpawnEntity(SEntityParams params) {
 	CEntity * et = new CEntity(params.m_side);
 
 	AddComponents(et);
-	//call to AddComponents(CEntity * et)
-
 
 	return et;
 }

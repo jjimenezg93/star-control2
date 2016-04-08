@@ -7,6 +7,7 @@
 #include <vector>
 
 class CEntity;
+class CWorld;
 enum EGameSide;
 enum EComponent;
 struct SEntityParams;
@@ -14,6 +15,7 @@ struct SEntityParams;
 class CEntitiesFactory {
 public:
 	uint8 Init();
+	uint8 Init(CWorld &world);
 
 	CEntity * SpawnEntity(SEntityParams params);
 

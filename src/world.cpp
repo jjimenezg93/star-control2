@@ -5,6 +5,7 @@
 #include "../include/component_render.h"
 #include "../include/entities_factory.h"
 #include "../include/entity.h"
+#include "../include/defs.h"
 #include "../include/entity_params.h"
 #include "../include/image.h"
 #include "../include/messages.h"
@@ -17,6 +18,8 @@
 
 double genRandomF(double min, double max);
 
+//std::vector<SEntityParams> g_entitiesParams;
+
 CWorld::~CWorld() {
 	ResourceManager::Instance().FreeResources();
 }
@@ -24,12 +27,16 @@ CWorld::~CWorld() {
 uint8 CWorld::Init() {
 	uint8 ret = 0;
 
-	m_entitiesFactory.Init();
+	m_entitiesFactory.Init(*this); //should parse entities file and add them to this world
 
 	CEntity * entity = m_entitiesFactory.SpawnEntity(SEntityParams(String("dreadnought"), true,
 		EGameSide::EGS_PLAYER_1));
 
 	AddEntity(entity, true);
+
+	//after initializing the world, g_entitiesParams must be cleared in order to allow new games
+	//to work properly
+	g_entitiesParams.clear();
 
 	return ret;
 }
