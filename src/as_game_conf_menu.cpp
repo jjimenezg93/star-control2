@@ -228,7 +228,7 @@ void ASGameConfMenu::ManageControlEvent(CControlUI * const sender) {
 
 void ASGameConfMenu::CreatePlayersParams() {
 	CControlUI * control = nullptr;
-	String str;
+	String shipName;
 	bool isAI = true;
 
 	/* PLAYER 1 */
@@ -239,9 +239,9 @@ void ASGameConfMenu::CreatePlayersParams() {
 		control = m_controlManager.GetControl(ECT_CHECKBOX, 1);
 	}
 	assert(control != nullptr && "Player1 ship checkbox control is nullptr");
-	str = ((CCheckBoxUI *)(control))->GetGUIRender().GetCurrentImg(EGUICS_ONCLICK)->
+	shipName = ((CCheckBoxUI *)(control))->GetGUIRender().GetCurrentImg(EGUICS_ONCLICK)->
 		GetFilename().StripDir().StripExt();
-	ConvertMenuImgToShip(str);
+	ConvertMenuImgToShip(shipName);
 
 	//isAI
 	if (m_controlManager.GetControlState(ECT_CHECKBOX, 2) == EGUICS_ONCLICK) {
@@ -249,7 +249,7 @@ void ASGameConfMenu::CreatePlayersParams() {
 	} else if (m_controlManager.GetControlState(ECT_CHECKBOX, 3) == EGUICS_ONCLICK) {
 		isAI = false;
 	}
-	g_entitiesParams.push_back(SEntityParams(str, isAI, EGameSide::EGS_PLAYER_1));
+	g_entitiesParams.push_back(SEntityParams(shipName, isAI, EGameSide::EGS_PLAYER_1));
 
 	/* PLAYER 2 */
 	//name
@@ -259,9 +259,9 @@ void ASGameConfMenu::CreatePlayersParams() {
 		control = m_controlManager.GetControl(ECT_CHECKBOX, 5);
 	}
 	assert(control != nullptr && "Player2 ship checkbox control is nullptr");
-	str = ((CCheckBoxUI *)(control))->GetGUIRender().GetCurrentImg(EGUICS_ONCLICK)->
+	shipName = ((CCheckBoxUI *)(control))->GetGUIRender().GetCurrentImg(EGUICS_ONCLICK)->
 		GetFilename().StripDir().StripExt();
-	ConvertMenuImgToShip(str);
+	ConvertMenuImgToShip(shipName);
 
 	//isAI
 	if (m_controlManager.GetControlState(ECT_CHECKBOX, 6) == EGUICS_ONCLICK) {
@@ -269,7 +269,7 @@ void ASGameConfMenu::CreatePlayersParams() {
 	} else if (m_controlManager.GetControlState(ECT_CHECKBOX, 7) == EGUICS_ONCLICK) {
 		isAI = false;
 	}
-	g_entitiesParams.push_back(SEntityParams(str, isAI, EGameSide::EGS_PLAYER_2));
+	g_entitiesParams.push_back(SEntityParams(shipName, isAI, EGameSide::EGS_PLAYER_2));
 }
 
 void ASGameConfMenu::ConvertMenuImgToShip(String &str) const{

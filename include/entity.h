@@ -15,8 +15,10 @@ enum EEntityType {
 
 class CEntity {
 public:
-	CEntity(EGameSide side);
+	CEntity(EGameSide side, bool renderable = false);
 	virtual ~CEntity();
+
+	bool IsRenderable() const { return m_renderable; }
 
 	void AddComponent(CComponent * const comp);
 
@@ -29,6 +31,8 @@ private:
 	std::vector<CComponent *> m_components;
 
 	EGameSide m_side;
+	bool m_renderable; //if RemoveComponent() is added ->
+						//set this to false when component's type is EC_RENDER
 };
 
 #endif //!_C_ENTITY_H

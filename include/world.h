@@ -20,7 +20,7 @@ public:
 	void Update();
 	void Render();
 
-	void AddEntity(CEntity * et, bool render);
+	void AddEntity(CEntity * const et);
 private:
 	std::vector<CEntity *> m_entities;
 	std::vector<CEntity *> m_renderingEntities;

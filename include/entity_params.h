@@ -9,10 +9,10 @@ enum EGameSide {
 };
 
 struct SEntityParams {
-	SEntityParams(String name, bool isAI, EGameSide side): m_name(name), m_isAI(isAI),
+	SEntityParams(String shipName, bool isAI, EGameSide side): m_shipName(shipName), m_isAI(isAI),
 		m_side(side) {
 	}
-	String m_name;
+	String m_shipName;
 	bool m_isAI;
 	EGameSide m_side;
 };

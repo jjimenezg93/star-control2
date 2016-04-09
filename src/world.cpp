@@ -29,11 +29,6 @@ uint8 CWorld::Init() {
 
 	m_entitiesFactory.Init(*this); //should parse entities file and add them to this world
 
-	CEntity * entity = m_entitiesFactory.SpawnEntity(SEntityParams(String("dreadnought"), true,
-		EGameSide::EGS_PLAYER_1));
-
-	AddEntity(entity, true);
-
 	//after initializing the world, g_entitiesParams must be cleared in order to allow new games
 	//to work properly
 	g_entitiesParams.clear();
@@ -56,9 +51,9 @@ void CWorld::Render() {
 	}
 }
 
-void CWorld::AddEntity(CEntity * et, bool render) {
+void CWorld::AddEntity(CEntity * const et) {
 	m_entities.push_back(et);
-	if (render) {
+	if (et->IsRenderable()) {
 		m_renderingEntities.push_back(et);
 	}
 }

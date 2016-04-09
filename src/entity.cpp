@@ -5,7 +5,8 @@
 #include "../include/component_render.h"
 #include "../include/messages.h"
 
-CEntity::CEntity(EGameSide side): m_side(side) {}
+CEntity::CEntity(EGameSide side, bool renderable):
+	m_side(side), m_renderable(renderable) {}
 
 CEntity::~CEntity() {
 	for (std::vector<CComponent *>::iterator it = m_components.begin();
@@ -17,6 +18,9 @@ CEntity::~CEntity() {
 
 void CEntity::AddComponent(CComponent * const comp) {
 	m_components.insert(m_components.end(), comp);
+	if (comp->GetType() == EComponent::EC_RENDER) {
+		m_renderable = true;
+	}
 }
 
 void CEntity::ReceiveMessage(SMessage * const msg) {
@@ -34,9 +38,8 @@ void CEntity::Update(float elapsed) {
 }
 
 void CEntity::Render() {
-	CComponent * renderComp = GetComponent(EC_RENDER);
-	if (renderComp) {
-		reinterpret_cast<CComponentRender *>(renderComp)->Render();
+	if (m_renderable) {
+		reinterpret_cast<CComponentRender *>(GetComponent(EC_RENDER))->Render();
 	}
 }
 
