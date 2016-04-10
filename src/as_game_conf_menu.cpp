@@ -1,3 +1,6 @@
+#include <assert.h>
+#include <string>
+
 #include "../include/as_game_conf_menu.h"
 #include "../include/buttonui.h"
 #include "../include/checkboxgroup.h"
@@ -14,8 +17,6 @@
 #include "../include/screen.h"
 #include "../include/string.h"
 #include "../include/windowui.h"
-
-#include <assert.h>
 
 std::vector<SEntityParams> g_entitiesParams;
 
@@ -198,6 +199,7 @@ void ASGameConfMenu::Update() {
 
 void ASGameConfMenu::Render() {
 	Renderer::Instance().Clear();
+	IAppState::Render();
 	Renderer::Instance().SetBlendMode(Renderer::BlendMode::ALPHA);
 	m_controlManager.Render();
 
@@ -228,7 +230,7 @@ void ASGameConfMenu::ManageControlEvent(CControlUI * const sender) {
 
 void ASGameConfMenu::CreatePlayersParams() {
 	CControlUI * control = nullptr;
-	String shipName;
+	std::string shipName;
 	bool isAI = true;
 
 	/* PLAYER 1 */
@@ -240,7 +242,7 @@ void ASGameConfMenu::CreatePlayersParams() {
 	}
 	assert(control != nullptr && "Player1 ship checkbox control is nullptr");
 	shipName = ((CCheckBoxUI *)(control))->GetGUIRender().GetCurrentImg(EGUICS_ONCLICK)->
-		GetFilename().StripDir().StripExt();
+		GetFilename().StripDir().StripExt().ToCString();
 	ConvertMenuImgToShip(shipName);
 
 	//isAI
@@ -260,7 +262,7 @@ void ASGameConfMenu::CreatePlayersParams() {
 	}
 	assert(control != nullptr && "Player2 ship checkbox control is nullptr");
 	shipName = ((CCheckBoxUI *)(control))->GetGUIRender().GetCurrentImg(EGUICS_ONCLICK)->
-		GetFilename().StripDir().StripExt();
+		GetFilename().StripDir().StripExt().ToCString();
 	ConvertMenuImgToShip(shipName);
 
 	//isAI
@@ -272,7 +274,7 @@ void ASGameConfMenu::CreatePlayersParams() {
 	g_entitiesParams.push_back(SEntityParams(shipName, isAI, EGameSide::EGS_PLAYER_2));
 }
 
-void ASGameConfMenu::ConvertMenuImgToShip(String &str) const{
+void ASGameConfMenu::ConvertMenuImgToShip(std::string &str) const{
 	if (str == "avatar_enabled") {
 		str = "avatar";
 	} else if (str == "dreadnought_enabled") {

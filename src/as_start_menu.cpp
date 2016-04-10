@@ -80,6 +80,7 @@ void ASStartMenu::Update() {
 
 void ASStartMenu::Render() {
 	Renderer::Instance().Clear();
+	IAppState::Render();
 	Renderer::Instance().SetBlendMode(Renderer::BlendMode::ALPHA);
 	m_controlManager.Render();
 

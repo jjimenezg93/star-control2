@@ -3,12 +3,13 @@
 
 #pragma warning(disable: 4820)
 
+#include <vector>
+#include <string>
+
 #include "app_state.h"
 #include "controlmanagerui.h"
 #include "ieventlistener.h"
 #include "types.h"
-
-#include <vector>
 
 class CControlUI;
 class Font;
@@ -28,7 +29,7 @@ public:
 	virtual void ManageControlEvent(CControlUI * const sender);
 private:
 	void CreatePlayersParams();
-	void ConvertMenuImgToShip(String &str) const;
+	void ConvertMenuImgToShip(std::string &str) const;
 
 	CControlManagerUI m_controlManager;
 

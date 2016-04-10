@@ -1,8 +1,4 @@
 #include "../include/app_state.h"
-#include "../include/component_collision.h"
-#include "../include/component_playercontrol.h"
-#include "../include/component_position.h"
-#include "../include/component_render.h"
 #include "../include/entities_factory.h"
 #include "../include/entity.h"
 #include "../include/defs.h"
@@ -17,8 +13,6 @@
 #define BACKGROUND_IMG "data/game_background.jpg"
 
 double genRandomF(double min, double max);
-
-//std::vector<SEntityParams> g_entitiesParams;
 
 CWorld::~CWorld() {
 	ResourceManager::Instance().FreeResources();

@@ -8,6 +8,7 @@ class Sprite;
 class CComponentRender: public CComponent {
 public:
 	CComponentRender(CEntity * et, Sprite * sprt);
+	CComponentRender(CEntity * et, const char * imgFilename);
 
 	virtual void ReceiveMessage(SMessage * const msg);
 	virtual void Update(float elapsed);

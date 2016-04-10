@@ -47,7 +47,7 @@
                 "name" : "avatarAI"
             },
             "render" : {
-                "image" : "data/dreadnought/dreadnought_ship.png"
+                "image" : "data/avatar/avatar_ship.png"
             }
         }
     }

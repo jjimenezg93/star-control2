@@ -1,14 +1,15 @@
 #ifndef _C_ENTITIES_FACTORY_H
 #define _C_ENTITIES_FACTORY_H
 
+#include <string>
+#include <vector>
+
 #pragma warning(disable: 4512 4244) //encodedstream.h warning
 #include "../include/rapidjson/document.h"
 #pragma warning(default: 4512 4244)
 #include "types.h"
-#include "string.h"
 
-#include <vector>
-
+class CComponent;
 class CEntity;
 class CWorld;
 enum EGameSide;
@@ -27,6 +28,8 @@ public:
 	void DeleteEntity(const CEntity * const entity);
 private:
 	void AddComponents(CEntity * const entity, const SEntityParams &params);
+	CComponent * CreateComponent(CEntity * const et,
+		rapidjson::Value::ConstMemberIterator &compIt);
 
 	FILE * m_eFile;
 	rapidjson::Document m_doc;

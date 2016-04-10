@@ -1,4 +1,7 @@
-#include "../include/component.h"
+#include <iostream>
+
+#include "../include/component_shipparams.h"
+#include "../include/component_render.h"
 #include "../include/defs.h"
 #include "../include/entities_factory.h"
 #include "../include/entity.h"
@@ -6,10 +9,8 @@
 #pragma warning(disable: 4512 4244) //encodedstream.h warning
 #include "../include/rapidjson/document.h"
 #include "../include/rapidjson/filereadstream.h"
-#include "../include/rapidjson/reader.h"
 #pragma warning(default: 4512 4244)
 #include "../include/world.h"
-#include <iostream>
 
 CEntitiesFactory::~CEntitiesFactory() {
 	fclose(m_eFile);
@@ -57,16 +58,38 @@ void CEntitiesFactory::DeleteEntity(const CEntity * const entity) {
 void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams &params) {
 	//search for "components" in json -> create component -> entity.AddComponent(x)
 
-	const rapidjson::Value &ship = m_doc[params.m_shipName.ToCString()];
-	const rapidjson::Value::ConstMemberIterator &parameters = ship.FindMember("parameters");
-	float linearSpeed = parameters->value["linearSpeed"].GetFloat();
-	//String str = parameters->value["image"].GetString();
+	const rapidjson::Value &ship = m_doc[params.m_shipName.c_str()];
+	const rapidjson::Value &parameters = ship.FindMember("parameters")->value;
 
-	/*const rapidjson::Value &dreadnought = m_doc["dreadnought"];
+	//ship params
+	float linearSpeed = parameters["linearSpeed"].GetFloat();
+	float angularSpeed = parameters["angularSpeed"].GetFloat();
+	int16 energy = static_cast<int16>(parameters["energy"].GetInt());
+	int16 hitpoints = static_cast<int16>(parameters["hitpoints"].GetInt());
+	
+	entity->AddComponent(new CComponentShipParams(entity, linearSpeed, angularSpeed,
+		energy, hitpoints));
 
-	//components loop
-	for (rapidjson::Value::ConstMemberIterator itr = dreadnought.MemberBegin();
-	itr != dreadnought.MemberEnd(); ++itr) {
-		std::cout << "name : " << itr->name.GetString() << std::endl;
-	}*/
+	//components
+	const rapidjson::Value &components = ship.FindMember("components")->value;
+
+	for (rapidjson::Value::ConstMemberIterator itr = components.MemberBegin();
+	itr != components.MemberEnd(); ++itr) {
+		CComponent * newComp = CreateComponent(entity, itr);
+		if (newComp != nullptr) { //provisional, while not all comps implemented
+			entity->AddComponent(newComp);
+		}
+	}
+}
+
+CComponent * CEntitiesFactory::CreateComponent(CEntity * const et,
+rapidjson::Value::ConstMemberIterator &compIt) {
+	CComponent * comp = nullptr;
+	std::string str = compIt->name.GetString();
+	if (str == "render") {
+		CComponentRender * renderComp = new CComponentRender(et,
+			compIt->value["image"].GetString());
+		comp = renderComp;
+	}
+	return comp;
 }

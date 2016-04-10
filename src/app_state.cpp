@@ -1,7 +1,11 @@
+#include <iostream>
+
 #include "../include/app_state.h"
 #include "../include/as_start_menu.h"
 #include "../include/as_game_conf_menu.h"
 #include "../include/as_game.h"
+
+uint16 IAppState::m_currentFrames = 0;
 
 IAppState * newAppState(EStarControlAS wanted) {
 	switch (wanted) {
@@ -26,5 +30,20 @@ IAppState * newAppState(EStarControlAS wanted) {
 	default:
 		return nullptr;
 		break;
+	}
+}
+
+void IAppState::Render() {
+	m_framesTimer = clock();
+	float duration = (static_cast<float>(m_framesTimer - m_lastTimer))
+		/ CLOCKS_PER_SEC;
+	if (duration > 1.f) {
+		system("cls");
+		std::cout << "frames = " << m_currentFrames << std::endl;
+		m_currentFrames = 0;
+		m_lastTimer = clock();
+		m_framesTimer = m_lastTimer;
+	} else {
+		m_currentFrames++;
 	}
 }

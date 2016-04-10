@@ -54,7 +54,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../lib/openal;$(ProjectDir)/../data;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../lib/openal;$(ProjectDir)/../data/;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -73,7 +73,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../lib/openal;$(ProjectDir)/../data;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../lib/openal;$(ProjectDir)/../data/;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -108,10 +108,8 @@
     <ClInclude Include="..\include\collisionmanager.h" />
     <ClInclude Include="..\include\collisionpixeldata.h" />
     <ClInclude Include="..\include\component.h" />
-    <ClInclude Include="..\include\component_collision.h" />
-    <ClInclude Include="..\include\component_playercontrol.h" />
-    <ClInclude Include="..\include\component_position.h" />
     <ClInclude Include="..\include\component_render.h" />
+    <ClInclude Include="..\include\component_shipparams.h" />
     <ClInclude Include="..\include\controlmanagerui.h" />
     <ClInclude Include="..\include\defs.h" />
     <ClInclude Include="..\include\draggesture.h" />
@@ -201,10 +199,8 @@
     <ClCompile Include="..\src\clickgesture.cpp" />
     <ClCompile Include="..\src\collisionmanager.cpp" />
     <ClCompile Include="..\src\collisionpixeldata.cpp" />
-    <ClCompile Include="..\src\component_collision.cpp" />
-    <ClCompile Include="..\src\component_playercontrol.cpp" />
-    <ClCompile Include="..\src\component_position.cpp" />
     <ClCompile Include="..\src\component_render.cpp" />
+    <ClCompile Include="..\src\component_shipparams.cpp" />
     <ClCompile Include="..\src\controlmanagerui.cpp" />
     <ClCompile Include="..\src\draggesture.cpp" />
     <ClCompile Include="..\src\emitter.cpp" />

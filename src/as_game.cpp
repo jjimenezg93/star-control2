@@ -35,6 +35,7 @@ void ASGame::Update() {
 
 void ASGame::Render() {
 	Renderer::Instance().Clear();
+	IAppState::Render();
 	Renderer::Instance().SetBlendMode(Renderer::BlendMode::ALPHA);
 	m_world.Render();
 	m_hud.Render();
