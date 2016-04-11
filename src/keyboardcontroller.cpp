@@ -15,13 +15,28 @@ uint8 CKeyboardController::Init() {
 	if (!glfwInit()) {
 		ret = 1;
 	}
+
+	m_specialKeys.push_back(GLFW_KEY_LEFT);
+	m_specialKeys.push_back(GLFW_KEY_RIGHT);
+	m_specialKeys.push_back(GLFW_KEY_UP);
+	m_specialKeys.push_back(GLFW_KEY_DOWN);
+	m_specialKeys.push_back(GLFW_KEY_ENTER);
+	
 	return ret;
 }
 
 void CKeyboardController::Update() {
 	glfwGetMousePos(&m_mouseX, &m_mouseY);
-	if (glfwGetKey(GLFW_KEY_SPACE) == GLFW_PRESS) {
-		SendEvent(EKE_SPACE);
+	for (uint8 i = EKE_FIRST_CODE; i <= EKE_LAST_CODE; i++) {
+		if (glfwGetKey(i) == GLFW_PRESS) {
+			SendEvent(i);
+		}
+	}
+	for (std::vector<uint16>::iterator it = m_specialKeys.begin(); it != m_specialKeys.end();
+	++it) {
+		if (glfwGetKey(*it) == GLFW_PRESS) {
+			SendEvent(*it);
+		}
 	}
 }
 

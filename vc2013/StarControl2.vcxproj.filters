@@ -294,9 +294,6 @@
     <ClInclude Include="..\include\component.h">
       <Filter>Header Files\StarControl2</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\component_render.h">
-      <Filter>Header Files\StarControl2</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\entity.h">
       <Filter>Header Files\StarControl2</Filter>
     </ClInclude>
@@ -315,7 +312,13 @@
     <ClInclude Include="..\include\entity_params.h">
       <Filter>Header Files\StarControl2</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\component_shipparams.h">
+    <ClInclude Include="..\include\comp_playercontrol.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\comp_render.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\comp_shipparams.h">
       <Filter>Header Files\StarControl2</Filter>
     </ClInclude>
   </ItemGroup>
@@ -470,9 +473,6 @@
     <ClCompile Include="..\src\entities_factory.cpp">
       <Filter>Source Files\StarControl2</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\component_render.cpp">
-      <Filter>Source Files\StarControl2</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\entity.cpp">
       <Filter>Source Files\StarControl2</Filter>
     </ClCompile>
@@ -485,7 +485,13 @@
     <ClCompile Include="..\src\hud.cpp">
       <Filter>Source Files\StarControl2</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\component_shipparams.cpp">
+    <ClCompile Include="..\src\comp_render.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\comp_shipparams.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\comp_playercontrol.cpp">
       <Filter>Source Files\StarControl2</Filter>
     </ClCompile>
   </ItemGroup>

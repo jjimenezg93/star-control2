@@ -21,9 +21,10 @@ enum EMouseEventID {
 	EME_COUNT //iterating
 };
 
+//uses ASCII codes
 enum EKeyboardEventID {
-	EKE_SPACE,
-	EKE_COUNT //iterating
+	EKE_FIRST_CODE = 32,
+	EKE_LAST_CODE = 127
 };
 
 class CEvent {

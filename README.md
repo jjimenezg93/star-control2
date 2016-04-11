@@ -12,5 +12,16 @@ ___
 The main goal of this project is to develop a game mixing different systems previously developed.
 ___
 
+###IMPORTANT NOTES
+
+To configure input keys for each player, [ASCII](http://www.asciitable.com/ "ASCII table") dec codes must be set in `controls.json` file
+
+Configurable keys allowed are all ASCII codes between 32 and 127 (defined in `event.h` -> `EKeyboardEventID`). Note that keys which need Shift are not currently
+supported.
+
+Special characters, such as Enter and arrow keys, must be added to `m_specialKeys` vector in `CKeyboardController::Init()`, using *`GLFW_KEY_<key_name>`*,
+search for GLFW_KEY_SPECIAL.
+___
+
 ###Version
-Project is currently at **v0.1.4**
+Project is currently at **v0.1.5**

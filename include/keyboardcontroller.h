@@ -1,6 +1,8 @@
 #ifndef _C_KEYBOARD_CONTROLLER_H
 #define _C_KEYBOARD_CONTROLLER_H
 
+#include <vector>
+
 #include "types.h"
 
 class CKeyboardController {
@@ -15,6 +17,8 @@ private:
 
 	int32 m_mouseX;
 	int32 m_mouseY;
+
+	std::vector<uint16> m_specialKeys;
 };
 
 #endif //!_C_KEYBOARD_CONTROLLER_H

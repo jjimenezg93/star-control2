@@ -6,6 +6,8 @@
 #include "../include/as_game.h"
 
 uint16 IAppState::m_currentFrames = 0;
+clock_t IAppState::m_framesTimer = 0;
+clock_t IAppState::m_lastTimer = 0;
 
 IAppState * newAppState(EStarControlAS wanted) {
 	switch (wanted) {

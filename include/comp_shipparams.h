@@ -7,9 +7,9 @@
 
 class Sprite;
 
-class CComponentShipParams: public CComponent {
+class CCompShipParams: public CComponent {
 public:
-	CComponentShipParams(CEntity * et, float linear, float angular,
+	CCompShipParams(CEntity * et, float linear, float angular,
 		int16 energy, int16 hitpoints);
 
 	virtual void ReceiveMessage(SMessage * const msg);

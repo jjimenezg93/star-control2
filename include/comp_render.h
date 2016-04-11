@@ -5,10 +5,10 @@
 
 class Sprite;
 
-class CComponentRender: public CComponent {
+class CCompRender: public CComponent {
 public:
-	CComponentRender(CEntity * et, Sprite * sprt);
-	CComponentRender(CEntity * et, const char * imgFilename);
+	CCompRender(CEntity * et, Sprite * sprt);
+	CCompRender(CEntity * et, const char * imgFilename);
 
 	virtual void ReceiveMessage(SMessage * const msg);
 	virtual void Update(float elapsed);

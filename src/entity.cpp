@@ -1,8 +1,11 @@
+#include <iostream>
+
 #include "../include/entity.h"
 #include "../include/defs.h"
+#include "../include/event.h"
 #include "../include/world.h"
 #include "../include/component.h"
-#include "../include/component_render.h"
+#include "../include/comp_render.h"
 #include "../include/messages.h"
 
 CEntity::CEntity(EGameSide side, bool renderable):
@@ -39,7 +42,7 @@ void CEntity::Update(float elapsed) {
 
 void CEntity::Render() {
 	if (m_renderable) {
-		reinterpret_cast<CComponentRender *>(GetComponent(EC_RENDER))->Render();
+		reinterpret_cast<CCompRender *>(GetComponent(EC_RENDER))->Render();
 	}
 }
 
@@ -52,4 +55,18 @@ CComponent * CEntity::GetComponent(EComponent comp) const {
 		it++;
 	}
 	return nullptr;
+}
+
+void CEntity::SetControls(uint16 * controls) {
+	//memcpy(m_controls, controls, sizeof(m_controls) * sizeof(m_controls[0]));
+
+	//GIVING HEAP CORRUPTION ERROR ??
+	/*for (uint8 i = 0; i < sizeof(m_controls) * sizeof(m_controls[0]); ++i) {
+		//memcpy(&m_controls[i], &controls[i], sizeof(m_controls[0]));
+		m_controls[i] = controls[i];
+	}*/
+}
+
+void CEntity::Notify(const CEvent * const ev) {
+	std::cout << m_side << " received " << ev->GetId() << std::endl;
 }

@@ -29,8 +29,8 @@ public:
 protected:
 private:
 	static uint16 m_currentFrames;
-	clock_t m_framesTimer;
-	clock_t m_lastTimer;
+	static clock_t m_framesTimer;
+	static clock_t m_lastTimer;
 };
 
 IAppState * newAppState(EStarControlAS wanted);

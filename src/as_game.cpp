@@ -1,7 +1,6 @@
 #include "../include/as_game.h"
 #include "../include/buttonui.h"
 #include "../include/controlui.h"
-#include "../include/component_render.h"
 #include "../include/defs.h"
 #include "../include/entity.h"
 #include "../include/font.h"

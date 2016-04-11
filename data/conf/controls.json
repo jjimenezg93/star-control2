@@ -1,22 +1,22 @@
 {
-    "Player1": {
+    "player1": {
         "controls" : {
-            "up" : "W",
-            "down" : "S",
-            "left" : "A",
-            "right" : "D",
-            "weapon1" : "C",
-            "weapon2" : "V"
+            "up" : 87,
+            "down" : 83,
+            "left" : 65,
+            "right" : 68,
+            "weapon1" : 67,
+            "weapon2" : 86
         }
     },
-    "Player2": {
+    "player2": {
         "controls" : {
-            "up" : "Up",
-            "down" : "Down",
-            "left" : "Left",
-            "right" : "Right",
-            "weapon1" : "K",
-            "weapon2" : "L"
+            "up" : 283,
+            "down" : 284,
+            "left" : 285,
+            "right" : 286,
+            "weapon1" : 75,
+            "weapon2" : 76
         }
     }
 }
