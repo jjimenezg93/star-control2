@@ -57,14 +57,8 @@ CComponent * CEntity::GetComponent(EComponent comp) const {
 	return nullptr;
 }
 
-void CEntity::SetControls(uint16 * controls) {
-	//memcpy(m_controls, controls, sizeof(m_controls) * sizeof(m_controls[0]));
-
-	//GIVING HEAP CORRUPTION ERROR ??
-	/*for (uint8 i = 0; i < sizeof(m_controls) * sizeof(m_controls[0]); ++i) {
-		//memcpy(&m_controls[i], &controls[i], sizeof(m_controls[0]));
-		m_controls[i] = controls[i];
-	}*/
+void CEntity::SetControls(uint16 controls[ENTITY_NUM_CONTROLS]) {
+	memcpy(m_controls, controls, sizeof(m_controls));
 }
 
 void CEntity::Notify(const CEvent * const ev) {

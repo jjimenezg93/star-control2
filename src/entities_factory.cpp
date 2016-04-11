@@ -65,13 +65,12 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams &params) {
 		player = cDoc["player2"].FindMember("controls")->value;
 	}
 
-	uint16 controls[6];
+	uint16 controls[ENTITY_NUM_CONTROLS];
 	uint8 cont = 0;
 	for (rapidjson::Value::ConstMemberIterator itr = player.MemberBegin();
 	itr != player.MemberEnd(); ++itr) {
-		uint32 value = itr->value.GetInt();
+		uint16 value = static_cast<uint16>(itr->value.GetInt());
 		memcpy(&controls[cont++], &value, sizeof(controls[0]));
-		//controls[cont++] = itr->value.GetInt();
 		CInputManager::Instance().Register(et, EEC_KEYBOARD, itr->value.GetInt());
 	}
 	et->SetControls(&controls[0]);

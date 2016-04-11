@@ -31,7 +31,7 @@ public:
 	void Update(float elapsed);
 	void Render();
 
-	void SetControls(uint16 * controls);
+	void SetControls(uint16 controls[ENTITY_NUM_CONTROLS]);
 
 	virtual void Notify(const CEvent * const ev); //IRegistrable
 private:
@@ -44,7 +44,7 @@ private:
 						//set this to false when component's type is EC_RENDER
 
 	//up, down, left, right, weapon1, weapon2
-	uint16 m_controls[6];
+	uint16 m_controls[ENTITY_NUM_CONTROLS];
 };
 
 #endif //!_C_ENTITY_H
