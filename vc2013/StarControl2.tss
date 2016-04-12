@@ -14,16 +14,13 @@
       <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\entities_factory.cpp</string>
     </ArrayOfString>
     <ArrayOfString>
-      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_render.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_shipparams.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
       <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_playercontrol.cpp</string>
     </ArrayOfString>
     <ArrayOfString>
       <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\as_game.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_transform.cpp</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
   <ArrayOfArrayOfString>
@@ -37,10 +34,7 @@
       <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\entity_params.h</string>
     </ArrayOfString>
     <ArrayOfString>
-      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\messages.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\comp_render.h</string>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\entity.h</string>
     </ArrayOfString>
     <ArrayOfString>
       <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\comp_playercontrol.h</string>
@@ -49,7 +43,13 @@
       <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\event.h</string>
     </ArrayOfString>
     <ArrayOfString>
-      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\entity.h</string>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\component.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\comp_transform.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\messages.h</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

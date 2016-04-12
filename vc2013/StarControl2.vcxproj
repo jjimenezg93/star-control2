@@ -111,6 +111,7 @@
     <ClInclude Include="..\include\comp_render.h" />
     <ClInclude Include="..\include\comp_shipparams.h" />
     <ClInclude Include="..\include\comp_playercontrol.h" />
+    <ClInclude Include="..\include\comp_transform.h" />
     <ClInclude Include="..\include\controlmanagerui.h" />
     <ClInclude Include="..\include\defs.h" />
     <ClInclude Include="..\include\draggesture.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="..\src\comp_playercontrol.cpp" />
     <ClCompile Include="..\src\comp_render.cpp" />
     <ClCompile Include="..\src\comp_shipparams.cpp" />
+    <ClCompile Include="..\src\comp_transform.cpp" />
     <ClCompile Include="..\src\controlmanagerui.cpp" />
     <ClCompile Include="..\src\draggesture.cpp" />
     <ClCompile Include="..\src\emitter.cpp" />

@@ -26,13 +26,6 @@ void CEntity::AddComponent(CComponent * const comp) {
 	}
 }
 
-void CEntity::ReceiveMessage(SMessage * const msg) {
-	for (std::vector<CComponent *>::iterator it = m_components.begin();
-			it != m_components.end(); it++) {
-		(*it)->ReceiveMessage(msg);
-	}
-}
-
 void CEntity::Update(float elapsed) {
 	for (std::vector<CComponent *>::iterator it = m_components.begin();
 			it != m_components.end(); it++) {
@@ -57,10 +50,18 @@ CComponent * CEntity::GetComponent(EComponent comp) const {
 	return nullptr;
 }
 
-void CEntity::SetControls(uint16 controls[ENTITY_NUM_CONTROLS]) {
-	memcpy(m_controls, controls, sizeof(m_controls));
-}
-
 void CEntity::Notify(const CEvent * const ev) {
 	std::cout << m_side << " received " << ev->GetId() << std::endl;
+	for (std::vector<CComponent *>::iterator itr = m_components.begin();
+	itr != m_components.end(); ++itr) {
+		SInputMessage msg(ev->GetController(), ev->GetId());
+		(*itr)->ReceiveMessage(msg);
+	}
+}
+
+void CEntity::ReceiveMessage(SMessage &msg) {
+	for (std::vector<CComponent *>::iterator itr = m_components.begin();
+	itr != m_components.end(); ++itr) {
+		(*itr)->ReceiveMessage(msg);
+	}
 }

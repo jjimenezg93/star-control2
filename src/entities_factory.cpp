@@ -2,6 +2,8 @@
 
 #include "../include/comp_shipparams.h"
 #include "../include/comp_render.h"
+#include "../include/comp_playercontrol.h"
+#include "../include/comp_transform.h"
 #include "../include/defs.h"
 #include "../include/entities_factory.h"
 #include "../include/entity.h"
@@ -65,7 +67,7 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams &params) {
 		player = cDoc["player2"].FindMember("controls")->value;
 	}
 
-	uint16 controls[ENTITY_NUM_CONTROLS];
+	uint16 controls[kEntityNumControls];
 	uint8 cont = 0;
 	for (rapidjson::Value::ConstMemberIterator itr = player.MemberBegin();
 	itr != player.MemberEnd(); ++itr) {
@@ -73,7 +75,13 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams &params) {
 		memcpy(&controls[cont++], &value, sizeof(controls[0]));
 		CInputManager::Instance().Register(et, EEC_KEYBOARD, itr->value.GetInt());
 	}
-	et->SetControls(&controls[0]);
+
+	CCompPlayerControl * playerControl = new CCompPlayerControl(et);
+	playerControl->SetControls(controls);
+	CCompTransform * transformComp = new CCompTransform(et, 200, 200);
+	
+	et->AddComponent(playerControl);
+	et->AddComponent(transformComp);
 
 	fclose(cFile);
 

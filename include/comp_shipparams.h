@@ -12,7 +12,7 @@ public:
 	CCompShipParams(CEntity * et, float linear, float angular,
 		int16 energy, int16 hitpoints);
 
-	virtual void ReceiveMessage(SMessage * const msg);
+	virtual void ReceiveMessage(SMessage &msg);
 	virtual void Update(float elapsed);
 	void Render();
 private:

@@ -2,22 +2,25 @@
 #define _COMPONENT_H
 
 class CEntity;
+class CEvent;
 struct SMessage;
 
 enum EComponent {
-	EC_RENDER
+	EC_RENDER,
+	EC_PLAYER_CONTROL,
+	EC_TRANSFORM
 };
 
 class CComponent {
 public:
-
 	virtual ~CComponent() {}
 
 	EComponent GetType() const { return m_type; }
 
-	virtual void ReceiveMessage(SMessage * const msg) = 0;
+	virtual void ReceiveMessage(SMessage &ev) = 0;
 	virtual void Update(float elapsed) = 0;
 protected:
+	CComponent(CEntity * et): m_owner(et) {}
 	void SetType(EComponent newType) { m_type = newType; }
 	CEntity * m_owner;
 

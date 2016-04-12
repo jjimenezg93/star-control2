@@ -6,21 +6,19 @@
 #include "../../include/sprite.h"
 #include "../../include/resourcemanager.h"
 
-CCompRender::CCompRender(CEntity * et, Sprite * sprt) {
-	m_owner = et;
+CCompRender::CCompRender(CEntity * et, Sprite * sprt): CComponent(et), m_sprite(sprt) {
 	m_sprite = sprt;
 	SetType(EC_RENDER);
 }
 
 
-CCompRender::CCompRender(CEntity * et, const char * imgFilename) {
-	m_owner = et;
+CCompRender::CCompRender(CEntity * et, const char * imgFilename): CComponent(et) {
 	SetType(EC_RENDER);
 	Image * img = ResourceManager::Instance().LoadImage(imgFilename);
 	m_sprite = new Sprite(img);
 }
 
-void CCompRender::ReceiveMessage(SMessage * msg) {
+void CCompRender::ReceiveMessage(SMessage &msg) {
 	
 }
 

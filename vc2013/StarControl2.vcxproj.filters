@@ -321,6 +321,9 @@
     <ClInclude Include="..\include\comp_shipparams.h">
       <Filter>Header Files\StarControl2</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\comp_transform.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\affector.cpp">
@@ -492,6 +495,9 @@
       <Filter>Source Files\StarControl2</Filter>
     </ClCompile>
     <ClCompile Include="..\src\comp_playercontrol.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\comp_transform.cpp">
       <Filter>Source Files\StarControl2</Filter>
     </ClCompile>
   </ItemGroup>

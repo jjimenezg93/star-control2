@@ -6,8 +6,6 @@
 
 #include <vector>
 
-#define ENTITY_NUM_CONTROLS 6
-
 class CComponent;
 enum EComponent;
 enum EGameSide;
@@ -27,13 +25,11 @@ public:
 
 	void AddComponent(CComponent * const comp);
 
-	void ReceiveMessage(SMessage * const msg);
 	void Update(float elapsed);
 	void Render();
 
-	void SetControls(uint16 controls[ENTITY_NUM_CONTROLS]);
-
 	virtual void Notify(const CEvent * const ev); //IRegistrable
+	void ReceiveMessage(SMessage &msg);
 private:
 	CComponent * GetComponent(EComponent comp) const;
 
@@ -42,9 +38,6 @@ private:
 	EGameSide m_side;
 	bool m_renderable; //if RemoveComponent() is added ->
 						//set this to false when component's type is EC_RENDER
-
-	//up, down, left, right, weapon1, weapon2
-	uint16 m_controls[ENTITY_NUM_CONTROLS];
 };
 
 #endif //!_C_ENTITY_H
