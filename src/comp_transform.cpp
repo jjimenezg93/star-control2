@@ -15,6 +15,9 @@ void CCompTransform::ReceiveMessage(SMessage &msg) {
 	if (msg.m_type == EMT_GET_POS) {
 		SGetPosMsg &getPosMsg = reinterpret_cast<SGetPosMsg &>(msg);
 		getPosMsg.SetPos(m_x, m_y);
+	} else if (msg.m_type == EMT_GET_ROT) {
+		SGetRotMsg &rotMsg = reinterpret_cast<SGetRotMsg &>(msg);
+		rotMsg.SetRot(m_rotation);
 	} else if (msg.m_type == EMT_UPDATE_POS) {
 		SUpdatePosMsg &moveMsg = reinterpret_cast<SUpdatePosMsg &>(msg);
 		m_x += moveMsg.m_offsetX;

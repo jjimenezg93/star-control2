@@ -20,7 +20,7 @@ public:
 
 	void SetControls(uint16 controls[kEntityNumControls]);
 private:
-
+	bool GetLinearOffset(float &offsetX, float &offsetY) const;
 	//up, down, left, right, weapon1, weapon2
 	uint16 m_controls[kEntityNumControls];
 };

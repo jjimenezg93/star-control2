@@ -4,7 +4,7 @@
             "x" : 100,
             "y" : 200
         },
-        "rotation" : 45
+        "rotation" : 0
     },
     "player2": {
         "position" : {

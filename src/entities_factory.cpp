@@ -56,6 +56,9 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams &params) {
 	AddComponents(et, params);
 
 	/* LOOKING INSIDE init_world.json and setting position/rotation */
+	CCompTransform * transform = new CCompTransform(et, 0, 0);
+	et->AddComponent(transform); //will be set when init_world.json is parsed
+
 	FILE * wFile = fopen("data/conf/init_world.json", "rb");
 	char buffer[65536];
 	assert(wFile != nullptr && "CEntitiesFactory::SpawnEntity()");
@@ -132,8 +135,8 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 	const rapidjson::Value &parameters = ship.FindMember("parameters")->value;
 
 	//ship params
-	float linearSpeed = parameters["linearSpeed"].GetFloat();
-	float angularSpeed = parameters["angularSpeed"].GetFloat();
+	uint16 linearSpeed = static_cast<uint16>(parameters["linearSpeed"].GetInt());
+	uint16 angularSpeed = static_cast<uint16>(parameters["angularSpeed"].GetInt());
 	int16 energy = static_cast<int16>(parameters["energy"].GetInt());
 	int16 hitpoints = static_cast<int16>(parameters["hitpoints"].GetInt());
 	

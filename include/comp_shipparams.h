@@ -9,15 +9,15 @@ class Sprite;
 
 class CCompShipParams: public CComponent {
 public:
-	CCompShipParams(CEntity * et, float linear, float angular,
-		int16 energy, int16 hitpoints);
+	CCompShipParams(CEntity * et, uint16 linear, uint16 angular,
+		uint16 energy, uint16 hitpoints);
 
 	virtual void ReceiveMessage(SMessage &msg);
 	virtual void Update(float elapsed);
 	void Render();
 private:
-	float m_linearSpeed, m_angularSpeed;
-	int16 m_energy, m_hitpoints;
+	uint16 m_linearSpeed, m_angularSpeed;
+	uint16 m_energy, m_hitPoints;
 };
 
 #endif //!_COMPONENT_SHIP_PARAMS_H

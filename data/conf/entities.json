@@ -1,20 +1,20 @@
 {
     "dreadnought" : {
         "parameters": {
-            "linearSpeed" : 10,
-            "angularSpeed" : 20,
-            "energy" : 20,
-            "hitpoints" : 50
+            "linearSpeed" : 75,
+            "angularSpeed" : 50,
+            "energy" : 100,
+            "hitpoints" : 150
         },
         "components" : {
             "primaryWeapon" : {
                 "name" : "fusionBlaster",
-                "energyConsumed" : 2,
-                "cooldown" : 5
+                "energyConsumed" : 10,
+                "cooldown" : 1
             },
             "secondaryWeapon" : {
                 "name" : "laserBots",
-                "energyConsumed" : 2,
+                "energyConsumed" : 25,
                 "cooldown" : 5
             },
             "ai" : {
@@ -27,21 +27,21 @@
     },
     "avatar" : {
         "parameters": {
-            "linearSpeed" : 10,
-            "angularSpeed" : 20,
-            "energy" : 20,
-            "hitpoints" : 50
+            "linearSpeed" : 100,
+            "angularSpeed" : 60,
+            "energy" : 60,
+            "hitpoints" : 80
         },
         "components" : {
             "primaryWeapon" : {
                 "name" : "fusionBlaster",
-                "energyConsumed" : 2,
-                "cooldown" : 5
+                "energyConsumed" : 5,
+                "cooldown" : 0.5
             },
             "secondaryWeapon" : {
                 "name" : "laserBots",
-                "energyConsumed" : 2,
-                "cooldown" : 5
+                "energyConsumed" : 30,
+                "cooldown" : 8
             },
             "ai" : {
                 "name" : "avatarAI"
