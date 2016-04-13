@@ -10,6 +10,7 @@
 #include "../include/event.h"
 #include "../include/entity_params.h"
 #include "../include/inputmanager.h"
+#include "../include/messages.h"
 #include "../include/nsinputmanagerentity.h"
 #pragma warning(disable: 4512 4244) //encodedstream.h warning
 #include "../include/rapidjson/document.h"
@@ -50,20 +51,59 @@ uint8 CEntitiesFactory::Init(CWorld &world) {
 
 CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams &params) {
 	CEntity * et = new CEntity(params.m_side);
+	
+	InitEntityControls(et);
+	AddComponents(et, params);
 
+	/* LOOKING INSIDE init_world.json and setting position/rotation */
+	FILE * wFile = fopen("data/conf/init_world.json", "rb");
+	char buffer[65536];
+	assert(wFile != nullptr && "CEntitiesFactory::SpawnEntity()");
+	rapidjson::FileReadStream is(wFile, buffer, sizeof(buffer));
+	rapidjson::Document cDoc;
+	cDoc.ParseStream<0, rapidjson::UTF8<>, rapidjson::FileReadStream>(is);
+	assert(!cDoc.HasParseError());
+
+	rapidjson::Value player;
+	if (et->GetSide() == EGS_PLAYER_1) {
+		player = cDoc["player1"];
+	} else if (et->GetSide() == EGS_PLAYER_2) {
+		player = cDoc["player2"];
+	}
+
+	for (rapidjson::Value::ConstMemberIterator itr = player.MemberBegin();
+	itr != player.MemberEnd(); ++itr) {
+		if (!strcmp(itr->name.GetString(), "position")) {
+			SSetPosMsg posMsg(itr->value["x"].GetFloat(), itr->value["y"].GetFloat());
+			et->ReceiveMessage(posMsg);
+		} else if (!strcmp(itr->name.GetString(), "rotation")) {
+			SSetRotMsg rotMsg(itr->value.GetFloat());
+			et->ReceiveMessage(rotMsg);
+		}
+	}
+	fclose(wFile);
+
+	return et;
+}
+
+void CEntitiesFactory::DeleteEntity(const CEntity * const entity) {
+	
+}
+
+void CEntitiesFactory::InitEntityControls(CEntity * const entity) {
 	//controls
 	FILE * cFile = fopen("data/conf/controls.json", "rb");
 	char buffer[65536];
-	assert(cFile != nullptr && "CEntitiesFactory::Init()");
+	assert(cFile != nullptr && "CEntitiesFactory::InitEntityControls()");
 	rapidjson::FileReadStream is(cFile, buffer, sizeof(buffer));
 	rapidjson::Document cDoc;
 	cDoc.ParseStream<0, rapidjson::UTF8<>, rapidjson::FileReadStream>(is);
 	assert(!cDoc.HasParseError());
 
 	rapidjson::Value player;
-	if (params.m_side == EGS_PLAYER_1) {
+	if (entity->GetSide() == EGS_PLAYER_1) {
 		player = cDoc["player1"].FindMember("controls")->value;
-	} else if (params.m_side == EGS_PLAYER_2){
+	} else if (entity->GetSide() == EGS_PLAYER_2) {
 		player = cDoc["player2"].FindMember("controls")->value;
 	}
 
@@ -73,30 +113,21 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams &params) {
 	itr != player.MemberEnd(); ++itr) {
 		uint16 value = static_cast<uint16>(itr->value.GetInt());
 		memcpy(&controls[cont++], &value, sizeof(controls[0]));
-		CInputManager::Instance().Register(et, EEC_KEYBOARD, itr->value.GetInt());
+		CInputManager::Instance().Register(entity, EEC_KEYBOARD, itr->value.GetInt());
 	}
 
-	CCompPlayerControl * playerControl = new CCompPlayerControl(et);
+	CCompPlayerControl * playerControl = new CCompPlayerControl(entity);
 	playerControl->SetControls(controls);
-	CCompTransform * transformComp = new CCompTransform(et, 200, 200);
-	
-	et->AddComponent(playerControl);
-	et->AddComponent(transformComp);
+
+	entity->AddComponent(playerControl);
 
 	fclose(cFile);
-
-	AddComponents(et, params);
-
-	return et;
-}
-
-void CEntitiesFactory::DeleteEntity(const CEntity * const entity) {
-	
 }
 
 void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams &params) {
-	//search for "components" in json -> create component -> entity.AddComponent(x)
-
+	
+	
+	/* JSON COMPONENTS */
 	const rapidjson::Value &ship = m_doc[params.m_shipName.c_str()];
 	const rapidjson::Value &parameters = ship.FindMember("parameters")->value;
 

@@ -22,6 +22,7 @@ public:
 	virtual ~CEntity();
 
 	bool IsRenderable() const { return m_renderable; }
+	EGameSide GetSide() const { return m_side; }
 
 	void AddComponent(CComponent * const comp);
 

@@ -12,11 +12,23 @@ CComponent(et), m_x(x), m_y(y) {
 }
 
 void CCompTransform::ReceiveMessage(SMessage &msg) {
-	if (msg.m_type == EMT_UPDATE_POS) {
-		SUpdatePosMessage &moveMsg = reinterpret_cast<SUpdatePosMessage &>(msg);
+	if (msg.m_type == EMT_GET_POS) {
+		SGetPosMsg &getPosMsg = reinterpret_cast<SGetPosMsg &>(msg);
+		getPosMsg.SetPos(m_x, m_y);
+	} else if (msg.m_type == EMT_UPDATE_POS) {
+		SUpdatePosMsg &moveMsg = reinterpret_cast<SUpdatePosMsg &>(msg);
 		m_x += moveMsg.m_offsetX;
 		m_y += moveMsg.m_offsetY;
-		//update Rendering position
+	} else if (msg.m_type == EMT_UPDATE_ROT) {
+		SUpdateRotMsg &rotMsg = reinterpret_cast<SUpdateRotMsg &>(msg);
+		m_rotation += rotMsg.m_offsetRot;
+	} else if (msg.m_type == EMT_SET_POS) {
+		SSetPosMsg &posMsg = reinterpret_cast<SSetPosMsg &>(msg);
+		m_x = posMsg.m_x;
+		m_y = posMsg.m_y;
+	} else if (msg.m_type == EMT_SET_ROT) {
+		SSetRotMsg &rotMsg = reinterpret_cast<SSetRotMsg &>(msg);
+		m_rotation = rotMsg.m_rot;
 	}
 }
 

@@ -27,6 +27,7 @@ public:
 
 	void DeleteEntity(const CEntity * const entity);
 private:
+	void InitEntityControls(CEntity * const entity);
 	void AddComponents(CEntity * const entity, const SEntityParams &params);
 	CComponent * CreateComponent(CEntity * const et,
 		rapidjson::Value::ConstMemberIterator &compIt);

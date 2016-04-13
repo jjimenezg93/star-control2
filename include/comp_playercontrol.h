@@ -5,7 +5,8 @@
 #include "types.h"
 
 const uint16 kEntityNumControls = 6;
-const uint16 kPosUpdateOffset = 20;
+const uint16 kPosUpdateOffset = 5;
+const float kRotationRate = 5;
 
 struct SMessage;
 

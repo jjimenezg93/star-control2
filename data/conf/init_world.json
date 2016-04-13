@@ -1,0 +1,16 @@
+{
+    "player1": {
+        "position" : {
+            "x" : 100,
+            "y" : 200
+        },
+        "rotation" : 45
+    },
+    "player2": {
+        "position" : {
+            "x" : 600,
+            "y" : 500
+        },
+        "rotation" : 0
+    }
+}
