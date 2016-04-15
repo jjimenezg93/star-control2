@@ -6,8 +6,9 @@ class CEvent;
 struct SMessage;
 
 enum EComponent {
-	EC_RENDER,
+	EC_FUSION_BLASTER,
 	EC_PLAYER_CONTROL,
+	EC_RENDER,
 	EC_TRANSFORM
 };
 

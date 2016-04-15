@@ -9,11 +9,12 @@
         "components" : {
             "primaryWeapon" : {
                 "name" : "fusionBlaster",
+		"bulletImg" : "data/weapons/blast.png",
                 "energyConsumed" : 10,
                 "cooldown" : 1
             },
             "secondaryWeapon" : {
-                "name" : "laserBots",
+                "name" : "choppyBots",
                 "energyConsumed" : 25,
                 "cooldown" : 5
             },
@@ -34,12 +35,13 @@
         },
         "components" : {
             "primaryWeapon" : {
-                "name" : "fusionBlaster",
+                "name" : "rocket",
+		"bulletImg" : "data/weapons/blast.png",
                 "energyConsumed" : 5,
                 "cooldown" : 0.5
             },
             "secondaryWeapon" : {
-                "name" : "laserBots",
+                "name" : "deathLaser",
                 "energyConsumed" : 30,
                 "cooldown" : 8
             },

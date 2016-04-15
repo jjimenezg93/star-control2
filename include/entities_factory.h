@@ -24,6 +24,7 @@ public:
 	uint8 Init(CWorld &world);
 
 	CEntity * SpawnEntity(const SEntityParams &params);
+	//CEntity * SpawnProjectile(const )
 
 	void DeleteEntity(const CEntity * const entity);
 private:
@@ -31,6 +32,8 @@ private:
 	void AddComponents(CEntity * const entity, const SEntityParams &params);
 	CComponent * CreateComponent(CEntity * const et,
 		rapidjson::Value::ConstMemberIterator &compIt);
+
+	CWorld * m_world;
 
 	FILE * m_eFile;
 	rapidjson::Document m_doc;

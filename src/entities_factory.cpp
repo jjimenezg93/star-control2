@@ -32,6 +32,8 @@ uint8 CEntitiesFactory::Init() {
 	m_doc.ParseStream<0, rapidjson::UTF8<>, rapidjson::FileReadStream>(is);
 	ret = m_doc.HasParseError();
 
+	m_world = nullptr;
+
 	return ret;
 }
 
@@ -39,6 +41,8 @@ uint8 CEntitiesFactory::Init(CWorld &world) {
 	uint8 ret = 0;
 	
 	Init();
+
+	m_world = &world;
 
 	for (std::vector<SEntityParams>::iterator itr = g_entitiesParams.begin();
 	itr != g_entitiesParams.end(); ++itr) {
@@ -50,7 +54,7 @@ uint8 CEntitiesFactory::Init(CWorld &world) {
 }
 
 CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams &params) {
-	CEntity * et = new CEntity(params.m_side);
+	CEntity * et = new CEntity(params.m_side, m_world);
 	
 	InitEntityControls(et);
 	AddComponents(et, params);
@@ -128,8 +132,6 @@ void CEntitiesFactory::InitEntityControls(CEntity * const entity) {
 }
 
 void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams &params) {
-	
-	
 	/* JSON COMPONENTS */
 	const rapidjson::Value &ship = m_doc[params.m_shipName.c_str()];
 	const rapidjson::Value &parameters = ship.FindMember("parameters")->value;

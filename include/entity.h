@@ -7,6 +7,7 @@
 #include <vector>
 
 class CComponent;
+class CWorld;
 enum EComponent;
 enum EGameSide;
 struct SMessage;
@@ -18,7 +19,7 @@ enum EEntityType {
 
 class CEntity: public IRegistrable {
 public:
-	CEntity(EGameSide side, bool renderable = false);
+	CEntity(EGameSide side, CWorld * world, bool renderable = false);
 	virtual ~CEntity();
 
 	bool IsRenderable() const { return m_renderable; }
@@ -36,6 +37,7 @@ private:
 
 	std::vector<CComponent *> m_components;
 
+	CWorld * m_world;
 	EGameSide m_side;
 	bool m_renderable; //if RemoveComponent() is added ->
 						//set this to false when component's type is EC_RENDER

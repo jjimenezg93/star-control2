@@ -108,6 +108,7 @@
     <ClInclude Include="..\include\collisionmanager.h" />
     <ClInclude Include="..\include\collisionpixeldata.h" />
     <ClInclude Include="..\include\component.h" />
+    <ClInclude Include="..\include\comp_fusionblaster.h" />
     <ClInclude Include="..\include\comp_render.h" />
     <ClInclude Include="..\include\comp_shipparams.h" />
     <ClInclude Include="..\include\comp_playercontrol.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="..\src\clickgesture.cpp" />
     <ClCompile Include="..\src\collisionmanager.cpp" />
     <ClCompile Include="..\src\collisionpixeldata.cpp" />
+    <ClCompile Include="..\src\comp_fusionblaster.cpp" />
     <ClCompile Include="..\src\comp_playercontrol.cpp" />
     <ClCompile Include="..\src\comp_render.cpp" />
     <ClCompile Include="..\src\comp_shipparams.cpp" />

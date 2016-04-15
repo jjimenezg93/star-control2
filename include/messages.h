@@ -3,10 +3,12 @@
 
 #include "types.h"
 
+class CWorld;
 enum EEventController;
 
 enum EMessageType {
 	EMT_INPUT,
+	EMT_GET_WORLD,
 	EMT_SET_POS,
 	EMT_SET_ROT,
 	EMT_GET_POS,
@@ -18,7 +20,8 @@ enum EMessageType {
 	EMT_GET_ENERGY,
 	EMT_UPDATE_ENERGY,
 	EMT_GET_LINEAR_SPEED,
-	EMT_GET_ANGULAR_SPEED
+	EMT_GET_ANGULAR_SPEED,
+	EMT_SHOOT
 };
 
 struct SMessage {
@@ -33,6 +36,21 @@ struct SInputMsg: public SMessage {
 		m_controller(controller), m_id(id) {}
 	EEventController m_controller;
 	uint32 m_id;
+};
+
+struct SGetWorldMsg: public SMessage {
+	SGetWorldMsg(): SMessage(EMT_GET_WORLD) {}
+	void SetWorld(CWorld * world) {
+		if(!m_modified) {
+			m_world = world;
+			m_modified = true;
+		}
+	}
+	CWorld * GetWorld() const { return m_world; }
+	bool Modified() const { return m_modified; }
+private:
+	bool m_modified;
+	CWorld * m_world;
 };
 
 struct SSetPosMsg: public SMessage {
@@ -136,6 +154,13 @@ struct SGetAngSpeedMsg: public SMessage {
 private:
 	int16 m_angSpeed;
 	bool m_modified;
+};
+
+struct SShootMsg : public SMessage {
+	SShootMsg(uint8 id) : SMessage(EMT_SHOOT), m_weaponId(id) {}
+	uint8 GetWeaponId() const { return m_weaponId; }
+private:
+	uint8 m_weaponId;
 };
 
 //add GetLinearSpeed and GetAngularSpeed messages to use from playerControl

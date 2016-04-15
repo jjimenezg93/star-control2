@@ -8,8 +8,8 @@
 #include "../include/comp_render.h"
 #include "../include/messages.h"
 
-CEntity::CEntity(EGameSide side, bool renderable):
-	m_side(side), m_renderable(renderable) {}
+CEntity::CEntity(EGameSide side, CWorld * world, bool renderable):
+	m_side(side), m_world(world), m_renderable(renderable) {}
 
 CEntity::~CEntity() {
 	for (std::vector<CComponent *>::iterator it = m_components.begin();
@@ -60,6 +60,10 @@ void CEntity::Notify(const CEvent * const ev) {
 }
 
 void CEntity::ReceiveMessage(SMessage &msg) {
+	if(msg.m_type == EMT_GET_WORLD) {
+		SGetWorldMsg &worldMsg = static_cast<SGetWorldMsg &>(msg);
+		worldMsg.SetWorld(m_world);
+	}
 	for (std::vector<CComponent *>::iterator itr = m_components.begin();
 	itr != m_components.end(); ++itr) {
 		(*itr)->ReceiveMessage(msg);

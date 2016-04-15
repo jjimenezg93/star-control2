@@ -46,6 +46,12 @@ void CCompPlayerControl::ReceiveMessage(SMessage &msg) {
 						static_cast<float>(-angSpeedMsg.GetAngSpeed() * elapsed));
 					m_owner->ReceiveMessage(updateMsg);
 				}
+			} else if (inputMsg.m_id == m_controls[4]) {
+				SShootMsg shootMsg(0);
+				m_owner->ReceiveMessage(shootMsg);
+			} else if(inputMsg.m_id == m_controls[5]) {
+				SShootMsg shootMsg(1);
+				m_owner->ReceiveMessage(shootMsg);
 			}
 		}
 	}
