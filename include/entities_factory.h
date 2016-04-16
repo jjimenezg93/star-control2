@@ -23,15 +23,16 @@ public:
 	uint8 Init();
 	uint8 Init(CWorld &world);
 
-	CEntity * SpawnEntity(const SEntityParams &params);
-	//CEntity * SpawnProjectile(const )
+	CEntity * SpawnEntity(const SEntityParams * params);
 
 	void DeleteEntity(const CEntity * const entity);
 private:
 	void InitEntityControls(CEntity * const entity);
-	void AddComponents(CEntity * const entity, const SEntityParams &params);
+	void AddComponents(CEntity * const entity, const SEntityParams * params);
 	CComponent * CreateComponent(CEntity * const et,
 		rapidjson::Value::ConstMemberIterator &compIt);
+	CComponent * CEntitiesFactory::CreateWeapon(CEntity * const et,
+		uint8 id, rapidjson::Value::ConstMemberIterator &compIt);
 
 	CWorld * m_world;
 

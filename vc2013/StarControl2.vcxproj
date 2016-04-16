@@ -108,11 +108,13 @@
     <ClInclude Include="..\include\collisionmanager.h" />
     <ClInclude Include="..\include\collisionpixeldata.h" />
     <ClInclude Include="..\include\component.h" />
+    <ClInclude Include="..\include\comp_choppythrower.h" />
     <ClInclude Include="..\include\comp_fusionblaster.h" />
     <ClInclude Include="..\include\comp_render.h" />
     <ClInclude Include="..\include\comp_shipparams.h" />
     <ClInclude Include="..\include\comp_playercontrol.h" />
     <ClInclude Include="..\include\comp_transform.h" />
+    <ClInclude Include="..\include\comp_weapon.h" />
     <ClInclude Include="..\include\controlmanagerui.h" />
     <ClInclude Include="..\include\defs.h" />
     <ClInclude Include="..\include\draggesture.h" />

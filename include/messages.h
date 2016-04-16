@@ -39,7 +39,7 @@ struct SInputMsg: public SMessage {
 };
 
 struct SGetWorldMsg: public SMessage {
-	SGetWorldMsg(): SMessage(EMT_GET_WORLD) {}
+	SGetWorldMsg(): SMessage(EMT_GET_WORLD), m_world(nullptr), m_modified(false) {}
 	void SetWorld(CWorld * world) {
 		if(!m_modified) {
 			m_world = world;

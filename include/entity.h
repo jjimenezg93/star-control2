@@ -12,11 +12,6 @@ enum EComponent;
 enum EGameSide;
 struct SMessage;
 
-enum EEntityType {
-	EET_SHIP,
-	EET_SHOT
-};
-
 class CEntity: public IRegistrable {
 public:
 	CEntity(EGameSide side, CWorld * world, bool renderable = false);

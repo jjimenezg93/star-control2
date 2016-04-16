@@ -18,7 +18,7 @@
 #include "../include/string.h"
 #include "../include/windowui.h"
 
-std::vector<SEntityParams> g_entitiesParams;
+std::vector<SEntityParams *> g_entitiesParams;
 
 ASGameConfMenu::~ASGameConfMenu() {
 	if (g_wantedState == ESC_EXIT_APP) {
@@ -251,7 +251,7 @@ void ASGameConfMenu::CreatePlayersParams() {
 	} else if (m_controlManager.GetControlState(ECT_CHECKBOX, 3) == EGUICS_ONCLICK) {
 		isAI = false;
 	}
-	g_entitiesParams.push_back(SEntityParams(shipName, isAI, EGameSide::EGS_PLAYER_1));
+	g_entitiesParams.push_back(new SShipParams(shipName, isAI, EGameSide::EGS_PLAYER_1));
 
 	/* PLAYER 2 */
 	//name
@@ -271,7 +271,7 @@ void ASGameConfMenu::CreatePlayersParams() {
 	} else if (m_controlManager.GetControlState(ECT_CHECKBOX, 7) == EGUICS_ONCLICK) {
 		isAI = false;
 	}
-	g_entitiesParams.push_back(SEntityParams(shipName, isAI, EGameSide::EGS_PLAYER_2));
+	g_entitiesParams.push_back(new SShipParams(shipName, isAI, EGameSide::EGS_PLAYER_2));
 }
 
 void ASGameConfMenu::ConvertMenuImgToShip(std::string &str) const{

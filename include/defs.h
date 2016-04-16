@@ -9,7 +9,7 @@ enum EStarControlAS;
 enum EGameSide;
 struct SEntityParams;
 
-extern std::vector<SEntityParams> g_entitiesParams;
+extern std::vector<SEntityParams *> g_entitiesParams;
 
 extern IAppState * g_currentAppState;
 extern EStarControlAS g_wantedState;

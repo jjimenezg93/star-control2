@@ -21,6 +21,8 @@ public:
 	void Render();
 
 	void AddEntity(CEntity * const et);
+
+	CEntitiesFactory &GetEntitiesFactory() { return m_entitiesFactory; }
 private:
 	std::vector<CEntity *> m_entities;
 	std::vector<CEntity *> m_renderingEntities;

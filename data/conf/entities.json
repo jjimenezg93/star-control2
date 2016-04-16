@@ -15,6 +15,7 @@
             },
             "secondaryWeapon" : {
                 "name" : "choppyBots",
+		"bulletImg" : "data/weapons/rocket.png",
                 "energyConsumed" : 25,
                 "cooldown" : 5
             },
@@ -42,6 +43,7 @@
             },
             "secondaryWeapon" : {
                 "name" : "deathLaser",
+		"bulletImg" : "data/weapons/rocket.png",
                 "energyConsumed" : 30,
                 "cooldown" : 8
             },

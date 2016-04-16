@@ -327,6 +327,12 @@
     <ClInclude Include="..\include\comp_fusionblaster.h">
       <Filter>Header Files\StarControl2</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\comp_weapon.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\comp_choppythrower.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\affector.cpp">

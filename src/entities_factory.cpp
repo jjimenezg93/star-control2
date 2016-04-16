@@ -3,6 +3,7 @@
 #include "../include/comp_shipparams.h"
 #include "../include/comp_render.h"
 #include "../include/comp_playercontrol.h"
+#include "../include/comp_fusionblaster.h"
 #include "../include/comp_transform.h"
 #include "../include/defs.h"
 #include "../include/entities_factory.h"
@@ -10,8 +11,10 @@
 #include "../include/event.h"
 #include "../include/entity_params.h"
 #include "../include/inputmanager.h"
+#include "../include/image.h"
 #include "../include/messages.h"
 #include "../include/nsinputmanagerentity.h"
+#include "../include/resourcemanager.h"
 #pragma warning(disable: 4512 4244) //encodedstream.h warning
 #include "../include/rapidjson/document.h"
 #include "../include/rapidjson/filereadstream.h"
@@ -44,7 +47,7 @@ uint8 CEntitiesFactory::Init(CWorld &world) {
 
 	m_world = &world;
 
-	for (std::vector<SEntityParams>::iterator itr = g_entitiesParams.begin();
+	for (std::vector<SEntityParams *>::iterator itr = g_entitiesParams.begin();
 	itr != g_entitiesParams.end(); ++itr) {
 		CEntity * et = SpawnEntity(*itr);
 		world.AddEntity(et);
@@ -53,42 +56,45 @@ uint8 CEntitiesFactory::Init(CWorld &world) {
 	return ret;
 }
 
-CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams &params) {
-	CEntity * et = new CEntity(params.m_side, m_world);
-	
-	InitEntityControls(et);
-	AddComponents(et, params);
+CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams * params) {
+	CEntity * et = new CEntity(params->GetSide(), m_world);
+	if(params->GetType() == EET_SHIP) {
+		InitEntityControls(et);
+		AddComponents(et, params);
 
-	/* LOOKING INSIDE init_world.json and setting position/rotation */
-	CCompTransform * transform = new CCompTransform(et, 0, 0);
-	et->AddComponent(transform); //will be set when init_world.json is parsed
+		/* LOOKING INSIDE init_world.json and setting position/rotation */
+		CCompTransform * transform = new CCompTransform(et, 0, 0);
+		et->AddComponent(transform); //will be set when init_world.json is parsed
 
-	FILE * wFile = fopen("data/conf/init_world.json", "rb");
-	char buffer[65536];
-	assert(wFile != nullptr && "CEntitiesFactory::SpawnEntity()");
-	rapidjson::FileReadStream is(wFile, buffer, sizeof(buffer));
-	rapidjson::Document cDoc;
-	cDoc.ParseStream<0, rapidjson::UTF8<>, rapidjson::FileReadStream>(is);
-	assert(!cDoc.HasParseError());
+		FILE * wFile = fopen("data/conf/init_world.json", "rb");
+		char buffer[65536];
+		assert(wFile != nullptr && "CEntitiesFactory::SpawnEntity()");
+		rapidjson::FileReadStream is(wFile, buffer, sizeof(buffer));
+		rapidjson::Document cDoc;
+		cDoc.ParseStream<0, rapidjson::UTF8<>, rapidjson::FileReadStream>(is);
+		assert(!cDoc.HasParseError());
 
-	rapidjson::Value player;
-	if (et->GetSide() == EGS_PLAYER_1) {
-		player = cDoc["player1"];
-	} else if (et->GetSide() == EGS_PLAYER_2) {
-		player = cDoc["player2"];
-	}
-
-	for (rapidjson::Value::ConstMemberIterator itr = player.MemberBegin();
-	itr != player.MemberEnd(); ++itr) {
-		if (!strcmp(itr->name.GetString(), "position")) {
-			SSetPosMsg posMsg(itr->value["x"].GetFloat(), itr->value["y"].GetFloat());
-			et->ReceiveMessage(posMsg);
-		} else if (!strcmp(itr->name.GetString(), "rotation")) {
-			SSetRotMsg rotMsg(itr->value.GetFloat());
-			et->ReceiveMessage(rotMsg);
+		rapidjson::Value player;
+		if (et->GetSide() == EGS_PLAYER_1) {
+			player = cDoc["player1"];
+		} else if (et->GetSide() == EGS_PLAYER_2) {
+			player = cDoc["player2"];
 		}
+
+		for (rapidjson::Value::ConstMemberIterator itr = player.MemberBegin();
+		itr != player.MemberEnd(); ++itr) {
+			if (!strcmp(itr->name.GetString(), "position")) {
+				SSetPosMsg posMsg(itr->value["x"].GetFloat(), itr->value["y"].GetFloat());
+				et->ReceiveMessage(posMsg);
+			} else if (!strcmp(itr->name.GetString(), "rotation")) {
+				SSetRotMsg rotMsg(itr->value.GetFloat());
+				et->ReceiveMessage(rotMsg);
+			}
+		}
+		fclose(wFile);
+	} else if(params->GetType() == EET_PROJECTILE) {
+		et = et;
 	}
-	fclose(wFile);
 
 	return et;
 }
@@ -130,34 +136,42 @@ void CEntitiesFactory::InitEntityControls(CEntity * const entity) {
 
 	fclose(cFile);
 }
+//need to differentiate between ships and projectiles
+void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams * params) {
+	if(params->GetType() == EET_SHIP) {
+		/* JSON COMPONENTS */
+		const rapidjson::Value &ship = m_doc[static_cast<const SShipParams *>(params)->GetShipName().c_str()];
+		const rapidjson::Value &parameters = ship.FindMember("parameters")->value;
 
-void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams &params) {
-	/* JSON COMPONENTS */
-	const rapidjson::Value &ship = m_doc[params.m_shipName.c_str()];
-	const rapidjson::Value &parameters = ship.FindMember("parameters")->value;
-
-	//ship params
-	uint16 linearSpeed = static_cast<uint16>(parameters["linearSpeed"].GetInt());
-	uint16 angularSpeed = static_cast<uint16>(parameters["angularSpeed"].GetInt());
-	int16 energy = static_cast<int16>(parameters["energy"].GetInt());
-	int16 hitpoints = static_cast<int16>(parameters["hitpoints"].GetInt());
+		//ship params
+		uint16 linearSpeed = static_cast<uint16>(parameters["linearSpeed"].GetInt());
+		uint16 angularSpeed = static_cast<uint16>(parameters["angularSpeed"].GetInt());
+		float energy = static_cast<float>(parameters["energy"].GetFloat());
+		int16 hitpoints = static_cast<int16>(parameters["hitpoints"].GetInt());
 	
-	entity->AddComponent(new CCompShipParams(entity, linearSpeed, angularSpeed,
-		energy, hitpoints));
+		entity->AddComponent(new CCompShipParams(entity, linearSpeed, angularSpeed,
+			energy, hitpoints));
 
-	//components
-	const rapidjson::Value &components = ship.FindMember("components")->value;
+		//components
+		const rapidjson::Value &components = ship.FindMember("components")->value;
 
-	for (rapidjson::Value::ConstMemberIterator itr = components.MemberBegin();
-	itr != components.MemberEnd(); ++itr) {
-		if (strcmp(itr->name.GetString(), "ai") && !params.m_isAI) {
-			continue;
+		for (rapidjson::Value::ConstMemberIterator itr = components.MemberBegin();
+		itr != components.MemberEnd(); ++itr) {
+			if (!strcmp(itr->name.GetString(), "ai") && !static_cast<const SShipParams *>(params)->IsAI()) {
+				continue; //WHEN TESTING, DON'T USE AI
+			} else if(!strcmp(itr->name.GetString(), "primaryWeapon")) {
+				CComponent * comp = CreateWeapon(entity, 0, itr);
+				entity->AddComponent(comp);
+			} else if(!strcmp(itr->name.GetString(), "secondaryWeapon")) {
+				CComponent * comp = CreateWeapon(entity, 1, itr);
+				entity->AddComponent(comp);
+			} else {
+				CComponent * newComp = CreateComponent(entity, itr);
+				entity->AddComponent(newComp);
+			}
 		}
-		std::cout << "compName = " << itr->name.GetString() << std::endl;
-		CComponent * newComp = CreateComponent(entity, itr);
-		if (newComp != nullptr) { //provisional, while not all comps implemented
-			entity->AddComponent(newComp);
-		}
+	} else if(params->GetType() == EET_PROJECTILE) {
+
 	}
 }
 
@@ -165,10 +179,35 @@ CComponent * CEntitiesFactory::CreateComponent(CEntity * const et,
 rapidjson::Value::ConstMemberIterator &compIt) {
 	CComponent * comp = nullptr;
 	std::string str = compIt->name.GetString();
-	if (str == "render") {
+	if (!strcmp("render", compIt->name.GetString())) {
 		CCompRender * renderComp = new CCompRender(et,
 			compIt->value["image"].GetString());
 		comp = renderComp;
 	}
 	return comp;
+}
+
+CComponent * CEntitiesFactory::CreateWeapon(CEntity * const et,
+uint8 id, rapidjson::Value::ConstMemberIterator &compIt) {
+	//parse weapon
+	Image * img = ResourceManager::Instance().LoadImage(compIt->value["bulletImg"].GetString());
+	float cooldown = static_cast<float>(compIt->value["cooldown"].GetFloat());
+	uint16 energyConsumed = static_cast<uint16>(compIt->value["energyConsumed"].GetInt());
+	CCompFusionBlaster * genComp = new CCompFusionBlaster(et,
+		img, id, energyConsumed,
+		cooldown);
+	if(!strcmp("fusionBlaster", compIt->value["name"].GetString())) {
+		Image * img = ResourceManager::Instance().LoadImage(compIt->value["bulletImg"].GetString());
+		CCompFusionBlaster * fusionComp = new CCompFusionBlaster(et,
+			img, id, static_cast<uint16>(compIt->value["energyConsumed"].GetInt()),
+			static_cast<uint8>(compIt->value["cooldown"].GetInt()));
+		return fusionComp;
+	} else if(!strcmp("choppyBots", compIt->value["name"].GetString())) {
+		Image * img = ResourceManager::Instance().LoadImage(compIt->value["bulletImg"].GetString());
+		CCompFusionBlaster * fusionComp = new CCompFusionBlaster(et,
+			img, id, static_cast<uint16>(compIt->value["energyConsumed"].GetInt()),
+			static_cast<uint8>(compIt->value["cooldown"].GetInt()));
+		return fusionComp;
+	}
+	return genComp;
 }
