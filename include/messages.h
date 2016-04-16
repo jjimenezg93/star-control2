@@ -163,6 +163,4 @@ private:
 	uint8 m_weaponId;
 };
 
-//add GetLinearSpeed and GetAngularSpeed messages to use from playerControl
-
 #endif //!_MESSAGES_H

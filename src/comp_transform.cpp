@@ -6,8 +6,8 @@ CCompTransform::CCompTransform(CEntity * et): CComponent(et) {
 	SetType(EC_TRANSFORM);
 }
 
-CCompTransform::CCompTransform(CEntity * et, float x, float y):
-CComponent(et), m_x(x), m_y(y) {
+CCompTransform::CCompTransform(CEntity * et, float x, float y, float rot):
+CComponent(et), m_x(x), m_y(y), m_rotation(rot) {
 	SetType(EC_TRANSFORM);
 }
 

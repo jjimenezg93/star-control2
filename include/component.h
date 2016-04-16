@@ -6,10 +6,11 @@ class CEvent;
 struct SMessage;
 
 enum EComponent {
-	EC_FUSION_BLASTER,
 	EC_PLAYER_CONTROL,
 	EC_RENDER,
-	EC_TRANSFORM
+	EC_TRANSFORM,
+	EC_FUSION_BLASTER,
+	EC_PROJECTILE_MOVE
 };
 
 class CComponent {

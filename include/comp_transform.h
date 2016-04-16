@@ -6,7 +6,7 @@
 class CCompTransform: public CComponent {
 public:
 	CCompTransform(CEntity * et);
-	CCompTransform(CEntity * et, float x, float y);
+	CCompTransform(CEntity * et, float x, float y, float rot);
 
 	virtual void ReceiveMessage(SMessage &ev);
 	virtual void Update(float elapsed);

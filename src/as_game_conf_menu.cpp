@@ -103,12 +103,12 @@ void ASGameConfMenu::Init() {
 	lPlayerAI1->Init(screenWidth / 5 - 50, screenHeight / 2 + 50, disabledCheckBoxImg,
 		enabledCheckBoxImg);
 	lPlayerAI1->SetId(2);
-	lPlayerAI1->SetCurrentState(EGUICS_ONCLICK);
 	m_controlManager.AddControl(lPlayerAI1);
 	CCheckBoxUI * lPlayerAI2 = new CCheckBoxUI();
 	lPlayerAI2->Init(screenWidth / 5 + 50, screenHeight / 2 + 50, disabledCheckBoxImg,
 		enabledCheckBoxImg);
 	lPlayerAI2->SetId(3);
+	lPlayerAI2->SetCurrentState(EGUICS_ONCLICK);
 	m_controlManager.AddControl(lPlayerAI2);
 
 	CCheckBoxGroup * lPlayerAICBG = new CCheckBoxGroup();
@@ -173,12 +173,12 @@ void ASGameConfMenu::Init() {
 	rPlayerAI1->Init(screenWidth / 5 * 4 - 50, screenHeight / 2 + 50, disabledCheckBoxImg,
 		enabledCheckBoxImg);
 	rPlayerAI1->SetId(6);
-	rPlayerAI1->SetCurrentState(EGUICS_ONCLICK);
 	m_controlManager.AddControl(rPlayerAI1);
 	CCheckBoxUI * rPlayerAI2 = new CCheckBoxUI();
 	rPlayerAI2->Init(screenWidth / 5 * 4 + 50, screenHeight / 2 + 50, disabledCheckBoxImg,
 		enabledCheckBoxImg);
 	rPlayerAI2->SetId(7);
+	rPlayerAI2->SetCurrentState(EGUICS_ONCLICK);
 	m_controlManager.AddControl(rPlayerAI2);
 
 	CCheckBoxGroup * rPlayerAICBG = new CCheckBoxGroup();

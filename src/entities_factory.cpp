@@ -19,6 +19,7 @@
 #include "../include/rapidjson/document.h"
 #include "../include/rapidjson/filereadstream.h"
 #pragma warning(default: 4512 4244)
+#include "../include/sprite.h"
 #include "../include/world.h"
 
 CEntitiesFactory::~CEntitiesFactory() {
@@ -63,7 +64,7 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams * params) {
 		AddComponents(et, params);
 
 		/* LOOKING INSIDE init_world.json and setting position/rotation */
-		CCompTransform * transform = new CCompTransform(et, 0, 0);
+		CCompTransform * transform = new CCompTransform(et, 0, 0, 0);
 		et->AddComponent(transform); //will be set when init_world.json is parsed
 
 		FILE * wFile = fopen("data/conf/init_world.json", "rb");
@@ -93,7 +94,17 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams * params) {
 		}
 		fclose(wFile);
 	} else if(params->GetType() == EET_PROJECTILE) {
-		et = et;
+		const SProjectileParams * projParams = static_cast<const SProjectileParams *>(params);
+		CCompTransform * transformComp = new CCompTransform(et, 0, 0, 0);
+		et->AddComponent(transformComp);
+		Sprite * sprt = new Sprite(projParams->GetImage());
+		CCompRender * renderComp = new CCompRender(et, sprt);
+		et->AddComponent(renderComp);
+
+		SSetRotMsg setRotMsg(projParams->GetRot());
+		et->ReceiveMessage(setRotMsg);
+		SSetPosMsg setPosMsg(projParams->GetX(), projParams->GetY());
+		et->ReceiveMessage(setPosMsg);
 	}
 
 	return et;

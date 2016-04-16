@@ -15,7 +15,9 @@ public:
 protected:
 	CCompWeapon(CEntity * et, Image * img, uint8 id, uint16 energyConsumed, float cooldown):
 		CComponent(et), m_projImg(img), m_id(id),
-		m_energyConsumed(energyConsumed), m_cooldown(cooldown) {}
+		m_energyConsumed(energyConsumed), m_cooldown(cooldown) {
+		SetType(EC_FUSION_BLASTER);
+	}
 
 	void SetId(uint8 id) { m_id = id; }
 

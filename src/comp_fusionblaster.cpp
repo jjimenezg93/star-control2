@@ -24,28 +24,16 @@ void CCompFusionBlaster::ReceiveMessage(SMessage &msg) {
 			//spawn projectile
 			SGetRotMsg rotMsg;
 			m_owner->ReceiveMessage(rotMsg);
+			SGetPosMsg posMsg;
+			m_owner->ReceiveMessage(posMsg);
 			if(rotMsg.Modified()) {
-				world->GetEntitiesFactory().SpawnEntity(new SProjectileParams(20, rotMsg.GetAngle(), m_owner->GetSide(), GetImg()));
+				world->AddEntity(world->GetEntitiesFactory().SpawnEntity(new SProjectileParams(posMsg.GetX(), posMsg.GetY(),
+					20, rotMsg.GetAngle(), m_owner->GetSide(), GetImg())));
 			}
 		}
 	}
 }
 
-void CCompFusionBlaster::Update(float elapsed) {
-	/* code to get necessary params to spawn a projectile
-	SGetRotMsg rotMsg;
-	m_owner->ReceiveMessage(rotMsg);
-	float angle = 0.f;
-	if(rotMsg.Modified())
-		angle = rotMsg.GetAngle();
-
-	SGetPosMsg posMsg;
-	m_owner->ReceiveMessage(posMsg);
-	float x = 0.f, y = 0.f;
-	if(posMsg.Modified()) {
-		x = posMsg.GetX();
-		y = posMsg.GetY();
-	}*/
-}
+void CCompFusionBlaster::Update(float elapsed) {}
 
 void CCompFusionBlaster::Render() {}

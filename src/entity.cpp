@@ -51,7 +51,6 @@ CComponent * CEntity::GetComponent(EComponent comp) const {
 }
 
 void CEntity::Notify(const CEvent * const ev) {
-	std::cout << m_side << " received " << ev->GetId() << std::endl;
 	for (std::vector<CComponent *>::iterator itr = m_components.begin();
 	itr != m_components.end(); ++itr) {
 		SInputMsg msg(ev->GetController(), ev->GetId());
