@@ -21,7 +21,7 @@ void DestroyState(IAppState *stateToDestroy) {
 }
 
 int main() {
-	Screen::Instance().Open(800, 600, false);
+	Screen::Instance().Open(1024, 720, false);
 
 	GSetWantedState(EStarControlAS::ESC_START_MENU);
 #pragma warning(disable: 4127)

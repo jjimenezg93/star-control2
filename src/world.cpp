@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "../include/app_state.h"
 #include "../include/entities_factory.h"
 #include "../include/entity.h"
@@ -36,6 +38,28 @@ void CWorld::Update() {
 		(*itr)->Update(static_cast<float>(Screen::Instance().ElapsedTime()));
 		itr++;
 	}
+
+	CleanVectors();
+}
+
+void CWorld::CleanVectors() {
+	std::vector<CEntity *>::iterator itd = m_entitiesToDelete.begin();
+	while (itd != m_entitiesToDelete.end()) {
+		//render vector
+		std::vector<CEntity *>::iterator renderItr = std::find(m_renderingEntities.begin(),
+			m_renderingEntities.end(), *itd);
+		if (renderItr != m_renderingEntities.end())
+			m_renderingEntities.erase(renderItr);
+		//update vector
+		std::vector<CEntity *>::iterator itr = std::find(m_entities.begin(),
+			m_entities.end(), *itd);
+		if (itr != m_entities.end())
+			m_entities.erase(itr);
+		//toDelete vector
+		delete *itd;
+		itd = m_entitiesToDelete.erase(itd);
+	}
+	m_entitiesToDelete.clear();
 }
 
 void CWorld::Render() {
@@ -53,18 +77,5 @@ void CWorld::AddEntity(CEntity * const et) {
 }
 
 void CWorld::DeleteEntity(CEntity * const et) {
-	//when deleting -> problem in Entity::Update() after deleting components
-	CEntity * etDelete = nullptr;
-	std::vector<CEntity *>::iterator itr = m_entities.begin();
-	while(itr != m_entities.end()) {
-		if(et == *itr) {
-			etDelete = *itr;
-			m_entities.erase(itr);
-			break;
-		}
-		++itr;
-	}
-	if(etDelete != nullptr) {
-		delete etDelete;
-	}
+	m_entitiesToDelete.push_back(et);
 }

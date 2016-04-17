@@ -25,8 +25,12 @@ public:
 
 	CEntitiesFactory &GetEntitiesFactory() { return m_entitiesFactory; }
 private:
+	//this removes entities to delete from all World vectors
+	void CleanVectors();
+
 	std::vector<CEntity *> m_entities;
 	std::vector<CEntity *> m_renderingEntities;
+	std::vector<CEntity *> m_entitiesToDelete;
 
 	CEntitiesFactory m_entitiesFactory;
 };
