@@ -16,8 +16,7 @@ public:
 	virtual void Update(float elapsed);
 	void Render();
 private:
-	uint16 m_linearSpeed, m_angularSpeed, m_hitPoints;
-	float m_energy;
+	int16 m_linearSpeed, m_angularSpeed, m_hitPoints, m_energy;
 };
 
 #endif //!_COMPONENT_SHIP_PARAMS_H

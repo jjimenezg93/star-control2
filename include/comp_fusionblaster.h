@@ -14,8 +14,6 @@ public:
 	virtual void ReceiveMessage(SMessage &ev);
 	virtual void Update(float elapsed);
 	void Render();
-private:
-	
 };
 
 #endif //!_COMP_FUSION_BLASTER_H

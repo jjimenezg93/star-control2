@@ -25,6 +25,8 @@ protected:
 	Image * GetImg() const { return m_projImg; }
 	uint16 GetEnergyConsumed() const { return m_energyConsumed; }
 	float GetCooldown() const { return m_cooldown; }
+
+	float m_lastShot;
 private:
 	uint8 m_id;
 	uint16 m_energyConsumed;

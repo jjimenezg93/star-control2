@@ -132,8 +132,8 @@ private:
 };
 
 struct SUpdateEnergyMsg: public SMessage {
-	SUpdateEnergyMsg(uint16 energy = 0): SMessage(EMT_UPDATE_ENERGY), m_energy(energy) {}
-	uint16 m_energy;
+	SUpdateEnergyMsg(int16 energy = 0): SMessage(EMT_UPDATE_ENERGY), m_energy(energy) {}
+	int16 m_energy;
 };
 
 struct SGetLinSpeedMsg: public SMessage {
