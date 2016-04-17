@@ -19,11 +19,17 @@ CEntity::~CEntity() {
 	m_components.clear();
 }
 
-void CEntity::AddComponent(CComponent * const comp) {
+void CEntity::AddComponent(CComponent * comp) {
 	m_components.insert(m_components.end(), comp);
 	if (comp->GetType() == EComponent::EC_RENDER) {
 		m_renderable = true;
+		m_renderComp = static_cast<CCompRender *>(comp);
 	}
+}
+
+void CEntity::IsCollision(CEntity * other) {
+	SIsCollisionMsg isColMsg(this);
+	other->ReceiveMessage(isColMsg);
 }
 
 void CEntity::Update(float elapsed) {

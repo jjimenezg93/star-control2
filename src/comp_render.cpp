@@ -9,6 +9,7 @@
 CCompRender::CCompRender(CEntity * et, Sprite * sprt): CComponent(et), m_sprite(sprt) {
 	m_sprite = sprt;
 	SetType(EC_RENDER);
+	m_sprite->SetCollision(Sprite::CollisionMode::COLLISION_RECT);
 }
 
 
@@ -17,6 +18,7 @@ CCompRender::CCompRender(CEntity * et, const char * imgFilename): CComponent(et)
 	Image * img = ResourceManager::Instance().LoadImage(imgFilename);
 	img->SetMidHandle();
 	m_sprite = new Sprite(img);
+	m_sprite->SetCollision(Sprite::CollisionMode::COLLISION_RECT);
 }
 
 void CCompRender::ReceiveMessage(SMessage &msg) {
@@ -33,6 +35,8 @@ void CCompRender::ReceiveMessage(SMessage &msg) {
 	} else if (msg.m_type == EMT_SET_ROT) {
 		SSetRotMsg &rotMsg = reinterpret_cast<SSetRotMsg &>(msg);
 		m_sprite->SetAngle(rotMsg.m_rot);
+	} else if (msg.m_type == EMT_IS_COLLISION) {
+
 	}
 }
 

@@ -11,6 +11,7 @@ enum EEntityType {
 };
 
 enum EGameSide {
+	EGS_NONE,
 	EGS_PLAYER_1,
 	EGS_PLAYER_2
 };

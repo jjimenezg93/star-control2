@@ -1,13 +1,16 @@
 #include "../include/hud.h"
 #include "../include/buttonui.h"
 #include "../include/defs.h"
+#include "../include/entity.h"
 #include "../include/font.h"
 #include "../include/image.h"
 #include "../include/menu_defs.h"
+#include "../include/messages.h"
 #include "../include/resourcemanager.h"
 #include "../include/renderer.h"
 #include "../include/string.h"
 #include "../include/screen.h"
+#include "../include/world.h"
 
 CHud::~CHud() {
 }
@@ -46,17 +49,41 @@ void CHud::Init() {
 	exitButton->SetText(str);
 	exitButton->AddEventListener(this);
 	m_controlManager.AddControl(exitButton);
+
+	memset(m_shipStats, 0, sizeof(m_shipStats));
+}
+
+void CHud::Init(CEntity * et1, CEntity * et2) {
+	Init();
+	m_player1 = et1;
+	m_player2 = et2;
 }
 
 void CHud::Update() {
 	m_controlManager.Update();
+
+	SGetEnergyMsg getEnergy1Msg;
+	SGetHitPointsMsg getHitPoints1Msg;
+	m_player1->ReceiveMessage(getEnergy1Msg);
+	m_shipStats[0] = getEnergy1Msg.GetEnergy();
+	m_player1->ReceiveMessage(getHitPoints1Msg);
+	m_shipStats[1] = getHitPoints1Msg.GetHitPoints();
+
+	SGetEnergyMsg getEnergy2Msg;
+	SGetHitPointsMsg getHitPoints2Msg;
+	m_player2->ReceiveMessage(getEnergy2Msg);
+	m_shipStats[2] = getEnergy2Msg.GetEnergy();
+	m_player2->ReceiveMessage(getHitPoints2Msg);
+	m_shipStats[3] = getHitPoints2Msg.GetHitPoints();
 }
 
 void CHud::Render() {
 	m_controlManager.Render();
+	uint8 i = 0;
 	for (std::vector<UIText *>::iterator itr = m_texts.begin();
 	itr != m_texts.end(); ++itr) {
-		Renderer::Instance().DrawText(m_font, (*itr)->m_str, (*itr)->m_x, (*itr)->m_y);
+		Renderer::Instance().DrawText(m_font,
+			(*itr)->m_str + std::to_string(m_shipStats[i++]).c_str(), (*itr)->m_x, (*itr)->m_y);
 	}
 }
 

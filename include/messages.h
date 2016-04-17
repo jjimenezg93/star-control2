@@ -5,6 +5,7 @@
 
 class CWorld;
 enum EEventController;
+enum EGameSide;
 
 enum EMessageType {
 	EMT_INPUT,
@@ -21,7 +22,8 @@ enum EMessageType {
 	EMT_UPDATE_ENERGY,
 	EMT_GET_LINEAR_SPEED,
 	EMT_GET_ANGULAR_SPEED,
-	EMT_SHOOT
+	EMT_SHOOT,
+	EMT_IS_COLLISION
 };
 
 struct SMessage {
@@ -108,7 +110,10 @@ struct SUpdateRotMsg: public SMessage {
 
 struct SGetHitPointsMsg: public SMessage {
 	SGetHitPointsMsg(): SMessage(EMT_GET_HP), m_hitPoints(0) {}
-	void SetHitPoints(uint16 hp) { m_hitPoints = hp; m_modified = true;	}
+	void SetHitPoints(uint16 hp) {
+		m_hitPoints = hp;
+		m_modified = true;
+	}
 	uint16 GetHitPoints() const { return m_hitPoints; }
 	bool Modified() { return m_modified; }
 private:
@@ -123,7 +128,10 @@ struct SUpdateHitPointsMsg: public SMessage {
 
 struct SGetEnergyMsg: public SMessage {
 	SGetEnergyMsg(): SMessage(EMT_GET_ENERGY), m_energy(0) {}
-	void SetEnergy(uint16 en) { m_energy = en; m_modified = true; }
+	void SetEnergy(uint16 en) {
+		m_energy = en;
+		m_modified = true;
+	}
 	uint16 GetEnergy() const { return m_energy; }
 	bool Modified() { return m_modified; }
 private:
@@ -156,11 +164,27 @@ private:
 	bool m_modified;
 };
 
-struct SShootMsg : public SMessage {
+struct SShootMsg: public SMessage {
 	SShootMsg(uint8 id) : SMessage(EMT_SHOOT), m_weaponId(id) {}
 	uint8 GetWeaponId() const { return m_weaponId; }
 private:
 	uint8 m_weaponId;
+};
+
+struct SIsCollisionMsg: public SMessage {
+	SIsCollisionMsg(CEntity * other): SMessage(EMT_IS_COLLISION),
+		m_other(other), m_isCollision(false), m_modified(false) {}
+	void SetIsCollision(bool isCol) {
+		m_isCollision = isCol;
+		m_modified = true;
+	}
+	CEntity * GetOther() const { return m_other; }
+	bool GetIsCollision() const { return m_isCollision; }
+	bool Modified() const { return m_modified; }
+private:
+	CEntity * m_other;
+	bool m_isCollision;
+	bool m_modified;
 };
 
 #endif //!_MESSAGES_H

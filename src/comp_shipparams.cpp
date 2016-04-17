@@ -23,7 +23,8 @@ void CCompShipParams::ReceiveMessage(SMessage &msg) {
 		getEnergyMsg.SetEnergy(m_energy);
 	} else if (msg.m_type == EMT_UPDATE_ENERGY) {
 		SUpdateEnergyMsg &updateEnergyMsg = reinterpret_cast<SUpdateEnergyMsg &>(msg);
-		m_energy += updateEnergyMsg.m_energy;
+		if (m_energy + updateEnergyMsg.m_energy >= 0)
+			m_energy += updateEnergyMsg.m_energy;
 	} else if (msg.m_type == EMT_GET_LINEAR_SPEED) {
 		SGetLinSpeedMsg &getLinSpeedMsg = reinterpret_cast<SGetLinSpeedMsg &>(msg);
 		getLinSpeedMsg.SetLinSpeed(m_linearSpeed);

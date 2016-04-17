@@ -1,11 +1,12 @@
 #include <iostream>
 
-#include "../include/comp_shipparams.h"
-#include "../include/comp_render.h"
-#include "../include/comp_playercontrol.h"
+#include "../include/comp_collision.h"
 #include "../include/comp_fusionblaster.h"
-#include "../include/comp_transform.h"
+#include "../include/comp_playercontrol.h"
 #include "../include/comp_projectilemove.h"
+#include "../include/comp_render.h"
+#include "../include/comp_shipparams.h"
+#include "../include/comp_transform.h"
 #include "../include/defs.h"
 #include "../include/entities_factory.h"
 #include "../include/entity.h"
@@ -95,24 +96,7 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams * params) {
 		}
 		fclose(wFile);
 	} else if(params->GetType() == EET_PROJECTILE) {
-		const SProjectileParams * projParams = static_cast<const SProjectileParams *>(params);
-		CCompTransform * transformComp = new CCompTransform(et, 0, 0, 0);
-		et->AddComponent(transformComp);
-		Sprite * sprt = new Sprite(projParams->GetImage());
-		CCompRender * renderComp = new CCompRender(et, sprt);
-		et->AddComponent(renderComp);
-		SGetLinSpeedMsg getLinSpeedMsg;
-		et->ReceiveMessage(getLinSpeedMsg);
-		SGetAngSpeedMsg getAngSpeedMsg;
-		et->ReceiveMessage(getAngSpeedMsg);
-		CCompProjectileMove * projMoveComp = new CCompProjectileMove(et, getLinSpeedMsg.GetLinSpeed(),
-			getAngSpeedMsg.GetAngSpeed());
-		et->AddComponent(projMoveComp);
-
-		SSetRotMsg setRotMsg(projParams->GetRot());
-		et->ReceiveMessage(setRotMsg);
-		SSetPosMsg setPosMsg(projParams->GetX(), projParams->GetY());
-		et->ReceiveMessage(setPosMsg);
+		AddComponents(et, params);
 	}
 
 	return et;
@@ -190,8 +174,27 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 			}
 		}
 	} else if(params->GetType() == EET_PROJECTILE) {
+		const SProjectileParams * projParams = static_cast<const SProjectileParams *>(params);
+		CCompTransform * transformComp = new CCompTransform(entity, 0, 0, 0);
+		entity->AddComponent(transformComp);
+		Sprite * sprt = new Sprite(projParams->GetImage());
+		CCompRender * renderComp = new CCompRender(entity, sprt);
+		entity->AddComponent(renderComp);
+		SGetLinSpeedMsg getLinSpeedMsg;
+		entity->ReceiveMessage(getLinSpeedMsg);
+		SGetAngSpeedMsg getAngSpeedMsg;
+		entity->ReceiveMessage(getAngSpeedMsg);
+		CCompProjectileMove * projMoveComp = new CCompProjectileMove(entity,
+			getLinSpeedMsg.GetLinSpeed(), getAngSpeedMsg.GetAngSpeed());
+		entity->AddComponent(projMoveComp);
 
+		SSetRotMsg setRotMsg(projParams->GetRot());
+		entity->ReceiveMessage(setRotMsg);
+		SSetPosMsg setPosMsg(projParams->GetX(), projParams->GetY());
+		entity->ReceiveMessage(setPosMsg);
 	}
+	CCompCollision * colComp = new CCompCollision(entity);
+	entity->AddComponent(colComp);
 }
 
 CComponent * CEntitiesFactory::CreateComponent(CEntity * const et,

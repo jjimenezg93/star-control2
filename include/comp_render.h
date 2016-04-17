@@ -11,6 +11,8 @@ public:
 	CCompRender(CEntity * et, Sprite * sprt);
 	CCompRender(CEntity * et, const char * imgFilename);
 
+	Sprite * GetSprite() const { return m_sprite; }
+
 	virtual void ReceiveMessage(SMessage &msg);
 	virtual void Update(float elapsed);
 	void Render();

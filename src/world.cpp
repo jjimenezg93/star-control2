@@ -32,6 +32,18 @@ uint8 CWorld::Init() {
 	return ret;
 }
 
+//assumes this will be called right after Init, from ASGame
+void CWorld::GetPlayers(CEntity * &et1, CEntity * &et2) {
+	std::vector<CEntity *>::iterator itr = m_entities.begin();
+	while (itr != m_entities.end()) {
+		if ((*itr)->GetSide() == EGS_PLAYER_1)
+			et1 = *itr;
+		else if ((*itr)->GetSide() == EGS_PLAYER_2)
+			et2 = *itr;
+		++itr;
+	}
+}
+
 void CWorld::Update() {
 	std::vector<CEntity *>::iterator itr = m_entities.begin();
 	while (itr != m_entities.end()) {
@@ -39,7 +51,23 @@ void CWorld::Update() {
 		itr++;
 	}
 
+	CheckCollisions();
+
 	CleanVectors();
+}
+
+void CWorld::CheckCollisions() {
+	for (std::vector<CEntity *>::iterator itr = m_entities.begin(); itr != m_entities.end();
+	++itr) {
+		if ((*itr)->GetSide() == EGS_PLAYER_1) {
+			for (std::vector<CEntity *>::iterator itOther = m_entities.begin();
+			itOther != m_entities.end(); ++itOther) {
+				if ((*itOther)->GetSide() == EGS_PLAYER_2) {
+					(*itr)->IsCollision(*itOther);
+				}
+			}
+		}
+	}
 }
 
 void CWorld::CleanVectors() {
@@ -78,4 +106,11 @@ void CWorld::AddEntity(CEntity * const et) {
 
 void CWorld::DeleteEntity(CEntity * const et) {
 	m_entitiesToDelete.push_back(et);
+}
+
+void CWorld::ReceiveMessage(SMessage &msg) {
+	for (std::vector<CEntity *>::iterator itr = m_entities.begin(); itr != m_entities.end();
+	++itr) {
+		(*itr)->ReceiveMessage(msg);
+	}
 }

@@ -20,7 +20,10 @@ ASGame::~ASGame() {
 
 void ASGame::Init() {
 	m_world.Init();
-	m_hud.Init();
+	CEntity * et1 = nullptr;
+	CEntity * et2 = nullptr;
+	m_world.GetPlayers(et1, et2);
+	m_hud.Init(et1, et2);
 }
 
 void ASGame::ProcessInput() {

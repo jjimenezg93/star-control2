@@ -7,6 +7,7 @@
 #include <vector>
 
 class CComponent;
+class CCompRender;
 class CWorld;
 enum EComponent;
 enum EGameSide;
@@ -20,7 +21,10 @@ public:
 	bool IsRenderable() const { return m_renderable; }
 	EGameSide GetSide() const { return m_side; }
 
-	void AddComponent(CComponent * const comp);
+	void AddComponent(CComponent * comp);
+	
+	CCompRender * GetRenderComp() const { return m_renderComp; }
+	void IsCollision(CEntity * other);
 
 	void Update(float elapsed);
 	void Render();
@@ -34,8 +38,10 @@ private:
 
 	CWorld * m_world;
 	EGameSide m_side;
+
 	bool m_renderable; //if RemoveComponent() is added ->
 						//set this to false when component's type is EC_RENDER
+	CCompRender * m_renderComp;
 };
 
 #endif //!_C_ENTITY_H

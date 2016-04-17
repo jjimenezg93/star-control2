@@ -9,6 +9,7 @@
 class CEntity;
 class Player;
 class Scene;
+struct SMessage;
 
 class CWorld {
 public:
@@ -17,6 +18,8 @@ public:
 
 	uint8 Init();
 
+	void GetPlayers(CEntity * &et1, CEntity * &et2);
+
 	void Update();
 	void Render();
 
@@ -24,8 +27,11 @@ public:
 	void DeleteEntity(CEntity * const et);
 
 	CEntitiesFactory &GetEntitiesFactory() { return m_entitiesFactory; }
+
+	void ReceiveMessage(SMessage &msg);
 private:
 	//this removes entities to delete from all World vectors
+	void CheckCollisions();
 	void CleanVectors();
 
 	std::vector<CEntity *> m_entities;
