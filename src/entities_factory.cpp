@@ -5,6 +5,7 @@
 #include "../include/comp_playercontrol.h"
 #include "../include/comp_fusionblaster.h"
 #include "../include/comp_transform.h"
+#include "../include/comp_projectilemove.h"
 #include "../include/defs.h"
 #include "../include/entities_factory.h"
 #include "../include/entity.h"
@@ -100,6 +101,13 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams * params) {
 		Sprite * sprt = new Sprite(projParams->GetImage());
 		CCompRender * renderComp = new CCompRender(et, sprt);
 		et->AddComponent(renderComp);
+		SGetLinSpeedMsg getLinSpeedMsg;
+		et->ReceiveMessage(getLinSpeedMsg);
+		SGetAngSpeedMsg getAngSpeedMsg;
+		et->ReceiveMessage(getAngSpeedMsg);
+		CCompProjectileMove * projMoveComp = new CCompProjectileMove(et, getLinSpeedMsg.GetLinSpeed(),
+			getAngSpeedMsg.GetAngSpeed());
+		et->AddComponent(projMoveComp);
 
 		SSetRotMsg setRotMsg(projParams->GetRot());
 		et->ReceiveMessage(setRotMsg);

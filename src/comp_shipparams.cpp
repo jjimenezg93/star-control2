@@ -6,7 +6,7 @@
 #include "../../include/screen.h"
 #include "../../include/sprite.h"
 
-CCompShipParams::CCompShipParams(CEntity * et, uint16 linear, uint16 angular,
+CCompShipParams::CCompShipParams(CEntity * et, float linear, float angular,
 float energy, uint16 hitpoints):
 	CComponent(et), m_linearSpeed(linear), m_angularSpeed(angular),
 	m_energy(energy), m_hitPoints(hitpoints) {}

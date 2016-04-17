@@ -1,7 +1,11 @@
+#include <iostream>
+
 #include "../include/comp_projectilemove.h"
 #include "../include/entity.h"
 #include "../include/messages.h"
 #include "../include/math.h"
+#include "../include/screen.h"
+#include "../include/world.h"
 
 CCompProjectileMove::~CCompProjectileMove() {
 
@@ -13,30 +17,27 @@ CComponent(et), m_linSpeed(linSpeed), m_angSpeed(angSpeed) {
 }
 
 void CCompProjectileMove::ReceiveMessage(SMessage &msg) {
-	if(msg.m_type == EMT_SET_POS) {
-		
-	}
+	//if linSpeed and/or angSpeed are changed -> add set message and set them here
 }
 
 void CCompProjectileMove::Update(float elapsed) {
-	SGetAngSpeedMsg angSpeedMsg;
-	m_owner->ReceiveMessage(angSpeedMsg);
+	SGetRotMsg getAngMsg;
+	m_owner->ReceiveMessage(getAngMsg);
 	float angle = 0;
-	if(angSpeedMsg.Modified()) {
-		angle = angSpeedMsg.GetAngSpeed();
+	if(getAngMsg.Modified()) {
+		angle = getAngMsg.GetAngle();
 	}
+	float speed = 100.f;
 
-	SUpdateRotMsg updateRotMsg(angle * elapsed);
-	m_owner->ReceiveMessage(updateRotMsg);
-
+	SUpdatePosMsg updatePosMsg(DegCos(angle) * elapsed * speed, -DegSin(angle) * elapsed * speed);
+	m_owner->ReceiveMessage(updatePosMsg);
+	//despawn when out of screen && ADD SPEED TO PROJECTILES
 	SGetPosMsg getPosMsg;
 	m_owner->ReceiveMessage(getPosMsg);
-	float x = 0, y = 0;
-	if(getPosMsg.Modified()) {
-		x = getPosMsg.GetX();
-		y = getPosMsg.GetY();
+	if(getPosMsg.GetX() > Screen::Instance().GetWidth() || getPosMsg.GetX() < 0 ||
+	getPosMsg.GetY() > Screen::Instance().GetHeight() || getPosMsg.GetY() < 0) {
+		SGetWorldMsg getWorld;
+		m_owner->ReceiveMessage(getWorld);
+		getWorld.GetWorld()->DeleteEntity(this->m_owner);
 	}
-
-	SUpdatePosMsg updatePosMsg(x * DegCos(angle), y * DegCos(angle));
-	m_owner->ReceiveMessage(updatePosMsg);
 }

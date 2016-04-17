@@ -10,8 +10,8 @@ public:
 
 	CCompProjectileMove(CEntity * et, float linSpeed, float angSpeed);
 
-	virtual void ReceiveMessage(SMessage &ev) = 0;
-	virtual void Update(float elapsed) = 0;
+	virtual void ReceiveMessage(SMessage &ev);
+	virtual void Update(float elapsed);
 private:
 	float m_linSpeed, m_angSpeed;
 };

@@ -51,3 +51,20 @@ void CWorld::AddEntity(CEntity * const et) {
 		m_renderingEntities.push_back(et);
 	}
 }
+
+void CWorld::DeleteEntity(CEntity * const et) {
+	//when deleting -> problem in Entity::Update() after deleting components
+	CEntity * etDelete = nullptr;
+	std::vector<CEntity *>::iterator itr = m_entities.begin();
+	while(itr != m_entities.end()) {
+		if(et == *itr) {
+			etDelete = *itr;
+			m_entities.erase(itr);
+			break;
+		}
+		++itr;
+	}
+	if(etDelete != nullptr) {
+		delete etDelete;
+	}
+}

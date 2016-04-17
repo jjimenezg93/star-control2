@@ -21,6 +21,7 @@ public:
 	void Render();
 
 	void AddEntity(CEntity * const et);
+	void DeleteEntity(CEntity * const et);
 
 	CEntitiesFactory &GetEntitiesFactory() { return m_entitiesFactory; }
 private:

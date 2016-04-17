@@ -137,22 +137,22 @@ struct SUpdateEnergyMsg: public SMessage {
 };
 
 struct SGetLinSpeedMsg: public SMessage {
-	SGetLinSpeedMsg(): SMessage(EMT_GET_LINEAR_SPEED), m_linSpeed(0) {}
-	void SetLinSpeed(uint16 lSpeed) { m_linSpeed = lSpeed; m_modified = true; }
-	int16 GetLinSpeed() const { return m_linSpeed; }
+	SGetLinSpeedMsg(): SMessage(EMT_GET_LINEAR_SPEED), m_linSpeed(0.f), m_modified(false) {}
+	void SetLinSpeed(float lSpeed) { m_linSpeed = lSpeed; m_modified = true; }
+	float GetLinSpeed() const { return m_linSpeed; }
 	bool Modified() { return m_modified; }
 private:
-	int16 m_linSpeed;
+	float m_linSpeed;
 	bool m_modified;
 };
 
 struct SGetAngSpeedMsg: public SMessage {
-	SGetAngSpeedMsg(): SMessage(EMT_GET_ANGULAR_SPEED), m_angSpeed(0) {}
-	void SetAngSpeed(uint16 aSpeed) { m_angSpeed = aSpeed; m_modified = true; }
-	int16 GetAngSpeed() const { return m_angSpeed; }
+	SGetAngSpeedMsg(): SMessage(EMT_GET_ANGULAR_SPEED), m_angSpeed(0.f), m_modified(false) {}
+	void SetAngSpeed(float aSpeed) { m_angSpeed = aSpeed; m_modified = true; }
+	float GetAngSpeed() const { return m_angSpeed; }
 	bool Modified() { return m_modified; }
 private:
-	int16 m_angSpeed;
+	float m_angSpeed;
 	bool m_modified;
 };
 
