@@ -6,6 +6,7 @@
 #include "../include/comp_projectilemove.h"
 #include "../include/comp_render.h"
 #include "../include/comp_shipparams.h"
+#include "../include/comp_projparams.h"
 #include "../include/comp_transform.h"
 #include "../include/defs.h"
 #include "../include/entities_factory.h"
@@ -143,7 +144,8 @@ void CEntitiesFactory::InitEntityControls(CEntity * const entity) {
 void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams * params) {
 	if(params->GetType() == EET_SHIP) {
 		/* JSON COMPONENTS */
-		const rapidjson::Value &ship = m_doc[static_cast<const SShipParams *>(params)->GetShipName().c_str()];
+		const rapidjson::Value &ship = m_doc[static_cast<const SShipParams *>
+			(params)->GetShipName().c_str()];
 		const rapidjson::Value &parameters = ship.FindMember("parameters")->value;
 
 		//ship params
@@ -160,7 +162,8 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 
 		for (rapidjson::Value::ConstMemberIterator itr = components.MemberBegin();
 		itr != components.MemberEnd(); ++itr) {
-			if (!strcmp(itr->name.GetString(), "ai") && !static_cast<const SShipParams *>(params)->IsAI()) {
+			if (!strcmp(itr->name.GetString(), "ai")
+			&& !static_cast<const SShipParams *>(params)->IsAI()) {
 				continue; //WHEN TESTING, DON'T USE AI
 			} else if(!strcmp(itr->name.GetString(), "primaryWeapon")) {
 				CComponent * comp = CreateWeapon(entity, 0, itr);
@@ -175,18 +178,25 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 		}
 	} else if(params->GetType() == EET_PROJECTILE) {
 		const SProjectileParams * projParams = static_cast<const SProjectileParams *>(params);
+
 		CCompTransform * transformComp = new CCompTransform(entity, 0, 0, 0);
 		entity->AddComponent(transformComp);
+
 		Sprite * sprt = new Sprite(projParams->GetImage());
 		CCompRender * renderComp = new CCompRender(entity, sprt);
+
 		entity->AddComponent(renderComp);
 		SGetLinSpeedMsg getLinSpeedMsg;
 		entity->ReceiveMessage(getLinSpeedMsg);
 		SGetAngSpeedMsg getAngSpeedMsg;
 		entity->ReceiveMessage(getAngSpeedMsg);
+
 		CCompProjectileMove * projMoveComp = new CCompProjectileMove(entity,
 			getLinSpeedMsg.GetLinSpeed(), getAngSpeedMsg.GetAngSpeed());
 		entity->AddComponent(projMoveComp);
+
+		CCompProjParams * projParamsComp = new CCompProjParams(entity);
+		entity->AddComponent(projParamsComp);
 
 		SSetRotMsg setRotMsg(projParams->GetRot());
 		entity->ReceiveMessage(setRotMsg);

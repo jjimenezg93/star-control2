@@ -16,21 +16,20 @@
 
 class CControlUI;
 class CWorld;
-class CEntity;
 class Font;
 
 class CHud: public IAppState, public IEventListener {
 public:
 	virtual ~CHud();
 
-	virtual void Init(CEntity * et1, CEntity * et2);
+	virtual void Init(CWorld * world);
 
 	virtual void Update();
 	virtual void Render();
 
 	virtual void ManageControlEvent(CControlUI * const sender);
 private:
-	void Init();
+	virtual void Init();
 	struct UIText {
 		UIText(uint32 x, uint32 y, String str): m_x(x), m_y(y), m_str(str) {}
 		uint32 m_x, m_y;
@@ -38,8 +37,6 @@ private:
 	};
 
 	CWorld * m_world;
-	CEntity * m_player1;
-	CEntity * m_player2;
 
 	CControlManagerUI m_controlManager;
 	std::vector<UIText *> m_texts;

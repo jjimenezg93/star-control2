@@ -10,6 +10,7 @@ class CComponent;
 class CCompRender;
 class CWorld;
 enum EComponent;
+enum EEntityType;
 enum EGameSide;
 struct SMessage;
 
@@ -20,6 +21,7 @@ public:
 
 	bool IsRenderable() const { return m_renderable; }
 	EGameSide GetSide() const { return m_side; }
+	EEntityType GetType();
 
 	void AddComponent(CComponent * comp);
 	

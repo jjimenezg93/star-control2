@@ -32,13 +32,14 @@ uint8 CWorld::Init() {
 	return ret;
 }
 
-//assumes this will be called right after Init, from ASGame
 void CWorld::GetPlayers(CEntity * &et1, CEntity * &et2) {
 	std::vector<CEntity *>::iterator itr = m_entities.begin();
+	et1 = nullptr;
+	et2 = nullptr;
 	while (itr != m_entities.end()) {
-		if ((*itr)->GetSide() == EGS_PLAYER_1)
+		if ((*itr)->GetSide() == EGS_PLAYER_1 && (*itr)->GetType() == EET_SHIP)
 			et1 = *itr;
-		else if ((*itr)->GetSide() == EGS_PLAYER_2)
+		else if ((*itr)->GetSide() == EGS_PLAYER_2 && (*itr)->GetType() == EET_SHIP)
 			et2 = *itr;
 		++itr;
 	}
@@ -87,7 +88,7 @@ void CWorld::CleanVectors() {
 		delete *itd;
 		itd = m_entitiesToDelete.erase(itd);
 	}
-	m_entitiesToDelete.clear();
+	//m_entitiesToDelete.clear();
 }
 
 void CWorld::Render() {

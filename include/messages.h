@@ -6,6 +6,7 @@
 class CWorld;
 enum EEventController;
 enum EGameSide;
+enum EEntityType;
 
 enum EMessageType {
 	EMT_INPUT,
@@ -23,7 +24,9 @@ enum EMessageType {
 	EMT_GET_LINEAR_SPEED,
 	EMT_GET_ANGULAR_SPEED,
 	EMT_SHOOT,
-	EMT_IS_COLLISION
+	EMT_IS_COLLISION,
+	EMT_TAKE_DAMAGE,
+	EMT_GET_ENTITY_TYPE
 };
 
 struct SMessage {
@@ -185,6 +188,28 @@ private:
 	CEntity * m_other;
 	bool m_isCollision;
 	bool m_modified;
+};
+
+struct STakeDamageMsg: public SMessage {
+	STakeDamageMsg(float dmg): SMessage(EMT_TAKE_DAMAGE), m_damage(dmg) {}
+	float GetDamage() const { return m_damage; }
+private:
+	float m_damage;
+};
+
+struct SGetEntityTypeMsg: public SMessage {
+	SGetEntityTypeMsg(): SMessage(EMT_GET_ENTITY_TYPE), m_modified(false) {}
+	void SetType(EEntityType type) {
+		if (!m_modified) {
+			m_type = type;
+			m_modified = true;
+		}
+	}
+	bool Modified() const { return m_modified; }
+	EEntityType GetType() const { return m_type; }
+private:
+	bool m_modified;
+	EEntityType m_type;
 };
 
 #endif //!_MESSAGES_H

@@ -53,28 +53,41 @@ void CHud::Init() {
 	memset(m_shipStats, 0, sizeof(m_shipStats));
 }
 
-void CHud::Init(CEntity * et1, CEntity * et2) {
+void CHud::Init(CWorld * world) {
 	Init();
-	m_player1 = et1;
-	m_player2 = et2;
+	m_world = world;	
 }
 
 void CHud::Update() {
 	m_controlManager.Update();
 
-	SGetEnergyMsg getEnergy1Msg;
-	SGetHitPointsMsg getHitPoints1Msg;
-	m_player1->ReceiveMessage(getEnergy1Msg);
-	m_shipStats[0] = getEnergy1Msg.GetEnergy();
-	m_player1->ReceiveMessage(getHitPoints1Msg);
-	m_shipStats[1] = getHitPoints1Msg.GetHitPoints();
+	CEntity * player1;
+	CEntity * player2;
+	m_world->GetPlayers(player1, player2);
 
-	SGetEnergyMsg getEnergy2Msg;
-	SGetHitPointsMsg getHitPoints2Msg;
-	m_player2->ReceiveMessage(getEnergy2Msg);
-	m_shipStats[2] = getEnergy2Msg.GetEnergy();
-	m_player2->ReceiveMessage(getHitPoints2Msg);
-	m_shipStats[3] = getHitPoints2Msg.GetHitPoints();
+	if (player1 == nullptr) {
+		m_shipStats[0] = 0;
+		m_shipStats[1] = 0;
+	} else {
+		SGetEnergyMsg getEnergy1Msg;
+		SGetHitPointsMsg getHitPoints1Msg;
+		player1->ReceiveMessage(getEnergy1Msg);
+		m_shipStats[0] = getEnergy1Msg.GetEnergy();
+		player1->ReceiveMessage(getHitPoints1Msg);
+		m_shipStats[1] = getHitPoints1Msg.GetHitPoints();
+	}
+
+	if (player2 == nullptr) {
+		m_shipStats[2] = 0;
+		m_shipStats[3] = 0;
+	} else {
+		SGetEnergyMsg getEnergy2Msg;
+		SGetHitPointsMsg getHitPoints2Msg;
+		player2->ReceiveMessage(getEnergy2Msg);
+		m_shipStats[2] = getEnergy2Msg.GetEnergy();
+		player2->ReceiveMessage(getHitPoints2Msg);
+		m_shipStats[3] = getHitPoints2Msg.GetHitPoints();
+	}
 }
 
 void CHud::Render() {

@@ -1,0 +1,21 @@
+#ifndef _COMPONENT_PROJ_PARAMS_H
+#define _COMPONENT_PROJ_PARAMS_H
+
+#include "component.h"
+
+#include "types.h"
+
+class Sprite;
+
+class CCompProjParams: public CComponent {
+public:
+	CCompProjParams(CEntity * et);
+
+	virtual void ReceiveMessage(SMessage &msg);
+	virtual void Update(float elapsed);
+	void Render();
+private:
+	
+};
+
+#endif //!_COMPONENT_PROJ_PARAMS_H

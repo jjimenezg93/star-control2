@@ -1,5 +1,8 @@
+#include <assert.h>
+
 #include "../include/comp_shipparams.h"
 #include "../include/entity.h"
+#include "../include/entity_params.h"
 #include "../include/event.h"
 #include "../include/messages.h"
 #include "../../include/image.h"
@@ -7,12 +10,17 @@
 #include "../../include/sprite.h"
 
 CCompShipParams::CCompShipParams(CEntity * et, float linear, float angular,
-float energy, uint16 hitpoints):
-	CComponent(et), m_linearSpeed(linear), m_angularSpeed(angular),
-	m_energy(energy), m_hitPoints(hitpoints) {}
+float energy, uint16 hitpoints): CComponent(et), m_linearSpeed(linear), m_angularSpeed(angular),
+m_energy(energy), m_hitPoints(hitpoints) {
+	SetType(EC_SHIP_PARAMS);
+}
 
 void CCompShipParams::ReceiveMessage(SMessage &msg) {
-	if (msg.m_type == EMT_GET_HP) {
+	if (msg.m_type == EMT_GET_ENTITY_TYPE) {
+		SGetEntityTypeMsg &eTypeMsg = static_cast<SGetEntityTypeMsg &>(msg);
+		assert(!eTypeMsg.Modified() && "Entity type already modified");
+		eTypeMsg.SetType(EET_SHIP);
+	} else if (msg.m_type == EMT_GET_HP) {
 		 SGetHitPointsMsg &getHPMsg = reinterpret_cast<SGetHitPointsMsg &>(msg);
 		 getHPMsg.SetHitPoints(m_hitPoints);
 	} else if (msg.m_type == EMT_UPDATE_HP) {

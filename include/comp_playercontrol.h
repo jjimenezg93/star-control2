@@ -13,6 +13,7 @@ struct SMessage;
 class CCompPlayerControl: public CComponent {
 public:
 	CCompPlayerControl(CEntity * et);
+	~CCompPlayerControl();
 
 	virtual void ReceiveMessage(SMessage &msg);
 	virtual void Update(float elapsed);

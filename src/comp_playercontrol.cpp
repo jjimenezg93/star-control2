@@ -3,12 +3,19 @@
 #include "../include/comp_playercontrol.h"
 #include "../include/event.h"
 #include "../include/entity.h"
+#include "../include/inputmanager.h"
 #include "../include/messages.h"
 #include "../include/math.h"
 #include "../include/screen.h"
 
 CCompPlayerControl::CCompPlayerControl(CEntity * et): CComponent(et) {
 	SetType(EC_PLAYER_CONTROL);
+}
+
+CCompPlayerControl::~CCompPlayerControl() {
+	for (uint8 i = 0; i < sizeof(m_controls) / sizeof(m_controls[0]); ++i) {
+		CInputManager::Instance().Unregister(m_owner, EEC_KEYBOARD, m_controls[i]);
+	}
 }
 
 void CCompPlayerControl::ReceiveMessage(SMessage &msg) {

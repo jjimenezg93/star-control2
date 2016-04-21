@@ -1,6 +1,8 @@
 #include <iostream>
+#include <assert.h>
 
 #include "../include/entity.h"
+#include "../include/entity_params.h"
 #include "../include/defs.h"
 #include "../include/event.h"
 #include "../include/world.h"
@@ -12,11 +14,19 @@ CEntity::CEntity(EGameSide side, CWorld * world, bool renderable):
 	m_side(side), m_world(world), m_renderable(renderable) {}
 
 CEntity::~CEntity() {
+	
 	for (std::vector<CComponent *>::iterator it = m_components.begin();
 	it != m_components.end(); it++) {
 		delete *it;
 	}
 	m_components.clear();
+}
+
+EEntityType CEntity::GetType() {
+	SGetEntityTypeMsg getTypeMsg;
+	ReceiveMessage(getTypeMsg);
+	assert(getTypeMsg.Modified());
+	return getTypeMsg.GetType();
 }
 
 void CEntity::AddComponent(CComponent * comp) {
