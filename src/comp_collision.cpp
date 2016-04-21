@@ -9,6 +9,7 @@
 #include "../include/entity.h"
 #include "../include/entity_params.h"
 #include "../include/messages.h"
+#include "../include/resourcemanager.h"
 #include "../include/sprite.h"
 #include "../include/world.h"
 
@@ -33,6 +34,13 @@ void CCompCollision::ReceiveMessage(SMessage & msg) {
 				getWorldMsg.GetWorld()->DeleteEntity(isColMsg.GetOther());
 				getWorldMsg.GetWorld()->DeleteEntity(m_owner);
 				source->Play();
+
+				Image * explosionImg = ResourceManager::Instance().LoadImage(
+					"data/fx/explosion_spritesheet.png", 4, 4);
+				Sprite * explosionsprt = new Sprite(explosionImg);
+				explosionsprt->SetFPS(20);
+				CEntity * explosion; //add Sprite explosionSprt and add the entity to World
+				//getWorldMsg.GetWorld()->AddEntity()
 			} else if (m_owner->GetType() == EET_SHIP
 			&& isColMsg.GetOther()->GetType() == EET_PROJECTILE) {
 				std::cout << "SHIP - PROJECTILE" << std::endl;

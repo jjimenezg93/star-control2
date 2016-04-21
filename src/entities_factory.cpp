@@ -98,6 +98,8 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams * params) {
 		fclose(wFile);
 	} else if(params->GetType() == EET_PROJECTILE) {
 		AddComponents(et, params);
+	} else if (params->GetType() == EET_EXPLOSION) {
+
 	}
 
 	return et;

@@ -7,7 +7,8 @@ class Image;
 
 enum EEntityType {
 	EET_SHIP,
-	EET_PROJECTILE
+	EET_PROJECTILE,
+	EET_EXPLOSION
 };
 
 enum EGameSide {
@@ -52,6 +53,13 @@ private:
 	float m_linSpeed;
 	float m_rot;
 	uint16 m_damage;
+};
+
+struct SExplosionParams: public SEntityParams {
+	SExplosionParams(): SEntityParams(EET_EXPLOSION) {}
+
+private:
+	
 };
 
 #endif //!_S_ENTITY_PARAMS_H
