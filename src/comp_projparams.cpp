@@ -9,7 +9,7 @@
 #include "../../include/screen.h"
 #include "../../include/sprite.h"
 
-CCompProjParams::CCompProjParams(CEntity * et): CComponent(et) {
+CCompProjParams::CCompProjParams(CEntity * et, uint16 damage): CComponent(et), m_damage(damage) {
 	SetType(EC_PROJ_PARAMS);
 }
 
@@ -18,6 +18,10 @@ void CCompProjParams::ReceiveMessage(SMessage &msg) {
 		SGetEntityTypeMsg &eTypeMsg = static_cast<SGetEntityTypeMsg &>(msg);
 		assert(!eTypeMsg.Modified() && "Entity type already modified");
 		eTypeMsg.SetType(EET_PROJECTILE);
+	} else if (msg.m_type == EMT_GET_DAMAGE) {
+		SGetDamageMsg &getDmgMsg = static_cast<SGetDamageMsg &>(msg);
+		assert(!getDmgMsg.Modified() && "Projectile damage already modified");
+		getDmgMsg.SetDamage(m_damage);
 	}
 }
 

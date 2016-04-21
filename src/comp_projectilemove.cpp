@@ -29,9 +29,9 @@ void CCompProjectileMove::Update(float elapsed) {
 	}
 	float speed = 100.f;
 
-	SUpdatePosMsg updatePosMsg(DegCos(angle) * elapsed * speed, -DegSin(angle) * elapsed * speed);
+	SUpdatePosMsg updatePosMsg(static_cast<float>(DegCos(angle) * elapsed * speed),
+		static_cast<float>(-DegSin(angle) * elapsed * speed));
 	m_owner->ReceiveMessage(updatePosMsg);
-	//despawn when out of screen && ADD SPEED TO PROJECTILES
 	SGetPosMsg getPosMsg;
 	m_owner->ReceiveMessage(getPosMsg);
 	if(getPosMsg.GetX() > Screen::Instance().GetWidth() || getPosMsg.GetX() < 0 ||

@@ -8,9 +8,10 @@
 #include "../../include/image.h"
 #include "../../include/screen.h"
 #include "../../include/sprite.h"
+#include "../../include/world.h"
 
-CCompShipParams::CCompShipParams(CEntity * et, float linear, float angular,
-float energy, uint16 hitpoints): CComponent(et), m_linearSpeed(linear), m_angularSpeed(angular),
+CCompShipParams::CCompShipParams(CEntity * et, int16 linear, int16 angular,
+uint16 energy, uint16 hitpoints): CComponent(et), m_linearSpeed(linear), m_angularSpeed(angular),
 m_energy(energy), m_hitPoints(hitpoints) {
 	SetType(EC_SHIP_PARAMS);
 }
@@ -25,7 +26,12 @@ void CCompShipParams::ReceiveMessage(SMessage &msg) {
 		 getHPMsg.SetHitPoints(m_hitPoints);
 	} else if (msg.m_type == EMT_UPDATE_HP) {
 		SUpdateHitPointsMsg &updateHPMsg = reinterpret_cast<SUpdateHitPointsMsg &>(msg);
-		m_hitPoints += updateHPMsg.m_damage;
+		if (m_hitPoints + updateHPMsg.m_damage <= 0) {
+			SGetWorldMsg getWorldMsg;
+			m_owner->ReceiveMessage(getWorldMsg);
+			getWorldMsg.GetWorld()->DeleteEntity(m_owner);
+		} else
+			m_hitPoints += updateHPMsg.m_damage;
 	} else if (msg.m_type == EMT_GET_ENERGY) {
 		SGetEnergyMsg &getEnergyMsg = reinterpret_cast<SGetEnergyMsg &>(msg);
 		getEnergyMsg.SetEnergy(m_energy);

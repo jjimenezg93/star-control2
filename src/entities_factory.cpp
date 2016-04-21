@@ -149,9 +149,9 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 		const rapidjson::Value &parameters = ship.FindMember("parameters")->value;
 
 		//ship params
-		uint16 linearSpeed = static_cast<uint16>(parameters["linearSpeed"].GetInt());
-		uint16 angularSpeed = static_cast<uint16>(parameters["angularSpeed"].GetInt());
-		float energy = static_cast<float>(parameters["energy"].GetFloat());
+		int16 linearSpeed = static_cast<int16>(parameters["linearSpeed"].GetInt());
+		int16 angularSpeed = static_cast<int16>(parameters["angularSpeed"].GetInt());
+		uint16 energy = static_cast<uint16>(parameters["energy"].GetInt());
 		int16 hitpoints = static_cast<int16>(parameters["hitpoints"].GetInt());
 	
 		entity->AddComponent(new CCompShipParams(entity, linearSpeed, angularSpeed,
@@ -195,7 +195,7 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 			getLinSpeedMsg.GetLinSpeed(), getAngSpeedMsg.GetAngSpeed());
 		entity->AddComponent(projMoveComp);
 
-		CCompProjParams * projParamsComp = new CCompProjParams(entity);
+		CCompProjParams * projParamsComp = new CCompProjParams(entity, projParams->GetDamage());
 		entity->AddComponent(projParamsComp);
 
 		SSetRotMsg setRotMsg(projParams->GetRot());
@@ -225,10 +225,10 @@ uint8 id, rapidjson::Value::ConstMemberIterator &compIt) {
 	Image * img = ResourceManager::Instance().LoadImage(compIt->value["bulletImg"].GetString());
 	float cooldown = static_cast<float>(compIt->value["cooldown"].GetFloat());
 	uint16 energyConsumed = static_cast<uint16>(compIt->value["energyConsumed"].GetInt());
+	uint16 damage = static_cast<uint16>(compIt->value["damage"].GetInt());
 	CCompFusionBlaster * genComp = new CCompFusionBlaster(et,
-		img, id, energyConsumed,
-		cooldown);
-	if(!strcmp("fusionBlaster", compIt->value["name"].GetString())) {
+		img, id, energyConsumed, cooldown, damage);
+	/*if(!strcmp("fusionBlaster", compIt->value["name"].GetString())) {
 		Image * img = ResourceManager::Instance().LoadImage(compIt->value["bulletImg"].GetString());
 		CCompFusionBlaster * fusionComp = new CCompFusionBlaster(et,
 			img, id, static_cast<uint16>(compIt->value["energyConsumed"].GetInt()),
@@ -240,6 +240,6 @@ uint8 id, rapidjson::Value::ConstMemberIterator &compIt) {
 			img, id, static_cast<uint16>(compIt->value["energyConsumed"].GetInt()),
 			static_cast<uint8>(compIt->value["cooldown"].GetInt()));
 		return fusionComp;
-	}
+	}*/
 	return genComp;
 }

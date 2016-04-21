@@ -51,9 +51,7 @@ void CWorld::Update() {
 		(*itr)->Update(static_cast<float>(Screen::Instance().ElapsedTime()));
 		itr++;
 	}
-
 	CheckCollisions();
-
 	CleanVectors();
 }
 
@@ -88,7 +86,6 @@ void CWorld::CleanVectors() {
 		delete *itd;
 		itd = m_entitiesToDelete.erase(itd);
 	}
-	//m_entitiesToDelete.clear();
 }
 
 void CWorld::Render() {

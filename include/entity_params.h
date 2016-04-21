@@ -36,19 +36,22 @@ private:
 };
 
 struct SProjectileParams: public SEntityParams {
-	SProjectileParams(float x, float y, float linSpeed, float rot, EGameSide side, Image * img):
+	SProjectileParams(float x, float y, float linSpeed, float rot,
+		EGameSide side, Image * img, uint16 damage):
 		SEntityParams(EET_PROJECTILE, side), m_x(x), m_y(y),
-		m_linSpeed(linSpeed), m_rot(rot), m_image(img) {}
+		m_linSpeed(linSpeed), m_rot(rot), m_image(img), m_damage(damage) {}
 	Image * GetImage() const { return m_image; }
 	float GetX() const { return m_x; }
 	float GetY() const { return m_y; }
 	float GetLinSpeed() const { return m_linSpeed; }
 	float GetRot() const { return m_rot; }
+	uint16 GetDamage() const { return m_damage; }
 private:
 	Image * m_image;
 	float m_x, m_y;
 	float m_linSpeed;
 	float m_rot;
+	uint16 m_damage;
 };
 
 #endif //!_S_ENTITY_PARAMS_H

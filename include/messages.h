@@ -25,7 +25,7 @@ enum EMessageType {
 	EMT_GET_ANGULAR_SPEED,
 	EMT_SHOOT,
 	EMT_IS_COLLISION,
-	EMT_TAKE_DAMAGE,
+	EMT_GET_DAMAGE,
 	EMT_GET_ENTITY_TYPE
 };
 
@@ -125,8 +125,8 @@ private:
 };
 
 struct SUpdateHitPointsMsg: public SMessage {
-	SUpdateHitPointsMsg(uint16 dmg = 0): SMessage(EMT_UPDATE_HP), m_damage(dmg) {}
-	uint16 m_damage;
+	SUpdateHitPointsMsg(int16 dmg = 0): SMessage(EMT_UPDATE_HP), m_damage(dmg) {}
+	int16 m_damage;
 };
 
 struct SGetEnergyMsg: public SMessage {
@@ -143,27 +143,27 @@ private:
 };
 
 struct SUpdateEnergyMsg: public SMessage {
-	SUpdateEnergyMsg(int16 energy = 0): SMessage(EMT_UPDATE_ENERGY), m_energy(energy) {}
-	int16 m_energy;
+	SUpdateEnergyMsg(uint16 energy = 0): SMessage(EMT_UPDATE_ENERGY), m_energy(energy) {}
+	uint16 m_energy;
 };
 
 struct SGetLinSpeedMsg: public SMessage {
-	SGetLinSpeedMsg(): SMessage(EMT_GET_LINEAR_SPEED), m_linSpeed(0.f), m_modified(false) {}
-	void SetLinSpeed(float lSpeed) { m_linSpeed = lSpeed; m_modified = true; }
-	float GetLinSpeed() const { return m_linSpeed; }
+	SGetLinSpeedMsg(): SMessage(EMT_GET_LINEAR_SPEED), m_linSpeed(0), m_modified(false) {}
+	void SetLinSpeed(int16 lSpeed) { m_linSpeed = lSpeed; m_modified = true; }
+	int16 GetLinSpeed() const { return m_linSpeed; }
 	bool Modified() { return m_modified; }
 private:
-	float m_linSpeed;
+	int16 m_linSpeed;
 	bool m_modified;
 };
 
 struct SGetAngSpeedMsg: public SMessage {
-	SGetAngSpeedMsg(): SMessage(EMT_GET_ANGULAR_SPEED), m_angSpeed(0.f), m_modified(false) {}
-	void SetAngSpeed(float aSpeed) { m_angSpeed = aSpeed; m_modified = true; }
-	float GetAngSpeed() const { return m_angSpeed; }
+	SGetAngSpeedMsg(): SMessage(EMT_GET_ANGULAR_SPEED), m_angSpeed(0), m_modified(false) {}
+	void SetAngSpeed(int16 aSpeed) { m_angSpeed = aSpeed; m_modified = true; }
+	int16 GetAngSpeed() const { return m_angSpeed; }
 	bool Modified() { return m_modified; }
 private:
-	float m_angSpeed;
+	int16 m_angSpeed;
 	bool m_modified;
 };
 
@@ -190,11 +190,19 @@ private:
 	bool m_modified;
 };
 
-struct STakeDamageMsg: public SMessage {
-	STakeDamageMsg(float dmg): SMessage(EMT_TAKE_DAMAGE), m_damage(dmg) {}
-	float GetDamage() const { return m_damage; }
+struct SGetDamageMsg: public SMessage {
+	SGetDamageMsg(): SMessage(EMT_GET_DAMAGE), m_damage(0), m_modified(false) {}
+	void SetDamage(uint16 f) {
+		if (!m_modified) {
+			m_damage = f;
+			m_modified = true;
+		}
+	}
+	uint16 GetDamage() const { return m_damage; }
+	bool Modified() const { return m_modified; }
 private:
-	float m_damage;
+	uint16 m_damage;
+	bool m_modified;
 };
 
 struct SGetEntityTypeMsg: public SMessage {

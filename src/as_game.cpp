@@ -1,4 +1,5 @@
 #include "../include/as_game.h"
+#include "../include/audioengine.h"
 #include "../include/buttonui.h"
 #include "../include/controlui.h"
 #include "../include/defs.h"
@@ -16,6 +17,7 @@ ASGame::~ASGame() {
 	if (g_wantedState == ESC_EXIT_APP) {
 		ResourceManager::Instance().FreeResources();
 	}
+	AudioEngine::Instance().Finish();
 }
 
 void ASGame::Init() {
@@ -24,6 +26,7 @@ void ASGame::Init() {
 	CEntity * et2 = nullptr;
 	m_world.GetPlayers(et1, et2);
 	m_hud.Init(&m_world);
+	AudioEngine::Instance().Init();
 }
 
 void ASGame::ProcessInput() {

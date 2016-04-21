@@ -9,15 +9,17 @@
         "components" : {
             "primaryWeapon" : {
                 "name" : "fusionBlaster",
-		"bulletImg" : "data/weapons/blast.png",
+				"bulletImg" : "data/weapons/blast.png",
                 "energyConsumed" : 10,
-                "cooldown" : 1
+                "cooldown" : 1,
+				"damage" : 10
             },
             "secondaryWeapon" : {
                 "name" : "choppyBots",
-		"bulletImg" : "data/weapons/rocket.png",
+				"bulletImg" : "data/weapons/rocket.png",
                 "energyConsumed" : 25,
-                "cooldown" : 5
+                "cooldown" : 5,
+				"damage" : 10
             },
             "ai" : {
                 "name" : "dreadnoughtAI"
@@ -37,15 +39,17 @@
         "components" : {
             "primaryWeapon" : {
                 "name" : "rocket",
-		"bulletImg" : "data/weapons/blast.png",
+				"bulletImg" : "data/weapons/blast.png",
                 "energyConsumed" : 5,
-                "cooldown" : 0.5
+                "cooldown" : 0.5,
+				"damage" : 10
             },
             "secondaryWeapon" : {
                 "name" : "deathLaser",
-		"bulletImg" : "data/weapons/rocket.png",
+				"bulletImg" : "data/weapons/rocket.png",
                 "energyConsumed" : 30,
-                "cooldown" : 8
+                "cooldown" : 8,
+				"damage" : 10
             },
             "ai" : {
                 "name" : "avatarAI"
