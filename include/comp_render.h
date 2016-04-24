@@ -2,6 +2,7 @@
 #define _COMPONENT_RENDER_H
 
 #include "component.h"
+#include "types.h"
 
 class Sprite;
 struct SMessage;
@@ -9,7 +10,7 @@ struct SMessage;
 class CCompRender: public CComponent {
 public:
 	CCompRender(CEntity * et, Sprite * sprt);
-	CCompRender(CEntity * et, const char * imgFilename);
+	CCompRender(CEntity * et, const char * imgFilename, uint16 h = 1, uint16 v = 1);
 
 	Sprite * GetSprite() const { return m_sprite; }
 

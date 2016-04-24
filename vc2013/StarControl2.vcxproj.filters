@@ -342,6 +342,9 @@
     <ClInclude Include="..\include\comp_projparams.h">
       <Filter>Header Files\StarControl2</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\comp_explparams.h">
+      <Filter>Header Files\StarControl2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\affector.cpp">
@@ -528,6 +531,9 @@
       <Filter>Source Files\StarControl2</Filter>
     </ClCompile>
     <ClCompile Include="..\src\comp_projparams.cpp">
+      <Filter>Source Files\StarControl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\comp_explparams.cpp">
       <Filter>Source Files\StarControl2</Filter>
     </ClCompile>
   </ItemGroup>

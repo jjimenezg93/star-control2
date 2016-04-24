@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "../include/comp_collision.h"
+#include "../include/comp_explparams.h"
 #include "../include/comp_fusionblaster.h"
 #include "../include/comp_playercontrol.h"
 #include "../include/comp_projectilemove.h"
@@ -99,7 +100,7 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams * params) {
 	} else if(params->GetType() == EET_PROJECTILE) {
 		AddComponents(et, params);
 	} else if (params->GetType() == EET_EXPLOSION) {
-
+		AddComponents(et, params);
 	}
 
 	return et;
@@ -204,6 +205,34 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 		entity->ReceiveMessage(setRotMsg);
 		SSetPosMsg setPosMsg(projParams->GetX(), projParams->GetY());
 		entity->ReceiveMessage(setPosMsg);
+	} else if (params->GetType() == EET_EXPLOSION) {
+		const SExplosionParams * explParams = static_cast<const SExplosionParams *>(params);
+
+		const rapidjson::Value &explosion = m_doc[static_cast<const SExplosionParams *>
+			(params)->GetExplName().c_str()];
+
+		//ship params
+		Image * img = ResourceManager::Instance().LoadImage(explosion["image"].GetString(), 4, 4);
+		float lifeTime = static_cast<float>(explosion["lifetime"].GetFloat());
+		int16 fps = static_cast<int16>(explosion["fps"].GetInt());
+
+		Sprite * sprt = new Sprite(img);
+		sprt->SetFrameRange(0, 15);
+		CCompRender * renderComp = new CCompRender(entity, sprt);
+		entity->AddComponent(renderComp);
+
+		/*entity->AddComponent(new CCompTransform(entity,
+			explParams->GetX(), explParams->GetY(), explParams->GetRot()));*/
+		entity->AddComponent(new CCompTransform(entity, 200, 200, 0));
+
+		entity->AddComponent(new CCompExplParams(entity, fps, lifeTime));
+
+		SSetRotMsg setRotMsg(explParams->GetRot());
+		entity->ReceiveMessage(setRotMsg);
+		SSetPosMsg setPosMsg(explParams->GetX(), explParams->GetY());
+		entity->ReceiveMessage(setPosMsg);
+		SSetFPSMsg setFPSMsg(fps);
+		entity->ReceiveMessage(setFPSMsg);
 	}
 	CCompCollision * colComp = new CCompCollision(entity);
 	entity->AddComponent(colComp);

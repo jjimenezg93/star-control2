@@ -26,7 +26,8 @@ enum EMessageType {
 	EMT_SHOOT,
 	EMT_IS_COLLISION,
 	EMT_GET_DAMAGE,
-	EMT_GET_ENTITY_TYPE
+	EMT_GET_ENTITY_TYPE,
+	EMT_SET_FPS
 };
 
 struct SMessage {
@@ -218,6 +219,13 @@ struct SGetEntityTypeMsg: public SMessage {
 private:
 	bool m_modified;
 	EEntityType m_type;
+};
+
+struct SSetFPSMsg: public SMessage {
+	SSetFPSMsg(int16 fps): SMessage(EMT_SET_FPS), m_fps(fps) {}
+	int16 GetFPS() const { return m_fps; }
+private:
+	int16 m_fps;
 };
 
 #endif //!_MESSAGES_H

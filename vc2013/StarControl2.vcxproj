@@ -110,6 +110,7 @@
     <ClInclude Include="..\include\component.h" />
     <ClInclude Include="..\include\comp_choppythrower.h" />
     <ClInclude Include="..\include\comp_collision.h" />
+    <ClInclude Include="..\include\comp_explparams.h" />
     <ClInclude Include="..\include\comp_fusionblaster.h" />
     <ClInclude Include="..\include\comp_projectilemove.h" />
     <ClInclude Include="..\include\comp_projparams.h" />
@@ -208,6 +209,7 @@
     <ClCompile Include="..\src\collisionmanager.cpp" />
     <ClCompile Include="..\src\collisionpixeldata.cpp" />
     <ClCompile Include="..\src\comp_collision.cpp" />
+    <ClCompile Include="..\src\comp_explparams.cpp" />
     <ClCompile Include="..\src\comp_fusionblaster.cpp" />
     <ClCompile Include="..\src\comp_playercontrol.cpp" />
     <ClCompile Include="..\src\comp_projectilemove.cpp" />
