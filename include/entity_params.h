@@ -68,21 +68,4 @@ private:
 	float m_x, m_y, m_rot;
 };
 
-/*struct SExplosionParams: public SEntityParams {
-	SExplosionParams(Image * img, float x, float y,
-		float rot = 0.f, int16 fps = 20, float lifeTime = 5.f):
-			SEntityParams(EET_EXPLOSION), m_x(x), m_y(y), m_rot(rot),
-			m_fps(fps), m_lifeTime(lifeTime) {}
-	Image * GetImage() const { return m_image; }
-	int16 GetFps() const { return m_fps; }
-	float GetLifeTime() const { return m_lifeTime; }
-	float GetX() const { return m_x; }
-	float GetY() const { return m_y; }
-	float GetRot() const { return m_rot; }
-private:
-	Image * m_image;
-	int16 m_fps;
-	float m_x, m_y, m_rot; , m_lifeTime;
-};*/
-
 #endif //!_S_ENTITY_PARAMS_H

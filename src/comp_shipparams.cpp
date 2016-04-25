@@ -1,5 +1,7 @@
 #include <assert.h>
 
+#include "../include/audiobuffer.h"
+#include "../include/audiosource.h"
 #include "../include/comp_shipparams.h"
 #include "../include/entity.h"
 #include "../include/entity_params.h"
@@ -27,9 +29,23 @@ void CCompShipParams::ReceiveMessage(SMessage &msg) {
 	} else if (msg.m_type == EMT_UPDATE_HP) {
 		SUpdateHitPointsMsg &updateHPMsg = reinterpret_cast<SUpdateHitPointsMsg &>(msg);
 		if (m_hitPoints + updateHPMsg.m_damage <= 0) {
+			AudioBuffer * buffer = new AudioBuffer("data/sounds/explosion2.wav");
+			AudioSource * source = new AudioSource(buffer);
+
+			SGetPosMsg getPosMsg;
+			m_owner->ReceiveMessage(getPosMsg);
+			SGetRotMsg getRotMsg;
+			m_owner->ReceiveMessage(getRotMsg);
 			SGetWorldMsg getWorldMsg;
 			m_owner->ReceiveMessage(getWorldMsg);
+			assert(getWorldMsg.Modified());
 			getWorldMsg.GetWorld()->DeleteEntity(m_owner);
+
+			source->Play();
+			SExplosionParams * explParams = new SExplosionParams("explosion1", EGS_NEUTRAL,
+				getPosMsg.GetX(), getPosMsg.GetY(), getRotMsg.GetAngle());
+			getWorldMsg.GetWorld()->AddEntity(
+				getWorldMsg.GetWorld()->GetEntitiesFactory().SpawnEntity(explParams));
 		} else
 			m_hitPoints += updateHPMsg.m_damage;
 	} else if (msg.m_type == EMT_GET_ENERGY) {

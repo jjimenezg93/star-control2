@@ -37,6 +37,7 @@ private:
 	std::vector<CEntity *> m_entities;
 	std::vector<CEntity *> m_renderingEntities;
 	std::vector<CEntity *> m_entitiesToDelete;
+	std::vector<CEntity *> m_entitiesToAdd;
 
 	CEntitiesFactory m_entitiesFactory;
 };

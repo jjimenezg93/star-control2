@@ -61,7 +61,7 @@
     },
     "explosion1": {
         "image" : "data/fx/explosion_spritesheet.png",
-        "lifetime" : 5,
-        "fps" : 20 
+        "lifetime" : 1.5,
+        "fps" : 10 
     }
 }

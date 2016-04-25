@@ -17,7 +17,11 @@
 double genRandomF(double min, double max);
 
 CWorld::~CWorld() {
-	ResourceManager::Instance().FreeResources();
+	for (std::vector<CEntity *>::iterator itr = m_entities.begin(); itr != m_entities.end();
+	++itr) {
+		DeleteEntity(*itr);
+	}
+	CleanVectors(); //must be called manually since it's normally called from Update()
 }
 
 uint8 CWorld::Init() {
@@ -47,6 +51,7 @@ void CWorld::GetPlayers(CEntity * &et1, CEntity * &et2) {
 
 void CWorld::Update() {
 	std::vector<CEntity *>::iterator itr = m_entities.begin();
+	uint16 size = m_entities.size();
 	while (itr != m_entities.end()) {
 		(*itr)->Update(static_cast<float>(Screen::Instance().ElapsedTime()));
 		itr++;
@@ -86,6 +91,14 @@ void CWorld::CleanVectors() {
 		delete *itd;
 		itd = m_entitiesToDelete.erase(itd);
 	}
+	std::vector<CEntity *>::iterator ita = m_entitiesToAdd.begin();
+	while (ita != m_entitiesToAdd.end()) {
+		m_entities.push_back(*ita);
+		if ((*ita)->IsRenderable()) {
+			m_renderingEntities.push_back(*ita);
+		}
+		ita = m_entitiesToAdd.erase(ita);
+	}
 }
 
 void CWorld::Render() {
@@ -96,10 +109,11 @@ void CWorld::Render() {
 }
 
 void CWorld::AddEntity(CEntity * const et) {
-	m_entities.push_back(et);
+	m_entitiesToAdd.push_back(et);
+	/*m_entities.push_back(et);
 	if (et->IsRenderable()) {
 		m_renderingEntities.push_back(et);
-	}
+	}*/
 }
 
 void CWorld::DeleteEntity(CEntity * const et) {

@@ -8,6 +8,7 @@ struct SMessage;
 enum EComponent {
 	EC_SHIP_PARAMS,
 	EC_PROJ_PARAMS,
+	EC_EXPL_PARAMS,
 	EC_PLAYER_CONTROL,
 	EC_RENDER,
 	EC_TRANSFORM,

@@ -42,18 +42,10 @@ void CCompCollision::ReceiveMessage(SMessage & msg) {
 				getWorldMsg.GetWorld()->DeleteEntity(m_owner);
 				source->Play();
 
-				/*Image * explosionImg = ResourceManager::Instance().LoadImage(
-					"data/fx/explosion_spritesheet.png", 4, 4);
-				Sprite * explosionsprt = new Sprite(explosionImg);
-				explosionsprt->SetFPS(20);*/
-
-				//add Sprite explosionSprt and add the entity to World
-				//getWorldMsg.GetWorld()->AddEntity()
 				SExplosionParams * explParams = new SExplosionParams("explosion1", EGS_NEUTRAL,
 					getPosMsg.GetX(), getPosMsg.GetY(), getRotMsg.GetAngle());
 				getWorldMsg.GetWorld()->AddEntity(
 					getWorldMsg.GetWorld()->GetEntitiesFactory().SpawnEntity(explParams));
-
 			} else if (m_owner->GetType() == EET_SHIP
 			&& isColMsg.GetOther()->GetType() == EET_PROJECTILE) {
 				std::cout << "SHIP - PROJECTILE" << std::endl;
@@ -81,15 +73,11 @@ void CCompCollision::ReceiveMessage(SMessage & msg) {
 
 					SGetWorldMsg getWorldMsg;
 					isColMsg.GetOther()->ReceiveMessage(getWorldMsg);
-					getWorldMsg.GetWorld()->DeleteEntity(m_owner);
 					AudioBuffer * buffer = new AudioBuffer("data/sounds/explosion1.wav");
 					AudioSource * source = new AudioSource(buffer);
 					source->Play();
 				}
-			}/* else if (m_owner->GetType() == EET_PROJECTILE
-			&& isColMsg.GetOther()->GetType() == EET_PROJECTILE) {
-				std::cout << "PROJECTILE - PROJECTILE" << std::endl;
-			}*/
+			}
 		}
 	}
 }

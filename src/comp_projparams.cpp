@@ -9,8 +9,15 @@
 #include "../../include/screen.h"
 #include "../../include/sprite.h"
 
+#include "../include/comp_render.h"
+
 CCompProjParams::CCompProjParams(CEntity * et, uint16 damage): CComponent(et), m_damage(damage) {
 	SetType(EC_PROJ_PARAMS);
+	Sprite * sp = m_owner->GetRenderComp()->GetSprite();
+	if (strcmp(sp->GetImage()->GetFilename().ToCString(), "data/weapons/blast.png")
+		&& strcmp(sp->GetImage()->GetFilename().ToCString(), "data/weapons/rocket.png")) {
+		sp = sp;
+	}
 }
 
 void CCompProjParams::ReceiveMessage(SMessage &msg) {

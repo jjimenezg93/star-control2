@@ -31,10 +31,10 @@ void CCompFusionBlaster::ReceiveMessage(SMessage &msg) {
 			SGetEnergyMsg getEnergyMsg;
 			m_owner->ReceiveMessage(getEnergyMsg);
 			if(rotMsg.Modified() && getEnergyMsg.Modified() && getEnergyMsg.GetEnergy() > 0) {
-				std::cout << "weapon " << GetId() << " SHOOT!" << std::endl;
+				Image * img = GetImg();
 				world->AddEntity(world->GetEntitiesFactory().SpawnEntity(
 					new SProjectileParams(posMsg.GetX(), posMsg.GetY(), 20,
-						rotMsg.GetAngle(), m_owner->GetSide(), GetImg(), GetDamage())));
+						rotMsg.GetAngle(), m_owner->GetSide(), img, GetDamage())));
 				SUpdateEnergyMsg updateEnergyMsg(-GetEnergyConsumed());
 				m_owner->ReceiveMessage(updateEnergyMsg);
 				m_owner->ReceiveMessage(getEnergyMsg);

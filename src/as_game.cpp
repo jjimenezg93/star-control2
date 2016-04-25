@@ -14,9 +14,9 @@
 #include "../include/sprite.h"
 
 ASGame::~ASGame() {
-	if (g_wantedState == ESC_EXIT_APP) {
-		ResourceManager::Instance().FreeResources();
-	}
+	/*if (g_wantedState == ESC_EXIT_APP) {
+		//ResourceManager::Instance().FreeResources();
+	}*/
 	AudioEngine::Instance().Finish();
 }
 

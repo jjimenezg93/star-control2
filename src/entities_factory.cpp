@@ -98,6 +98,10 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams * params) {
 		}
 		fclose(wFile);
 	} else if(params->GetType() == EET_PROJECTILE) {
+		/*if (strcmp(reinterpret_cast<const SProjectileParams *>(params)->GetImage()->GetFilename().ToCString(),
+			"data/weapons/blast.png")) {
+			params = params;
+		}*/
 		AddComponents(et, params);
 	} else if (params->GetType() == EET_EXPLOSION) {
 		AddComponents(et, params);
@@ -213,6 +217,7 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 
 		//ship params
 		Image * img = ResourceManager::Instance().LoadImage(explosion["image"].GetString(), 4, 4);
+		img->SetMidHandle();
 		float lifeTime = static_cast<float>(explosion["lifetime"].GetFloat());
 		int16 fps = static_cast<int16>(explosion["fps"].GetInt());
 
@@ -221,9 +226,8 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 		CCompRender * renderComp = new CCompRender(entity, sprt);
 		entity->AddComponent(renderComp);
 
-		/*entity->AddComponent(new CCompTransform(entity,
-			explParams->GetX(), explParams->GetY(), explParams->GetRot()));*/
-		entity->AddComponent(new CCompTransform(entity, 200, 200, 0));
+		entity->AddComponent(new CCompTransform(entity,
+			explParams->GetX(), explParams->GetY(), explParams->GetRot()));
 
 		entity->AddComponent(new CCompExplParams(entity, fps, lifeTime));
 
