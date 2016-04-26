@@ -23,9 +23,11 @@ public:
 	uint8 Init();
 	uint8 Init(CWorld &world);
 
+	//World is responsible of deallocating entities
 	CEntity * SpawnEntity(const SEntityParams * params);
 
-	void DeleteEntity(const CEntity * const entity);
+	//would be used if entities pool is implemented
+	//void DeleteEntity(const CEntity * const entity);
 private:
 	void InitEntityControls(CEntity * const entity);
 	void AddComponents(CEntity * const entity, const SEntityParams * params);

@@ -98,10 +98,6 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams * params) {
 		}
 		fclose(wFile);
 	} else if(params->GetType() == EET_PROJECTILE) {
-		/*if (strcmp(reinterpret_cast<const SProjectileParams *>(params)->GetImage()->GetFilename().ToCString(),
-			"data/weapons/blast.png")) {
-			params = params;
-		}*/
 		AddComponents(et, params);
 	} else if (params->GetType() == EET_EXPLOSION) {
 		AddComponents(et, params);
@@ -110,9 +106,9 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams * params) {
 	return et;
 }
 
-void CEntitiesFactory::DeleteEntity(const CEntity * const entity) {
+/*void CEntitiesFactory::DeleteEntity(const CEntity * const entity) {
 	
-}
+}*/
 
 void CEntitiesFactory::InitEntityControls(CEntity * const entity) {
 	//controls

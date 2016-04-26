@@ -1,6 +1,9 @@
 #include "../include/comp_transform.h"
 #include "../include/event.h"
+#include "../include/entity.h"
+#include "../include/entity_params.h"
 #include "../include/messages.h"
+#include "../include/screen.h"
 
 CCompTransform::CCompTransform(CEntity * et): CComponent(et) {
 	SetType(EC_TRANSFORM);
@@ -22,9 +25,27 @@ void CCompTransform::ReceiveMessage(SMessage &msg) {
 		SUpdatePosMsg &moveMsg = reinterpret_cast<SUpdatePosMsg &>(msg);
 		m_x += moveMsg.m_offsetX;
 		m_y += moveMsg.m_offsetY;
+		if (m_owner->GetType() == EET_SHIP) {
+			if (m_x > Screen::Instance().GetWidth()) {
+				m_x = 0;
+			} else if (m_x < 0) {
+				m_x = Screen::Instance().GetWidth();
+			}
+
+			if (m_y > Screen::Instance().GetHeight()) {
+				m_y = 0;
+			} else if (m_y < 0) {
+				m_y = Screen::Instance().GetHeight();
+			}
+		}
+		SSetPosMsg setPosMsg(m_x, m_y);
+		m_owner->ReceiveMessage(setPosMsg);
 	} else if (msg.m_type == EMT_UPDATE_ROT) {
 		SUpdateRotMsg &rotMsg = reinterpret_cast<SUpdateRotMsg &>(msg);
 		m_rotation += rotMsg.m_offsetRot;
+
+		SSetRotMsg setRotMsg(m_rotation);
+		m_owner->ReceiveMessage(setRotMsg);
 	} else if (msg.m_type == EMT_SET_POS) {
 		SSetPosMsg &posMsg = reinterpret_cast<SSetPosMsg &>(msg);
 		m_x = posMsg.m_x;

@@ -73,6 +73,7 @@ void CCompCollision::ReceiveMessage(SMessage & msg) {
 
 					SGetWorldMsg getWorldMsg;
 					isColMsg.GetOther()->ReceiveMessage(getWorldMsg);
+					getWorldMsg.GetWorld()->DeleteEntity(m_owner);
 					AudioBuffer * buffer = new AudioBuffer("data/sounds/explosion1.wav");
 					AudioSource * source = new AudioSource(buffer);
 					source->Play();

@@ -51,7 +51,6 @@ void CWorld::GetPlayers(CEntity * &et1, CEntity * &et2) {
 
 void CWorld::Update() {
 	std::vector<CEntity *>::iterator itr = m_entities.begin();
-	uint16 size = m_entities.size();
 	while (itr != m_entities.end()) {
 		(*itr)->Update(static_cast<float>(Screen::Instance().ElapsedTime()));
 		itr++;
@@ -110,10 +109,6 @@ void CWorld::Render() {
 
 void CWorld::AddEntity(CEntity * const et) {
 	m_entitiesToAdd.push_back(et);
-	/*m_entities.push_back(et);
-	if (et->IsRenderable()) {
-		m_renderingEntities.push_back(et);
-	}*/
 }
 
 void CWorld::DeleteEntity(CEntity * const et) {
