@@ -1,12 +1,12 @@
-#ifndef _COMPONENT_EXPL_PARAMS_H
-#define _COMPONENT_EXPL_PARAMS_H
+#ifndef _COMPONENT_DECOY_PARAMS_H
+#define _COMPONENT_DECOY_PARAMS_H
 
 #include "component.h"
 #include "types.h"
 
-class CCompExplParams: public CComponent {
+class CCompDecoyParams: public CComponent {
 public:
-	CCompExplParams(CEntity * et, int16 fps, float lifeTime);
+	CCompDecoyParams(CEntity * et, float lifeTime);
 
 	virtual void ReceiveMessage(SMessage &msg);
 	virtual void Update(float elapsed);
@@ -17,4 +17,4 @@ private:
 	float m_currentTime;
 };
 
-#endif //!_COMPONENT_EXPL_PARAMS_H
+#endif //!_COMPONENT_DECOY_PARAMS_H

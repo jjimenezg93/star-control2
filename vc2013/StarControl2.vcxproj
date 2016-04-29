@@ -110,6 +110,7 @@
     <ClInclude Include="..\include\component.h" />
     <ClInclude Include="..\include\comp_choppythrower.h" />
     <ClInclude Include="..\include\comp_collision.h" />
+    <ClInclude Include="..\include\comp_decoyparams.h" />
     <ClInclude Include="..\include\comp_explparams.h" />
     <ClInclude Include="..\include\comp_fusionblaster.h" />
     <ClInclude Include="..\include\comp_projectilemove.h" />
@@ -117,6 +118,8 @@
     <ClInclude Include="..\include\comp_render.h" />
     <ClInclude Include="..\include\comp_shipparams.h" />
     <ClInclude Include="..\include\comp_playercontrol.h" />
+    <ClInclude Include="..\include\comp_tractor_beam.h" />
+    <ClInclude Include="..\include\comp_tractor_decoy.h" />
     <ClInclude Include="..\include\comp_transform.h" />
     <ClInclude Include="..\include\comp_weapon.h" />
     <ClInclude Include="..\include\controlmanagerui.h" />
@@ -209,6 +212,7 @@
     <ClCompile Include="..\src\collisionmanager.cpp" />
     <ClCompile Include="..\src\collisionpixeldata.cpp" />
     <ClCompile Include="..\src\comp_collision.cpp" />
+    <ClCompile Include="..\src\comp_decoyparams.cpp" />
     <ClCompile Include="..\src\comp_explparams.cpp" />
     <ClCompile Include="..\src\comp_fusionblaster.cpp" />
     <ClCompile Include="..\src\comp_playercontrol.cpp" />
@@ -216,6 +220,8 @@
     <ClCompile Include="..\src\comp_projparams.cpp" />
     <ClCompile Include="..\src\comp_render.cpp" />
     <ClCompile Include="..\src\comp_shipparams.cpp" />
+    <ClCompile Include="..\src\comp_tractor_beam.cpp" />
+    <ClCompile Include="..\src\comp_tractor_decoy.cpp" />
     <ClCompile Include="..\src\comp_transform.cpp" />
     <ClCompile Include="..\src\controlmanagerui.cpp" />
     <ClCompile Include="..\src\draggesture.cpp" />

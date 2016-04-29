@@ -15,10 +15,10 @@
 				"damage" : 10
             },
             "secondaryWeapon" : {
-                "name" : "choppyBots",
-				"bulletImg" : "data/weapons/rocket.png",
-                "energyConsumed" : 25,
-                "cooldown" : 5,
+                "name" : "fusionBlaster",
+				"bulletImg" : "data/weapons/blast.png",
+                "energyConsumed" : 5,
+                "cooldown" : 0.5,
 				"damage" : 10
             },
             "ai" : {
@@ -38,16 +38,17 @@
         },
         "components" : {
             "primaryWeapon" : {
-                "name" : "rocket",
+                "name" : "fusionBlaster",
 				"bulletImg" : "data/weapons/blast.png",
                 "energyConsumed" : 5,
                 "cooldown" : 0.5,
 				"damage" : 10
             },
             "secondaryWeapon" : {
-                "name" : "deathLaser",
-				"bulletImg" : "data/weapons/rocket.png",
-                "energyConsumed" : 30,
+                "name" : "tractorBeam",
+				"bulletImg" : "data/weapons/tractor_decoy.png",
+                "energyConsumed" : 40,
+                "lifetime" : 5,
                 "cooldown" : 8,
 				"damage" : 10
             },

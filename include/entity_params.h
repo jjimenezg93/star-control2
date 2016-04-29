@@ -8,6 +8,7 @@ class Image;
 enum EEntityType {
 	EET_SHIP,
 	EET_PROJECTILE,
+	EET_DECOY,
 	EET_EXPLOSION
 };
 
@@ -54,6 +55,24 @@ private:
 	float m_linSpeed;
 	float m_rot;
 	uint16 m_damage;
+};
+
+struct SDecoyParams: public SEntityParams {
+	SDecoyParams(EGameSide side, Image * img, float x, float y,
+		float rot, float lifeTime, uint16 damage):
+		SEntityParams(EET_DECOY, side),	m_image(img), m_x(x),
+		m_y(y), m_rot(rot), m_lifeTime(lifeTime), m_damage(damage) {}
+
+	Image * GetImg() const { return m_image; }
+	float GetX() const { return m_x; }
+	float GetY() const { return m_y; }
+	float GetRot() const { return m_rot; }
+	float GetLifeTime() const { return m_lifeTime; }
+	uint16 GetDamage() const { return m_damage; }
+private:
+	Image * m_image;
+	uint16 m_damage;
+	float m_x, m_y, m_rot, m_lifeTime;
 };
 
 struct SExplosionParams: public SEntityParams {

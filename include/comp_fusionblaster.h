@@ -6,7 +6,7 @@
 
 class Image;
 
-class CCompFusionBlaster : public CCompWeapon {
+class CCompFusionBlaster: public CCompWeapon {
 public:
 	CCompFusionBlaster(CEntity * const et, Image * img,
 		uint8 id, uint16 energyConsumed, float cooldown, uint16 damage);

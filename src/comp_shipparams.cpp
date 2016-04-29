@@ -65,7 +65,7 @@ void CCompShipParams::ReceiveMessage(SMessage &msg) {
 }
 
 void CCompShipParams::Update(float elapsed) {
-	
+	//charge energy over time
 }
 
 void CCompShipParams::Render() {

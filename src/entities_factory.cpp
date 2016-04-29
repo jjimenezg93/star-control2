@@ -9,6 +9,9 @@
 #include "../include/comp_shipparams.h"
 #include "../include/comp_projparams.h"
 #include "../include/comp_transform.h"
+#include "../include/comp_tractor_beam.h"
+#include "../include/comp_tractor_decoy.h"
+#include "../include/comp_decoyparams.h"
 #include "../include/defs.h"
 #include "../include/entities_factory.h"
 #include "../include/entity.h"
@@ -100,6 +103,8 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams * params) {
 	} else if(params->GetType() == EET_PROJECTILE) {
 		AddComponents(et, params);
 	} else if (params->GetType() == EET_EXPLOSION) {
+		AddComponents(et, params);
+	} else if (params->GetType() == EET_DECOY) {
 		AddComponents(et, params);
 	}
 
@@ -233,6 +238,24 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 		entity->ReceiveMessage(setPosMsg);
 		SSetFPSMsg setFPSMsg(fps);
 		entity->ReceiveMessage(setFPSMsg);
+	} else if (params->GetType() == EET_DECOY) {
+		const SDecoyParams * decoyParams = static_cast<const SDecoyParams *>(params);
+
+		Sprite * sprt = new Sprite(decoyParams->GetImg());
+		CCompRender * compRender = new CCompRender(entity, sprt);
+		entity->AddComponent(compRender);
+
+		CCompTransform * transfComp = new CCompTransform(entity, decoyParams->GetX(),
+			decoyParams->GetY(), decoyParams->GetRot());
+		entity->AddComponent(transfComp);
+
+		CCompDecoyParams * decoyComp = new CCompDecoyParams(entity, decoyParams->GetLifeTime());
+		entity->AddComponent(decoyComp);
+
+		SSetRotMsg setRotMsg(decoyParams->GetRot());
+		entity->ReceiveMessage(setRotMsg);
+		SSetPosMsg setPosMsg(decoyParams->GetX(), decoyParams->GetY());
+		entity->ReceiveMessage(setPosMsg);
 	}
 	CCompCollision * colComp = new CCompCollision(entity);
 	entity->AddComponent(colComp);
@@ -253,24 +276,26 @@ rapidjson::Value::ConstMemberIterator &compIt) {
 CComponent * CEntitiesFactory::CreateWeapon(CEntity * const et,
 uint8 id, rapidjson::Value::ConstMemberIterator &compIt) {
 	//parse weapon
-	Image * img = ResourceManager::Instance().LoadImage(compIt->value["bulletImg"].GetString());
+	/*Image * img = ResourceManager::Instance().LoadImage(compIt->value["bulletImg"].GetString());
 	float cooldown = static_cast<float>(compIt->value["cooldown"].GetFloat());
 	uint16 energyConsumed = static_cast<uint16>(compIt->value["energyConsumed"].GetInt());
 	uint16 damage = static_cast<uint16>(compIt->value["damage"].GetInt());
 	CCompFusionBlaster * genComp = new CCompFusionBlaster(et,
-		img, id, energyConsumed, cooldown, damage);
-	/*if(!strcmp("fusionBlaster", compIt->value["name"].GetString())) {
+		img, id, energyConsumed, cooldown, damage);*/
+	if(!strcmp("fusionBlaster", compIt->value["name"].GetString())) {
 		Image * img = ResourceManager::Instance().LoadImage(compIt->value["bulletImg"].GetString());
-		CCompFusionBlaster * fusionComp = new CCompFusionBlaster(et,
+		CCompFusionBlaster * fusionBlasterComp = new CCompFusionBlaster(et,
 			img, id, static_cast<uint16>(compIt->value["energyConsumed"].GetInt()),
-			static_cast<uint8>(compIt->value["cooldown"].GetInt()));
-		return fusionComp;
-	} else if(!strcmp("choppyBots", compIt->value["name"].GetString())) {
+			static_cast<float>(compIt->value["cooldown"].GetFloat()),
+			static_cast<uint16>(compIt->value["damage"].GetInt()));
+		return fusionBlasterComp;
+	} else if(!strcmp("tractorBeam", compIt->value["name"].GetString())) {
 		Image * img = ResourceManager::Instance().LoadImage(compIt->value["bulletImg"].GetString());
-		CCompFusionBlaster * fusionComp = new CCompFusionBlaster(et,
+		CCompTractorBeam * tractorComp = new CCompTractorBeam(et,
 			img, id, static_cast<uint16>(compIt->value["energyConsumed"].GetInt()),
-			static_cast<uint8>(compIt->value["cooldown"].GetInt()));
-		return fusionComp;
-	}*/
-	return genComp;
+			static_cast<float>(compIt->value["lifetime"].GetFloat()),
+			static_cast<float>(compIt->value["cooldown"].GetFloat()),
+			static_cast<uint16>(compIt->value["damage"].GetInt()));
+		return tractorComp;
+	} else return nullptr;
 }

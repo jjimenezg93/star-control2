@@ -11,7 +11,6 @@ class Image;
 struct SMessage;
 
 class CCompWeapon: public CComponent {
-public:
 protected:
 	CCompWeapon(CEntity * et, Image * img, uint8 id,
 		uint16 energyConsumed, float cooldown, uint16 damage):

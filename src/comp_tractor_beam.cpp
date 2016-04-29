@@ -2,7 +2,7 @@
 
 #include "../include/audiobuffer.h"
 #include "../include/audiosource.h"
-#include "../include/comp_fusionblaster.h"
+#include "../include/comp_tractor_beam.h"
 #include "../include/entity.h"
 #include "../include/entity_params.h"
 #include "../include/image.h"
@@ -10,17 +10,17 @@
 #include "../include/messages.h"
 #include "../include/world.h"
 
-CCompFusionBlaster::CCompFusionBlaster(CEntity * et, Image * img,
-	uint8 id, uint16 energyConsumed, float cooldown, uint16 damage): CCompWeapon(et, img, id,
-	energyConsumed, cooldown, damage) {
-	SetType(EC_FUSION_BLASTER);
+CCompTractorBeam::CCompTractorBeam(CEntity * et, Image * img,
+	uint8 id, uint16 energyConsumed, float lifeTime, float cooldown, uint16 damage):
+	CCompWeapon(et, img, id, energyConsumed, cooldown, damage), m_decoyLifeTime(lifeTime) {
+	SetType(EC_TRACTOR_BEAM);
 	m_lastShot = 0;
 }
 
-void CCompFusionBlaster::ReceiveMessage(SMessage &msg) {
+void CCompTractorBeam::ReceiveMessage(SMessage &msg) {
 	if (msg.m_type == EMT_SHOOT && m_lastShot >= GetCooldown()) {
 		SShootMsg &shootMsg = static_cast<SShootMsg &>(msg);
-		if(shootMsg.GetWeaponId() == GetId()) {
+		if (shootMsg.GetWeaponId() == GetId()) {
 			SGetWorldMsg worldMsg;
 			m_owner->ReceiveMessage(worldMsg);
 			CWorld * world = worldMsg.GetWorld();
@@ -30,12 +30,12 @@ void CCompFusionBlaster::ReceiveMessage(SMessage &msg) {
 			m_owner->ReceiveMessage(posMsg);
 			SGetEnergyMsg getEnergyMsg;
 			m_owner->ReceiveMessage(getEnergyMsg);
-			if(rotMsg.Modified() && getEnergyMsg.Modified() &&
+			if (rotMsg.Modified() && getEnergyMsg.Modified() &&
 				getEnergyMsg.GetEnergy() - GetEnergyConsumed() > 0) {
-				//Image * img = GetImg();
 				world->AddEntity(world->GetEntitiesFactory().SpawnEntity(
-					new SProjectileParams(posMsg.GetX(), posMsg.GetY(), 20,
-						rotMsg.GetAngle(), m_owner->GetSide(), GetImg(), GetDamage())));
+					new SDecoyParams(m_owner->GetSide(), GetImg(),
+						posMsg.GetX(), posMsg.GetY(), rotMsg.GetAngle(),
+						m_decoyLifeTime, GetDamage())));
 				SUpdateEnergyMsg updateEnergyMsg(-GetEnergyConsumed());
 				m_owner->ReceiveMessage(updateEnergyMsg);
 				//m_owner->ReceiveMessage(getEnergyMsg);
@@ -48,8 +48,8 @@ void CCompFusionBlaster::ReceiveMessage(SMessage &msg) {
 	}
 }
 
-void CCompFusionBlaster::Update(float elapsed) {
+void CCompTractorBeam::Update(float elapsed) {
 	m_lastShot += elapsed;
 }
 
-void CCompFusionBlaster::Render() {}
+void CCompTractorBeam::Render() {}
