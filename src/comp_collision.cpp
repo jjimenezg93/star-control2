@@ -78,6 +78,38 @@ void CCompCollision::ReceiveMessage(SMessage & msg) {
 					AudioSource * source = new AudioSource(buffer);
 					source->Play();
 				}
+			} else if (m_owner->GetType() == EET_SHIP
+			&& isColMsg.GetOther()->GetType() == EET_DECOY) {
+				std::cout << "SHIP - DECOY" << std::endl;
+				SGetDamageMsg getDmgMsg;
+				isColMsg.GetOther()->ReceiveMessage(getDmgMsg);
+				if (getDmgMsg.Modified()) {
+					SUpdateHitPointsMsg updateHPMsg(-getDmgMsg.GetDamage());
+					m_owner->ReceiveMessage(updateHPMsg);
+
+					SGetWorldMsg getWorldMsg;
+					m_owner->ReceiveMessage(getWorldMsg);
+					getWorldMsg.GetWorld()->DeleteEntity(isColMsg.GetOther());
+					AudioBuffer * buffer = new AudioBuffer("data/sounds/explosion1.wav");
+					AudioSource * source = new AudioSource(buffer);
+					source->Play();
+				}
+			} else if (m_owner->GetType() == EET_DECOY
+				&& isColMsg.GetOther()->GetType() == EET_SHIP) {
+				std::cout << "DECOY - SHIP" << std::endl;
+				SGetDamageMsg getDmgMsg;
+				m_owner->ReceiveMessage(getDmgMsg);
+				if (getDmgMsg.Modified()) {
+					SUpdateHitPointsMsg updateHPMsg(-getDmgMsg.GetDamage());
+					isColMsg.GetOther()->ReceiveMessage(updateHPMsg);
+
+					SGetWorldMsg getWorldMsg;
+					m_owner->ReceiveMessage(getWorldMsg);
+					getWorldMsg.GetWorld()->DeleteEntity(m_owner);
+					AudioBuffer * buffer = new AudioBuffer("data/sounds/explosion1.wav");
+					AudioSource * source = new AudioSource(buffer);
+					source->Play();
+				}
 			}
 		}
 	}

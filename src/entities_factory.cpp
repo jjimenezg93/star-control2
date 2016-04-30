@@ -160,10 +160,11 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 		int16 linearSpeed = static_cast<int16>(parameters["linearSpeed"].GetInt());
 		int16 angularSpeed = static_cast<int16>(parameters["angularSpeed"].GetInt());
 		uint16 energy = static_cast<uint16>(parameters["energy"].GetInt());
+		float energyChargeRate = static_cast<float>(parameters["energyChargeRate"].GetFloat());
 		int16 hitpoints = static_cast<int16>(parameters["hitpoints"].GetInt());
 	
 		entity->AddComponent(new CCompShipParams(entity, linearSpeed, angularSpeed,
-			energy, hitpoints));
+			energy, energyChargeRate, hitpoints));
 
 		//components
 		const rapidjson::Value &components = ship.FindMember("components")->value;
@@ -249,8 +250,13 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 			decoyParams->GetY(), decoyParams->GetRot());
 		entity->AddComponent(transfComp);
 
-		CCompDecoyParams * decoyComp = new CCompDecoyParams(entity, decoyParams->GetLifeTime());
+		CCompDecoyParams * decoyComp = new CCompDecoyParams(entity,
+			decoyParams->GetLifeTime(), decoyParams->GetDamage());
 		entity->AddComponent(decoyComp);
+
+		CCompTractorDecoy * tractorDecoyComp = new CCompTractorDecoy(entity,
+			decoyParams->GetLifeTime());
+		entity->AddComponent(tractorDecoyComp);
 
 		SSetRotMsg setRotMsg(decoyParams->GetRot());
 		entity->ReceiveMessage(setRotMsg);
@@ -275,13 +281,6 @@ rapidjson::Value::ConstMemberIterator &compIt) {
 
 CComponent * CEntitiesFactory::CreateWeapon(CEntity * const et,
 uint8 id, rapidjson::Value::ConstMemberIterator &compIt) {
-	//parse weapon
-	/*Image * img = ResourceManager::Instance().LoadImage(compIt->value["bulletImg"].GetString());
-	float cooldown = static_cast<float>(compIt->value["cooldown"].GetFloat());
-	uint16 energyConsumed = static_cast<uint16>(compIt->value["energyConsumed"].GetInt());
-	uint16 damage = static_cast<uint16>(compIt->value["damage"].GetInt());
-	CCompFusionBlaster * genComp = new CCompFusionBlaster(et,
-		img, id, energyConsumed, cooldown, damage);*/
 	if(!strcmp("fusionBlaster", compIt->value["name"].GetString())) {
 		Image * img = ResourceManager::Instance().LoadImage(compIt->value["bulletImg"].GetString());
 		CCompFusionBlaster * fusionBlasterComp = new CCompFusionBlaster(et,

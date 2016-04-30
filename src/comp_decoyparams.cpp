@@ -9,10 +9,10 @@
 #include "../include/resourcemanager.h"
 #include "../include/world.h"
 
-CCompDecoyParams::CCompDecoyParams(CEntity * et, float lifeTime):
-	CComponent(et), m_lifeTime(lifeTime) {
+CCompDecoyParams::CCompDecoyParams(CEntity * et, float lifeTime, float damage):
+	CComponent(et), m_lifeTime(lifeTime), m_damage(damage) {
 	m_currentTime = 0.f;
-	SetType(EC_EXPL_PARAMS);
+	SetType(EC_DECOY_PARAMS);
 }
 
 void CCompDecoyParams::ReceiveMessage(SMessage & msg) {
@@ -20,6 +20,9 @@ void CCompDecoyParams::ReceiveMessage(SMessage & msg) {
 		SGetEntityTypeMsg &eTypeMsg = static_cast<SGetEntityTypeMsg &>(msg);
 		assert(!eTypeMsg.Modified() && "Entity type already modified");
 		eTypeMsg.SetType(EET_DECOY);
+	} else if (msg.m_type == EMT_GET_DAMAGE) {
+		SGetDamageMsg &getDmgMsg = static_cast<SGetDamageMsg &>(msg);
+		getDmgMsg.SetDamage(m_damage);
 	}
 }
 

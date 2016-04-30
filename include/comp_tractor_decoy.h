@@ -16,6 +16,7 @@ public:
 
 private:
 	float m_decoyLifeTime;
+	CEntity * m_enemyShip;
 };
 
 #endif //!_COMP_TRACTOR_DECOY_H

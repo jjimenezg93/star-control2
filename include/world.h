@@ -19,6 +19,7 @@ public:
 	uint8 Init();
 
 	void GetPlayers(CEntity * &et1, CEntity * &et2);
+	CEntity * GetEnemyShip(EGameSide side) const;
 
 	void Update();
 	void Render();
@@ -40,6 +41,9 @@ private:
 	std::vector<CEntity *> m_entitiesToAdd;
 
 	CEntitiesFactory m_entitiesFactory;
+
+	bool m_gameIsFinished;
+	float m_endTime; //counter to finish the game
 };
 
 #endif //!_C_WORLD_H

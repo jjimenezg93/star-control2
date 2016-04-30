@@ -13,8 +13,9 @@
 #include "../../include/world.h"
 
 CCompShipParams::CCompShipParams(CEntity * et, int16 linear, int16 angular,
-uint16 energy, uint16 hitpoints): CComponent(et), m_linearSpeed(linear), m_angularSpeed(angular),
-m_energy(energy), m_hitPoints(hitpoints) {
+float energy, float energyChargeRate, uint16 hitpoints): CComponent(et), m_linearSpeed(linear),
+m_angularSpeed(angular), m_maxEnergy(energy), m_energy(energy),
+m_energyChargeRate(energyChargeRate), m_hitPoints(hitpoints) {
 	SetType(EC_SHIP_PARAMS);
 }
 
@@ -66,6 +67,12 @@ void CCompShipParams::ReceiveMessage(SMessage &msg) {
 
 void CCompShipParams::Update(float elapsed) {
 	//charge energy over time
+	if (m_energy < m_maxEnergy) {
+		m_energy += m_energyChargeRate * elapsed;
+	}
+	if (m_energy > m_maxEnergy) {
+		m_energy = m_maxEnergy;
+	}
 }
 
 void CCompShipParams::Render() {

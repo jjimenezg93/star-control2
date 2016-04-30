@@ -14,7 +14,6 @@ CEntity::CEntity(EGameSide side, CWorld * world, bool renderable):
 	m_side(side), m_world(world), m_renderable(renderable) {}
 
 CEntity::~CEntity() {
-	
 	for (std::vector<CComponent *>::iterator it = m_components.begin();
 	it != m_components.end(); it++) {
 		delete *it;

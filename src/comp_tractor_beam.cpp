@@ -38,7 +38,6 @@ void CCompTractorBeam::ReceiveMessage(SMessage &msg) {
 						m_decoyLifeTime, GetDamage())));
 				SUpdateEnergyMsg updateEnergyMsg(-GetEnergyConsumed());
 				m_owner->ReceiveMessage(updateEnergyMsg);
-				//m_owner->ReceiveMessage(getEnergyMsg);
 				m_lastShot = 0;
 				AudioBuffer * buffer = new AudioBuffer("data/sounds/fusion_blaster_shoot.wav");
 				AudioSource * shootAudio = new AudioSource(buffer);

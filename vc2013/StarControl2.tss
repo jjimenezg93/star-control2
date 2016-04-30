@@ -13,6 +13,33 @@
     <ArrayOfString>
       <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\entity.cpp</string>
     </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_collision.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_render.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_playercontrol.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_fusionblaster.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_tractor_beam.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_tractor_decoy.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_projectilemove.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_explparams.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_decoyparams.cpp</string>
+    </ArrayOfString>
   </ArrayOfArrayOfString>
   <ArrayOfArrayOfString>
     <ArrayOfString>
@@ -29,6 +56,33 @@
     </ArrayOfString>
     <ArrayOfString>
       <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\world.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\comp_collision.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\component.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\comp_tractor_decoy.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\comp_tractor_beam.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\comp_fusionblaster.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\comp_projectilemove.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\comp_weapon.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\comp_decoyparams.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\comp_explparams.h</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

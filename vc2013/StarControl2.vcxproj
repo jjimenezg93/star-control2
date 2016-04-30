@@ -89,6 +89,7 @@
     <ClInclude Include="..\include\affector.h" />
     <ClInclude Include="..\include\app_state.h" />
     <ClInclude Include="..\include\array.h" />
+    <ClInclude Include="..\include\as_end_game.h" />
     <ClInclude Include="..\include\as_game.h" />
     <ClInclude Include="..\include\as_game_conf_menu.h" />
     <ClInclude Include="..\include\as_start_menu.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="..\lib\stb_vorbis.c" />
     <ClCompile Include="..\src\affector.cpp" />
     <ClCompile Include="..\src\app_state.cpp" />
+    <ClCompile Include="..\src\as_end_game.cpp" />
     <ClCompile Include="..\src\as_game.cpp" />
     <ClCompile Include="..\src\as_game_conf_menu.cpp" />
     <ClCompile Include="..\src\as_start_menu.cpp" />

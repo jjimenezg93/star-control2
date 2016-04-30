@@ -4,6 +4,7 @@
             "linearSpeed" : 75,
             "angularSpeed" : 50,
             "energy" : 100,
+            "energyChargeRate" : 2,
             "hitpoints" : 150
         },
         "components" : {
@@ -34,6 +35,7 @@
             "linearSpeed" : 100,
             "angularSpeed" : 60,
             "energy" : 60,
+            "energyChargeRate" : 2,
             "hitpoints" : 80
         },
         "components" : {
@@ -50,7 +52,7 @@
                 "energyConsumed" : 40,
                 "lifetime" : 5,
                 "cooldown" : 8,
-				"damage" : 10
+				"damage" : 40
             },
             "ai" : {
                 "name" : "avatarAI"

@@ -6,7 +6,7 @@
 
 class CCompDecoyParams: public CComponent {
 public:
-	CCompDecoyParams(CEntity * et, float lifeTime);
+	CCompDecoyParams(CEntity * et, float lifeTime, float damage);
 
 	virtual void ReceiveMessage(SMessage &msg);
 	virtual void Update(float elapsed);
@@ -14,6 +14,7 @@ public:
 private:
 	int16 m_fps;
 	float m_lifeTime;
+	float m_damage;
 	float m_currentTime;
 };
 

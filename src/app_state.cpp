@@ -3,6 +3,7 @@
 #include "../include/app_state.h"
 #include "../include/as_start_menu.h"
 #include "../include/as_game_conf_menu.h"
+#include "../include/as_end_game.h"
 #include "../include/as_game.h"
 
 uint16 IAppState::m_currentFrames = 0;
@@ -24,7 +25,7 @@ IAppState * newAppState(EStarControlAS wanted) {
 		return new ASGame();
 		break;
 	case ESC_END_GAME:
-		return nullptr;
+		return new ASEndGameMenu();
 		break;
 	case ESC_EXIT_APP:
 		return nullptr;

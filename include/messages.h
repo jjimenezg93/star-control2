@@ -126,8 +126,8 @@ private:
 };
 
 struct SUpdateHitPointsMsg: public SMessage {
-	SUpdateHitPointsMsg(int16 dmg = 0): SMessage(EMT_UPDATE_HP), m_damage(dmg) {}
-	int16 m_damage;
+	SUpdateHitPointsMsg(float dmg = 0): SMessage(EMT_UPDATE_HP), m_damage(dmg) {}
+	float m_damage;
 };
 
 struct SGetEnergyMsg: public SMessage {
@@ -144,8 +144,8 @@ private:
 };
 
 struct SUpdateEnergyMsg: public SMessage {
-	SUpdateEnergyMsg(uint16 energy = 0): SMessage(EMT_UPDATE_ENERGY), m_energy(energy) {}
-	uint16 m_energy;
+	SUpdateEnergyMsg(float energy = 0): SMessage(EMT_UPDATE_ENERGY), m_energy(energy) {}
+	float m_energy;
 };
 
 struct SGetLinSpeedMsg: public SMessage {
