@@ -51,7 +51,7 @@ void CEntity::Update(float elapsed) {
 
 void CEntity::Render() {
 	if (m_renderable) {
-		reinterpret_cast<CCompRender *>(GetComponent(EC_RENDER))->Render();
+		m_renderComp->Render();
 	}
 }
 

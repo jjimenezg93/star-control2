@@ -13,6 +13,7 @@
 
 class CControlUI;
 class Font;
+class Image;
 class String;
 struct SEntityParams;
 
@@ -28,10 +29,14 @@ public:
 
 	virtual void ManageControlEvent(CControlUI * const sender);
 private:
+	Image * GetShipImage(std::string shipName);
+
 	CControlManagerUI m_controlManager;
 
-	String * m_text;
+	Image * m_winnerImg;
+
 	Font * m_font;
+	String * m_text;
 };
 
 #endif //!_AS_END_GAME_MENU_H

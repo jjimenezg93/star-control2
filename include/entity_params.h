@@ -9,6 +9,7 @@ enum EEntityType {
 	EET_SHIP,
 	EET_PROJECTILE,
 	EET_DECOY,
+	EET_BOT,
 	EET_EXPLOSION
 };
 
@@ -73,6 +74,25 @@ private:
 	Image * m_image;
 	uint16 m_damage;
 	float m_x, m_y, m_rot, m_lifeTime;
+};
+
+struct SBotParams: public SEntityParams {
+	SBotParams(EGameSide side, Image * img, float x, float y,
+		float lifeTime, uint16 damage, float speed):
+		SEntityParams(EET_BOT, side), m_image(img), m_x(x),
+		m_y(y), m_lifeTime(lifeTime), m_damage(damage), m_speed(speed) {
+	}
+
+	Image * GetImg() const { return m_image; }
+	float GetX() const { return m_x; }
+	float GetY() const { return m_y; }
+	float GetLifeTime() const { return m_lifeTime; }
+	float GetSpeed() const { return m_speed; }
+	uint16 GetDamage() const { return m_damage; }
+private:
+	Image * m_image;
+	uint16 m_damage;
+	float m_x, m_y, m_speed, m_lifeTime;
 };
 
 struct SExplosionParams: public SEntityParams {

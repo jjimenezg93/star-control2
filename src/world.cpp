@@ -13,7 +13,7 @@
 #include "../include/screen.h"
 
 #define BACKGROUND_IMG "data/game_background.jpg"
-#define FINISH_TIME 4.0f
+#define FINISH_TIME 2.5f
 
 double genRandomF(double min, double max);
 uint8 g_winner;
@@ -33,10 +33,6 @@ uint8 CWorld::Init() {
 	m_endTime = 0.f;
 
 	m_entitiesFactory.Init(*this); //should parse entities file and add them to this world
-
-	//after initializing the world, g_entitiesParams must be cleared in order to allow new games
-	//to work properly
-	//g_entitiesParams.clear();
 
 	return ret;
 }
@@ -75,7 +71,9 @@ void CWorld::Update() {
 		(*itr)->Update(static_cast<float>(Screen::Instance().ElapsedTime()));
 		itr++;
 	}
-	CheckCollisions();
+	if (!m_gameIsFinished) {
+		CheckCollisions();
+	}
 	CleanVectors();
 }
 
@@ -134,7 +132,7 @@ void CWorld::AddEntity(CEntity * const et) {
 void CWorld::DeleteEntity(CEntity * const et) {
 	if (!m_gameIsFinished && et->GetType() == EET_SHIP) {
 		m_gameIsFinished = true;
-		g_winner = GetEnemyShip(et->GetSide())->GetSide();
+		g_winner = GetEnemyShip(et->GetSide())->GetSide() - 1;
 	}
 	m_entitiesToDelete.push_back(et);
 }

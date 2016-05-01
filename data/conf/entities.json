@@ -16,11 +16,13 @@
 				"damage" : 10
             },
             "secondaryWeapon" : {
-                "name" : "fusionBlaster",
-				"bulletImg" : "data/weapons/blast.png",
+                "name" : "choppyThrower",
+				"bulletImg" : "data/weapons/choppy_bot_spritesheet.png",
                 "energyConsumed" : 5,
-                "cooldown" : 0.5,
-				"damage" : 10
+                "lifetime" : 15,
+                "speed" : 10,
+                "cooldown" : 1,
+				"damage" : 50
             },
             "ai" : {
                 "name" : "dreadnoughtAI"

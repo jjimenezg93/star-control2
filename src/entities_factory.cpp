@@ -12,6 +12,9 @@
 #include "../include/comp_tractor_beam.h"
 #include "../include/comp_tractor_decoy.h"
 #include "../include/comp_decoyparams.h"
+#include "../include/comp_choppythrower.h"
+#include "../include/comp_botparams.h"
+#include "../include/comp_ai_bot.h"
 #include "../include/defs.h"
 #include "../include/entities_factory.h"
 #include "../include/entity.h"
@@ -105,6 +108,8 @@ CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams * params) {
 	} else if (params->GetType() == EET_EXPLOSION) {
 		AddComponents(et, params);
 	} else if (params->GetType() == EET_DECOY) {
+		AddComponents(et, params);
+	} else if (params->GetType() == EET_BOT) {
 		AddComponents(et, params);
 	}
 
@@ -262,6 +267,29 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 		entity->ReceiveMessage(setRotMsg);
 		SSetPosMsg setPosMsg(decoyParams->GetX(), decoyParams->GetY());
 		entity->ReceiveMessage(setPosMsg);
+	} else if (params->GetType() == EET_BOT) {
+		const SBotParams * botParams = static_cast<const SBotParams *>(params);
+
+		Sprite * sprt = new Sprite(botParams->GetImg());
+		CCompRender * compRender = new CCompRender(entity, sprt);
+		compRender->ReceiveMessage(SSetFPSMsg(20));
+		entity->AddComponent(compRender);
+
+		CCompTransform * transfComp = new CCompTransform(entity, botParams->GetX(),
+			botParams->GetY(), 0.f);
+		entity->AddComponent(transfComp);
+
+		CCompBotParams * botParamsComp = new CCompBotParams(entity,
+			botParams->GetLifeTime(), botParams->GetDamage(), botParams->GetSpeed());
+		entity->AddComponent(botParamsComp);
+
+		CCompAIBot * botAIComp = new CCompAIBot(entity, botParams->GetLifeTime());
+		entity->AddComponent(botAIComp);
+
+		SSetRotMsg setRotMsg(0.f);
+		entity->ReceiveMessage(setRotMsg);
+		SSetPosMsg setPosMsg(botParams->GetX(), botParams->GetY());
+		entity->ReceiveMessage(setPosMsg);
 	}
 	CCompCollision * colComp = new CCompCollision(entity);
 	entity->AddComponent(colComp);
@@ -296,5 +324,15 @@ uint8 id, rapidjson::Value::ConstMemberIterator &compIt) {
 			static_cast<float>(compIt->value["cooldown"].GetFloat()),
 			static_cast<uint16>(compIt->value["damage"].GetInt()));
 		return tractorComp;
+	} else if (!strcmp("choppyThrower", compIt->value["name"].GetString())) {
+		Image * img = ResourceManager::Instance().LoadImage(
+			compIt->value["bulletImg"].GetString(), 8, 8);
+		CCompChoppyThrower * choppyComp = new CCompChoppyThrower(et,
+			img, id, static_cast<uint16>(compIt->value["energyConsumed"].GetInt()),
+			static_cast<float>(compIt->value["lifetime"].GetFloat()),
+			static_cast<float>(compIt->value["cooldown"].GetFloat()),
+			static_cast<float>(compIt->value["speed"].GetFloat()),
+			static_cast<uint16>(compIt->value["damage"].GetInt()));
+		return choppyComp;
 	} else return nullptr;
 }

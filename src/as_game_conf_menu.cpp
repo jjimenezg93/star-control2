@@ -27,6 +27,8 @@ ASGameConfMenu::~ASGameConfMenu() {
 }
 
 void ASGameConfMenu::Init() {
+	g_entitiesParams.clear(); //has to be cleared to avoid instantiation of previous ships
+
 	String str; //used to send all str's by reference, then copied inside
 	m_text = new String("IA (Y/N)");
 	m_font = ResourceManager::Instance().LoadFont(FONT_FILENAME);

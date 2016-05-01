@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <string>
+#include <vector>
 
 #include "../include/as_end_game.h"
 #include "../include/buttonui.h"
@@ -18,9 +19,6 @@
 #include "../include/string.h"
 #include "../include/windowui.h"
 
-//std::vector<SEntityParams *> g_entitiesParams;
-String * winner;
-
 ASEndGameMenu::~ASEndGameMenu() {
 	if (g_wantedState == ESC_EXIT_APP) {
 		ResourceManager::Instance().FreeResources();
@@ -29,10 +27,12 @@ ASEndGameMenu::~ASEndGameMenu() {
 
 void ASEndGameMenu::Init() {
 	String str; //used to send all str's by reference, then copied inside
-	//g_entitiesParams.at(g_winner)->GetSide() - 1
-	winner = new String("1");
+
 	m_text = new String(" WINNER: ");
 	m_font = ResourceManager::Instance().LoadFont(FONT_FILENAME);
+	
+	m_winnerImg = GetShipImage(
+		(static_cast<SShipParams *>(g_entitiesParams.at(g_winner)))->GetShipName());
 
 	Image * defaultButtonImg = ResourceManager::Instance().LoadImage(BUTTON_DEFAULT_IMG);
 	defaultButtonImg->SetMidHandle();
@@ -82,7 +82,7 @@ void ASEndGameMenu::Init() {
 	m_controlManager.AddControl(windowCenter);
 
 	CButtonUI * playButton = new CButtonUI();
-	playButton->Init(screenWidth / 2, screenHeight / 2 - 50,
+	playButton->Init(screenWidth / 2, screenHeight / 2 - 100,
 		defaultButtonImg, onclickButtonImg, inactiveButtonImg);
 	playButton->SetId(0);
 	str = "Play again";
@@ -91,7 +91,7 @@ void ASEndGameMenu::Init() {
 	m_controlManager.AddControl(playButton);
 
 	CButtonUI * exitButton = new CButtonUI();
-	exitButton->Init(screenWidth / 2, (screenHeight / 2) + 50,
+	exitButton->Init(screenWidth / 2, (screenHeight / 2) + 100,
 		defaultButtonImg, onclickButtonImg, inactiveButtonImg);
 	exitButton->SetId(1);
 	str = "Exit";
@@ -115,10 +115,11 @@ void ASEndGameMenu::Render() {
 	m_controlManager.Render();
 
 	Renderer::Instance().DrawText(m_font, *m_text,
-		Screen::Instance().GetWidth() / 5 - m_font->GetTextWidth(*m_text) / 2,
-		Screen::Instance().GetHeight() / 2);
-	Renderer::Instance().DrawText(m_font, *winner,
-		Screen::Instance().GetWidth() / 5 * 4 - m_font->GetTextWidth(*m_text) / 2,
+		Screen::Instance().GetWidth() / 2 - m_font->GetTextWidth(*m_text) / 2,
+		Screen::Instance().GetHeight() / 2 - m_font->GetTextHeight(*m_text) / 2 - 50);
+
+	Renderer::Instance().DrawImage(m_winnerImg,
+		Screen::Instance().GetWidth() / 2,
 		Screen::Instance().GetHeight() / 2);
 
 	Screen::Instance().Refresh();
@@ -136,4 +137,10 @@ void ASEndGameMenu::ManageControlEvent(CControlUI * const sender) {
 	default:
 		break;
 	}
+}
+
+Image * ASEndGameMenu::GetShipImage(std::string shipName) {
+	std::string str("data/");
+	str += shipName + "/" + shipName + "_ship.png"; //image path has to be constructed
+	return ResourceManager::Instance().LoadImage(str.c_str(), 1, 1);
 }

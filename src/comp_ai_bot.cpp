@@ -2,7 +2,7 @@
 
 #include "../include/audiobuffer.h"
 #include "../include/audiosource.h"
-#include "../include/comp_tractor_decoy.h"
+#include "../include/comp_ai_bot.h"
 #include "../include/entity.h"
 #include "../include/entity_params.h"
 #include "../include/image.h"
@@ -10,11 +10,9 @@
 #include "../include/messages.h"
 #include "../include/world.h"
 
-const float attractionFactor = 50.f;
-
-CCompTractorDecoy::CCompTractorDecoy(CEntity * et, float decoyLifeTime):
-	CComponent(et), m_decoyLifeTime(decoyLifeTime) {
-	SetType(EC_COMP_TRACTOR_DECOY);
+CCompAIBot::CCompAIBot(CEntity * et, float LifeTime):
+	CComponent(et), m_lifeTime(LifeTime) {
+	SetType(EC_COMP_CHOPPY_BOT);
 
 	SGetWorldMsg getWorldMsg;
 	m_owner->ReceiveMessage(getWorldMsg);
@@ -22,11 +20,11 @@ CCompTractorDecoy::CCompTractorDecoy(CEntity * et, float decoyLifeTime):
 	m_enemyShip = getWorldMsg.GetWorld()->GetEnemyShip(m_owner->GetSide());
 }
 
-void CCompTractorDecoy::ReceiveMessage(SMessage &msg) {
-	
+void CCompAIBot::ReceiveMessage(SMessage &msg) {
+
 }
 
-void CCompTractorDecoy::Update(float elapsed) {
+void CCompAIBot::Update(float elapsed) {
 	SGetPosMsg getEnemyPosMsg;
 	m_enemyShip->ReceiveMessage(getEnemyPosMsg);
 	if (getEnemyPosMsg.Modified()) {
@@ -46,8 +44,12 @@ void CCompTractorDecoy::Update(float elapsed) {
 			y = 1;
 		}
 
-		SUpdatePosMsg updatePosMsg(-elapsed * attractionFactor * x,
-			-elapsed * attractionFactor * y);
-		m_enemyShip->ReceiveMessage(updatePosMsg);
+		SGetLinSpeedMsg getLinSpeedMsg;
+		m_owner->ReceiveMessage(getLinSpeedMsg);
+		assert(getLinSpeedMsg.Modified());
+
+		SUpdatePosMsg updatePosMsg(elapsed * getLinSpeedMsg.GetLinSpeed() * x,
+			elapsed * getLinSpeedMsg.GetLinSpeed() * y);
+		m_owner->ReceiveMessage(updatePosMsg);
 	}
 }
