@@ -10,8 +10,6 @@
 #include "../include/messages.h"
 #include "../include/world.h"
 
-const float attractionFactor = 50.f;
-
 CCompTractorDecoy::CCompTractorDecoy(CEntity * et, float decoyLifeTime):
 	CComponent(et), m_decoyLifeTime(decoyLifeTime) {
 	SetType(EC_COMP_TRACTOR_DECOY);
@@ -27,27 +25,37 @@ void CCompTractorDecoy::ReceiveMessage(SMessage &msg) {
 }
 
 void CCompTractorDecoy::Update(float elapsed) {
-	SGetPosMsg getEnemyPosMsg;
-	m_enemyShip->ReceiveMessage(getEnemyPosMsg);
-	if (getEnemyPosMsg.Modified()) {
-		SGetPosMsg getOwnPosMsg;
-		m_owner->ReceiveMessage(getOwnPosMsg);
-		assert(getOwnPosMsg.Modified());
+	SGetWorldMsg getWorldMsg;
+	m_owner->ReceiveMessage(getWorldMsg);
+	assert(getWorldMsg.Modified());
+	m_enemyShip = getWorldMsg.GetWorld()->GetEnemyShip(m_owner->GetSide());
 
-		int16 x, y;
-		if (getEnemyPosMsg.GetX() - getOwnPosMsg.GetX() < 0) {
-			x = -1;
-		} else {
-			x = 1;
-		}
-		if (getEnemyPosMsg.GetY() - getOwnPosMsg.GetY() < 0) {
-			y = -1;
-		} else {
-			y = 1;
-		}
+	if (m_enemyShip) {
+		SGetPosMsg getEnemyPosMsg;
+		m_enemyShip->ReceiveMessage(getEnemyPosMsg);
+		if (getEnemyPosMsg.Modified()) {
+			SGetPosMsg getOwnPosMsg;
+			m_owner->ReceiveMessage(getOwnPosMsg);
+			assert(getOwnPosMsg.Modified());
 
-		SUpdatePosMsg updatePosMsg(-elapsed * attractionFactor * x,
-			-elapsed * attractionFactor * y);
-		m_enemyShip->ReceiveMessage(updatePosMsg);
+			int16 x, y;
+			if (getEnemyPosMsg.GetX() - getOwnPosMsg.GetX() < 0) {
+				x = -1;
+			} else {
+				x = 1;
+			}
+			if (getEnemyPosMsg.GetY() - getOwnPosMsg.GetY() < 0) {
+				y = -1;
+			} else {
+				y = 1;
+			}
+
+			SGetAttractFactorMsg getAttractFactor;
+			m_owner->ReceiveMessage(getAttractFactor);
+
+			SUpdatePosMsg updatePosMsg(-elapsed * getAttractFactor.GetFactor() * x,
+				-elapsed * getAttractFactor.GetFactor() * y);
+			m_enemyShip->ReceiveMessage(updatePosMsg);
+		}
 	}
 }

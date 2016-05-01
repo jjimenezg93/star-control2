@@ -60,9 +60,9 @@ private:
 
 struct SDecoyParams: public SEntityParams {
 	SDecoyParams(EGameSide side, Image * img, float x, float y,
-		float rot, float lifeTime, uint16 damage):
-		SEntityParams(EET_DECOY, side),	m_image(img), m_x(x),
-		m_y(y), m_rot(rot), m_lifeTime(lifeTime), m_damage(damage) {}
+		float rot, float lifeTime, uint16 damage, float attractFactor):
+		SEntityParams(EET_DECOY, side),	m_image(img), m_x(x), m_y(y), m_rot(rot),
+		m_lifeTime(lifeTime), m_damage(damage), m_attractFactor(attractFactor) {}
 
 	Image * GetImg() const { return m_image; }
 	float GetX() const { return m_x; }
@@ -70,10 +70,11 @@ struct SDecoyParams: public SEntityParams {
 	float GetRot() const { return m_rot; }
 	float GetLifeTime() const { return m_lifeTime; }
 	uint16 GetDamage() const { return m_damage; }
+	float GetAttractFactor() const { return m_attractFactor; }
 private:
 	Image * m_image;
 	uint16 m_damage;
-	float m_x, m_y, m_rot, m_lifeTime;
+	float m_x, m_y, m_rot, m_lifeTime, m_attractFactor;
 };
 
 struct SBotParams: public SEntityParams {

@@ -27,7 +27,8 @@ enum EMessageType {
 	EMT_IS_COLLISION,
 	EMT_GET_DAMAGE,
 	EMT_GET_ENTITY_TYPE,
-	EMT_SET_FPS
+	EMT_SET_FPS,
+	EMT_GET_ATTRACT_FACTOR
 };
 
 struct SMessage {
@@ -226,6 +227,21 @@ struct SSetFPSMsg: public SMessage {
 	int16 GetFPS() const { return m_fps; }
 private:
 	int16 m_fps;
+};
+
+struct SGetAttractFactorMsg: public SMessage {
+	SGetAttractFactorMsg(): SMessage(EMT_GET_ATTRACT_FACTOR), m_factor(0), m_modified(false) {}
+	void SetAttractFactor(float f) {
+		if (!m_modified) {
+			m_factor = f;
+			m_modified = true;
+		}
+	}
+	float GetFactor() const { return m_factor; }
+	bool Modified() const { return m_modified; }
+private:
+	float m_factor;
+	bool m_modified;
 };
 
 #endif //!_MESSAGES_H

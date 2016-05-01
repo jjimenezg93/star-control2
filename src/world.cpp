@@ -57,6 +57,7 @@ CEntity * CWorld::GetEnemyShip(EGameSide side) const {
 			return *itr;
 		++itr;
 	}
+	return nullptr;
 }
 
 void CWorld::Update() {

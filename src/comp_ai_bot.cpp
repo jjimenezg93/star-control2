@@ -25,31 +25,38 @@ void CCompAIBot::ReceiveMessage(SMessage &msg) {
 }
 
 void CCompAIBot::Update(float elapsed) {
-	SGetPosMsg getEnemyPosMsg;
-	m_enemyShip->ReceiveMessage(getEnemyPosMsg);
-	if (getEnemyPosMsg.Modified()) {
-		SGetPosMsg getOwnPosMsg;
-		m_owner->ReceiveMessage(getOwnPosMsg);
-		assert(getOwnPosMsg.Modified());
+	SGetWorldMsg getWorldMsg;
+	m_owner->ReceiveMessage(getWorldMsg);
+	assert(getWorldMsg.Modified());
+	m_enemyShip = getWorldMsg.GetWorld()->GetEnemyShip(m_owner->GetSide());
 
-		int16 x, y;
-		if (getEnemyPosMsg.GetX() - getOwnPosMsg.GetX() < 0) {
-			x = -1;
-		} else {
-			x = 1;
+	if (m_enemyShip) {
+		SGetPosMsg getEnemyPosMsg;
+		m_enemyShip->ReceiveMessage(getEnemyPosMsg);
+		if (getEnemyPosMsg.Modified()) {
+			SGetPosMsg getOwnPosMsg;
+			m_owner->ReceiveMessage(getOwnPosMsg);
+			assert(getOwnPosMsg.Modified());
+
+			int16 x, y;
+			if (getEnemyPosMsg.GetX() - getOwnPosMsg.GetX() < 0) {
+				x = -1;
+			} else {
+				x = 1;
+			}
+			if (getEnemyPosMsg.GetY() - getOwnPosMsg.GetY() < 0) {
+				y = -1;
+			} else {
+				y = 1;
+			}
+
+			SGetLinSpeedMsg getLinSpeedMsg;
+			m_owner->ReceiveMessage(getLinSpeedMsg);
+			assert(getLinSpeedMsg.Modified());
+
+			SUpdatePosMsg updatePosMsg(elapsed * getLinSpeedMsg.GetLinSpeed() * x,
+				elapsed * getLinSpeedMsg.GetLinSpeed() * y);
+			m_owner->ReceiveMessage(updatePosMsg);
 		}
-		if (getEnemyPosMsg.GetY() - getOwnPosMsg.GetY() < 0) {
-			y = -1;
-		} else {
-			y = 1;
-		}
-
-		SGetLinSpeedMsg getLinSpeedMsg;
-		m_owner->ReceiveMessage(getLinSpeedMsg);
-		assert(getLinSpeedMsg.Modified());
-
-		SUpdatePosMsg updatePosMsg(elapsed * getLinSpeedMsg.GetLinSpeed() * x,
-			elapsed * getLinSpeedMsg.GetLinSpeed() * y);
-		m_owner->ReceiveMessage(updatePosMsg);
 	}
 }

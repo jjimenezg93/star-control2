@@ -255,8 +255,8 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 			decoyParams->GetY(), decoyParams->GetRot());
 		entity->AddComponent(transfComp);
 
-		CCompDecoyParams * decoyComp = new CCompDecoyParams(entity,
-			decoyParams->GetLifeTime(), decoyParams->GetDamage());
+		CCompDecoyParams * decoyComp = new CCompDecoyParams(entity,	decoyParams->GetLifeTime(),
+			decoyParams->GetDamage(), decoyParams->GetAttractFactor());
 		entity->AddComponent(decoyComp);
 
 		CCompTractorDecoy * tractorDecoyComp = new CCompTractorDecoy(entity,
@@ -272,8 +272,8 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 
 		Sprite * sprt = new Sprite(botParams->GetImg());
 		CCompRender * compRender = new CCompRender(entity, sprt);
-		compRender->ReceiveMessage(SSetFPSMsg(20));
 		entity->AddComponent(compRender);
+		compRender->ReceiveMessage(SSetFPSMsg(20));
 
 		CCompTransform * transfComp = new CCompTransform(entity, botParams->GetX(),
 			botParams->GetY(), 0.f);
@@ -322,7 +322,8 @@ uint8 id, rapidjson::Value::ConstMemberIterator &compIt) {
 			img, id, static_cast<uint16>(compIt->value["energyConsumed"].GetInt()),
 			static_cast<float>(compIt->value["lifetime"].GetFloat()),
 			static_cast<float>(compIt->value["cooldown"].GetFloat()),
-			static_cast<uint16>(compIt->value["damage"].GetInt()));
+			static_cast<uint16>(compIt->value["damage"].GetInt()),
+			static_cast<float>(compIt->value["attractFactor"].GetFloat()));
 		return tractorComp;
 	} else if (!strcmp("choppyThrower", compIt->value["name"].GetString())) {
 		Image * img = ResourceManager::Instance().LoadImage(
@@ -331,8 +332,8 @@ uint8 id, rapidjson::Value::ConstMemberIterator &compIt) {
 			img, id, static_cast<uint16>(compIt->value["energyConsumed"].GetInt()),
 			static_cast<float>(compIt->value["lifetime"].GetFloat()),
 			static_cast<float>(compIt->value["cooldown"].GetFloat()),
-			static_cast<float>(compIt->value["speed"].GetFloat()),
-			static_cast<uint16>(compIt->value["damage"].GetInt()));
+			static_cast<uint16>(compIt->value["damage"].GetInt()),
+			static_cast<float>(compIt->value["speed"].GetFloat()));
 		return choppyComp;
 	} else return nullptr;
 }

@@ -10,11 +10,12 @@
 #include "../include/messages.h"
 #include "../include/world.h"
 
-CCompTractorBeam::CCompTractorBeam(CEntity * et, Image * img,
-	uint8 id, uint16 energyConsumed, float lifeTime, float cooldown, uint16 damage):
-	CCompWeapon(et, img, id, energyConsumed, cooldown, damage), m_decoyLifeTime(lifeTime) {
+CCompTractorBeam::CCompTractorBeam(CEntity * et, Image * img, uint8 id, uint16 energyConsumed,
+float lifeTime, float cooldown, uint16 damage, float attracFactor):
+CCompWeapon(et, img, id, energyConsumed, cooldown, damage),
+m_decoyLifeTime(lifeTime), m_attractFactor(attracFactor) {
 	SetType(EC_TRACTOR_BEAM);
-	m_lastShot = 0;
+	m_lastShot = cooldown;
 }
 
 void CCompTractorBeam::ReceiveMessage(SMessage &msg) {
@@ -35,7 +36,7 @@ void CCompTractorBeam::ReceiveMessage(SMessage &msg) {
 				world->AddEntity(world->GetEntitiesFactory().SpawnEntity(
 					new SDecoyParams(m_owner->GetSide(), GetImg(),
 						posMsg.GetX(), posMsg.GetY(), rotMsg.GetAngle(),
-						m_decoyLifeTime, GetDamage())));
+						m_decoyLifeTime, GetDamage(), m_attractFactor)));
 				SUpdateEnergyMsg updateEnergyMsg(-GetEnergyConsumed());
 				m_owner->ReceiveMessage(updateEnergyMsg);
 				m_lastShot = 0;

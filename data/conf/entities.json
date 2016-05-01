@@ -20,8 +20,8 @@
 				"bulletImg" : "data/weapons/choppy_bot_spritesheet.png",
                 "energyConsumed" : 5,
                 "lifetime" : 15,
-                "speed" : 10,
-                "cooldown" : 1,
+                "speed" : 100,
+                "cooldown" : 20,
 				"damage" : 50
             },
             "ai" : {
@@ -52,8 +52,9 @@
                 "name" : "tractorBeam",
 				"bulletImg" : "data/weapons/tractor_decoy.png",
                 "energyConsumed" : 40,
-                "lifetime" : 5,
-                "cooldown" : 8,
+                "attractFactor" : 80,
+                "lifetime" : 10,
+                "cooldown" : 15,
 				"damage" : 40
             },
             "ai" : {

@@ -9,8 +9,9 @@
 #include "../include/resourcemanager.h"
 #include "../include/world.h"
 
-CCompDecoyParams::CCompDecoyParams(CEntity * et, float lifeTime, float damage):
-	CComponent(et), m_lifeTime(lifeTime), m_damage(damage) {
+CCompDecoyParams::CCompDecoyParams(CEntity * et, float lifeTime, float damage,
+float attractFactor): CComponent(et), m_lifeTime(lifeTime),
+m_damage(damage), m_attractFactor(attractFactor) {
 	m_currentTime = 0.f;
 	SetType(EC_DECOY_PARAMS);
 }
@@ -23,6 +24,9 @@ void CCompDecoyParams::ReceiveMessage(SMessage & msg) {
 	} else if (msg.m_type == EMT_GET_DAMAGE) {
 		SGetDamageMsg &getDmgMsg = static_cast<SGetDamageMsg &>(msg);
 		getDmgMsg.SetDamage(m_damage);
+	} else if (msg.m_type == EMT_GET_ATTRACT_FACTOR) {
+		SGetAttractFactorMsg &getAttFactorMsg = static_cast<SGetAttractFactorMsg &>(msg);
+		getAttFactorMsg.SetAttractFactor(m_attractFactor);
 	}
 }
 

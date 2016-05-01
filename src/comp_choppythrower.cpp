@@ -15,7 +15,7 @@ uint16 energyConsumed, float lifeTime, float cooldown, uint16 damage, float spee
 CCompWeapon(et, img, id, energyConsumed, cooldown, damage),
 m_speed(speed), m_botLifeTime(lifeTime) {
 	SetType(EC_CHOPPY_THROWER);
-	m_lastShot = 0;
+	m_lastShot = cooldown;
 }
 
 void CCompChoppyThrower::ReceiveMessage(SMessage &msg) {
