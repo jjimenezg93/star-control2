@@ -25,7 +25,7 @@
 				"damage" : 50
             },
             "ai" : {
-                "name" : "dreadnoughtAI"
+                "name" : "defaultAI"
             },
             "render" : {
                 "image" : "data/dreadnought/dreadnought_ship.png"
@@ -58,7 +58,7 @@
 				"damage" : 40
             },
             "ai" : {
-                "name" : "avatarAI"
+                "name" : "defaultAI"
             },
             "render" : {
                 "image" : "data/avatar/avatar_ship.png"

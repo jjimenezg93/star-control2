@@ -14,11 +14,11 @@ public:
 
 	virtual void ReceiveMessage(SMessage &msg);
 	virtual void Update(float elapsed);
-	void Render();
 private:
 	int16 m_linearSpeed, m_angularSpeed, m_hitPoints;
 	const float m_maxEnergy;
 	float m_energy, m_energyChargeRate;
+	bool m_isAI;
 };
 
 #endif //!_COMPONENT_SHIP_PARAMS_H

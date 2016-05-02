@@ -7,16 +7,14 @@
 #include "../include/screen.h"
 #include "../include/world.h"
 
-CCompProjectileMove::~CCompProjectileMove() {
-
-}
+CCompProjectileMove::~CCompProjectileMove() {}
 
 CCompProjectileMove::CCompProjectileMove(CEntity * et, float linSpeed, float angSpeed):
 CComponent(et), m_linSpeed(linSpeed), m_angSpeed(angSpeed) {
 	SetType(EC_PROJECTILE_MOVE);
 }
 
-void CCompProjectileMove::ReceiveMessage(SMessage &msg) {
+void CCompProjectileMove::ReceiveMessage(SMessage &) {
 	//if linSpeed and/or angSpeed are changed -> add set message and set them here
 }
 

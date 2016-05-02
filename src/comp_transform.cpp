@@ -23,8 +23,8 @@ void CCompTransform::ReceiveMessage(SMessage &msg) {
 		rotMsg.SetRot(m_rotation);
 	} else if (msg.m_type == EMT_UPDATE_POS) {
 		SUpdatePosMsg &moveMsg = reinterpret_cast<SUpdatePosMsg &>(msg);
-		m_x += moveMsg.m_offsetX;
-		m_y += moveMsg.m_offsetY;
+		m_x += moveMsg.GetOffX();
+		m_y += moveMsg.GetOffY();
 		if (m_owner->GetType() == EET_SHIP) {
 			if (m_x > Screen::Instance().GetWidth()) {
 				m_x = 0;
@@ -42,25 +42,19 @@ void CCompTransform::ReceiveMessage(SMessage &msg) {
 		m_owner->ReceiveMessage(setPosMsg);
 	} else if (msg.m_type == EMT_UPDATE_ROT) {
 		SUpdateRotMsg &rotMsg = reinterpret_cast<SUpdateRotMsg &>(msg);
-		m_rotation += rotMsg.m_offsetRot;
+		m_rotation += rotMsg.GetOffRot();
 
 		SSetRotMsg setRotMsg(m_rotation);
 		m_owner->ReceiveMessage(setRotMsg);
 	} else if (msg.m_type == EMT_SET_POS) {
 		SSetPosMsg &posMsg = reinterpret_cast<SSetPosMsg &>(msg);
-		m_x = posMsg.m_x;
-		m_y = posMsg.m_y;
+		m_x = posMsg.GetX();
+		m_y = posMsg.GetY();
 	} else if (msg.m_type == EMT_SET_ROT) {
 		SSetRotMsg &rotMsg = reinterpret_cast<SSetRotMsg &>(msg);
-		m_rotation = rotMsg.m_rot;
+		m_rotation = rotMsg.GetRot();
 	}
 }
 
-void CCompTransform::Update(float elapsed) {
-
-}
-
-void CCompTransform::Render() {
-
-}
+void CCompTransform::Update(float) {}
 

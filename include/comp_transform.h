@@ -10,7 +10,6 @@ public:
 
 	virtual void ReceiveMessage(SMessage &ev);
 	virtual void Update(float elapsed);
-	void Render();
 private:
 	float m_x, m_y;
 	float m_rotation;

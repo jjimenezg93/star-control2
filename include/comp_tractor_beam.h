@@ -8,7 +8,7 @@ class Image;
 
 class CCompTractorBeam: public CCompWeapon {
 public:
-	CCompTractorBeam(CEntity * const et, Image * img, uint8 id, uint16 energyConsumed,
+	CCompTractorBeam(CEntity * const et, Image * img, uint8 id, float energyConsumed,
 		float lifeTime, float cooldown, uint16 damage, float attractFactor);
 
 	virtual void ReceiveMessage(SMessage &ev);

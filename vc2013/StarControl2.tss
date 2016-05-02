@@ -31,6 +31,12 @@
     <ArrayOfString>
       <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_ai_bot.cpp</string>
     </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_fusionblaster.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\src\comp_ai_ship_default.cpp</string>
+    </ArrayOfString>
   </ArrayOfArrayOfString>
   <ArrayOfArrayOfString>
     <ArrayOfString>
@@ -62,6 +68,15 @@
     </ArrayOfString>
     <ArrayOfString>
       <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\comp_ai_bot.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\comp_weapon.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\messages.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\Behaviours\StarControl2\star-control2\include\comp_ai_ship_default.h</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

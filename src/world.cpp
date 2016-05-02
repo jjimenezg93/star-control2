@@ -16,7 +16,7 @@
 #define FINISH_TIME 2.5f
 
 double genRandomF(double min, double max);
-uint8 g_winner;
+int8 g_winner;
 
 CWorld::~CWorld() {
 	for (std::vector<CEntity *>::iterator itr = m_entities.begin(); itr != m_entities.end();
@@ -62,7 +62,7 @@ CEntity * CWorld::GetEnemyShip(EGameSide side) const {
 
 void CWorld::Update() {
 	if (m_gameIsFinished) {
-		m_endTime += Screen::Instance().ElapsedTime();
+		m_endTime += static_cast<float>(Screen::Instance().ElapsedTime());
 	}
 	if (m_endTime >= FINISH_TIME) {
 		GSetWantedState(ESC_END_GAME);
@@ -93,8 +93,15 @@ void CWorld::CheckCollisions() {
 }
 
 void CWorld::CleanVectors() {
+	uint8 shipsToDelete = 0; //if > 1 -> both ships were destroyed and there is no winner
+	EGameSide shipDeleted = EGS_NONE;
+
 	std::vector<CEntity *>::iterator itd = m_entitiesToDelete.begin();
 	while (itd != m_entitiesToDelete.end()) {
+		if ((*itd)->GetType() == EET_SHIP) {
+			shipsToDelete++;
+			shipDeleted = (*itd)->GetSide();
+		}
 		//render vector
 		std::vector<CEntity *>::iterator renderItr = std::find(m_renderingEntities.begin(),
 			m_renderingEntities.end(), *itd);
@@ -109,6 +116,14 @@ void CWorld::CleanVectors() {
 		delete *itd;
 		itd = m_entitiesToDelete.erase(itd);
 	}
+	if (shipsToDelete == 1) {
+		m_gameIsFinished = true;
+		g_winner = static_cast<int8>(shipDeleted) - 1;
+	} else if (shipsToDelete == 2) {
+		m_gameIsFinished = true;
+		g_winner = -1;
+	}
+
 	std::vector<CEntity *>::iterator ita = m_entitiesToAdd.begin();
 	while (ita != m_entitiesToAdd.end()) {
 		m_entities.push_back(*ita);
@@ -131,10 +146,10 @@ void CWorld::AddEntity(CEntity * const et) {
 }
 
 void CWorld::DeleteEntity(CEntity * const et) {
-	if (!m_gameIsFinished && et->GetType() == EET_SHIP) {
+	/*if (!m_gameIsFinished && et->GetType() == EET_SHIP) {
 		m_gameIsFinished = true;
 		g_winner = GetEnemyShip(et->GetSide())->GetSide() - 1;
-	}
+	}*/
 	m_entitiesToDelete.push_back(et);
 }
 

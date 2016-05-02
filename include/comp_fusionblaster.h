@@ -9,7 +9,7 @@ class Image;
 class CCompFusionBlaster: public CCompWeapon {
 public:
 	CCompFusionBlaster(CEntity * const et, Image * img,
-		uint8 id, uint16 energyConsumed, float cooldown, uint16 damage);
+		uint8 id, float energyConsumed, float cooldown, uint16 damage);
 
 	virtual void ReceiveMessage(SMessage &ev);
 	virtual void Update(float elapsed);

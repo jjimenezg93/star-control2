@@ -11,7 +11,7 @@
 #include "../include/world.h"
 
 CCompChoppyThrower::CCompChoppyThrower(CEntity * et, Image * img, uint8 id,
-uint16 energyConsumed, float lifeTime, float cooldown, uint16 damage, float speed):
+	float energyConsumed, float lifeTime, float cooldown, uint16 damage, float speed):
 CCompWeapon(et, img, id, energyConsumed, cooldown, damage),
 m_speed(speed), m_botLifeTime(lifeTime) {
 	SetType(EC_CHOPPY_THROWER);

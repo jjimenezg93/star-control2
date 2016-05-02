@@ -15,7 +15,7 @@
 CCompShipParams::CCompShipParams(CEntity * et, int16 linear, int16 angular,
 float energy, float energyChargeRate, uint16 hitpoints): CComponent(et), m_linearSpeed(linear),
 m_angularSpeed(angular), m_maxEnergy(energy), m_energy(energy),
-m_energyChargeRate(energyChargeRate), m_hitPoints(hitpoints) {
+m_energyChargeRate(energyChargeRate), m_hitPoints(hitpoints), m_isAI(false) {
 	SetType(EC_SHIP_PARAMS);
 }
 
@@ -29,7 +29,7 @@ void CCompShipParams::ReceiveMessage(SMessage &msg) {
 		 getHPMsg.SetHitPoints(m_hitPoints);
 	} else if (msg.m_type == EMT_UPDATE_HP) {
 		SUpdateHitPointsMsg &updateHPMsg = reinterpret_cast<SUpdateHitPointsMsg &>(msg);
-		if (m_hitPoints + updateHPMsg.m_damage <= 0) {
+		if (m_hitPoints + updateHPMsg.GetDamage() <= 0) {
 			AudioBuffer * buffer = new AudioBuffer("data/sounds/explosion2.wav");
 			AudioSource * source = new AudioSource(buffer);
 
@@ -48,20 +48,26 @@ void CCompShipParams::ReceiveMessage(SMessage &msg) {
 			getWorldMsg.GetWorld()->AddEntity(
 				getWorldMsg.GetWorld()->GetEntitiesFactory().SpawnEntity(explParams));
 		} else
-			m_hitPoints += updateHPMsg.m_damage;
+			m_hitPoints += static_cast<int16>(updateHPMsg.GetDamage());
 	} else if (msg.m_type == EMT_GET_ENERGY) {
 		SGetEnergyMsg &getEnergyMsg = reinterpret_cast<SGetEnergyMsg &>(msg);
 		getEnergyMsg.SetEnergy(m_energy);
 	} else if (msg.m_type == EMT_UPDATE_ENERGY) {
 		SUpdateEnergyMsg &updateEnergyMsg = reinterpret_cast<SUpdateEnergyMsg &>(msg);
-		if (m_energy + updateEnergyMsg.m_energy >= 0)
-			m_energy += updateEnergyMsg.m_energy;
+		if (m_energy + updateEnergyMsg.GetEnergy() >= 0)
+			m_energy += updateEnergyMsg.GetEnergy();
 	} else if (msg.m_type == EMT_GET_LINEAR_SPEED) {
 		SGetLinSpeedMsg &getLinSpeedMsg = reinterpret_cast<SGetLinSpeedMsg &>(msg);
 		getLinSpeedMsg.SetLinSpeed(m_linearSpeed);
 	} else if (msg.m_type == EMT_GET_ANGULAR_SPEED) {
 		SGetAngSpeedMsg &getAngSpeedMsg = reinterpret_cast<SGetAngSpeedMsg &>(msg);
 		getAngSpeedMsg.SetAngSpeed(m_angularSpeed);
+	} else if (msg.m_type == EMT_SET_AI) {
+		SSetAIMsg &setIsAIMsg = reinterpret_cast<SSetAIMsg &>(msg);
+		m_isAI = setIsAIMsg.IsAI();
+	} else if (msg.m_type == EMT_GET_AI) {
+		SGetAIMsg &getIsAIMsg = reinterpret_cast<SGetAIMsg &>(msg);
+		getIsAIMsg.SetIsAI(m_isAI);
 	}
 }
 
@@ -73,8 +79,4 @@ void CCompShipParams::Update(float elapsed) {
 	if (m_energy > m_maxEnergy) {
 		m_energy = m_maxEnergy;
 	}
-}
-
-void CCompShipParams::Render() {
-	
 }

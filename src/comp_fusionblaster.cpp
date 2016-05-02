@@ -11,7 +11,7 @@
 #include "../include/world.h"
 
 CCompFusionBlaster::CCompFusionBlaster(CEntity * et, Image * img,
-	uint8 id, uint16 energyConsumed, float cooldown, uint16 damage): CCompWeapon(et, img, id,
+	uint8 id, float energyConsumed, float cooldown, uint16 damage): CCompWeapon(et, img, id,
 	energyConsumed, cooldown, damage) {
 	SetType(EC_FUSION_BLASTER);
 	m_lastShot = cooldown;
@@ -35,7 +35,7 @@ void CCompFusionBlaster::ReceiveMessage(SMessage &msg) {
 				world->AddEntity(world->GetEntitiesFactory().SpawnEntity(
 					new SProjectileParams(posMsg.GetX(), posMsg.GetY(), 20,
 						rotMsg.GetAngle(), m_owner->GetSide(), GetImg(), GetDamage())));
-				SUpdateEnergyMsg updateEnergyMsg(-GetEnergyConsumed());
+				SUpdateEnergyMsg updateEnergyMsg(-static_cast<float>(GetEnergyConsumed()));
 				m_owner->ReceiveMessage(updateEnergyMsg);
 				m_lastShot = 0;
 				AudioBuffer * buffer = new AudioBuffer("data/sounds/fusion_blaster_shoot.wav");

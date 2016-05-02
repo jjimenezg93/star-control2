@@ -15,6 +15,7 @@
 #include "../include/comp_choppythrower.h"
 #include "../include/comp_botparams.h"
 #include "../include/comp_ai_bot.h"
+#include "../include/comp_ai_ship_default.h"
 #include "../include/defs.h"
 #include "../include/entities_factory.h"
 #include "../include/entity.h"
@@ -70,8 +71,10 @@ uint8 CEntitiesFactory::Init(CWorld &world) {
 CEntity * CEntitiesFactory::SpawnEntity(const SEntityParams * params) {
 	CEntity * et = new CEntity(params->GetSide(), m_world);
 	if(params->GetType() == EET_SHIP) {
-		InitEntityControls(et);
+		//hotfix: create controls and register to InputManager if not AI
 		AddComponents(et, params);
+		//if (!static_cast<const SShipParams *>(params)->IsAI()) {
+		InitEntityControls(et);
 
 		/* LOOKING INSIDE init_world.json and setting position/rotation */
 		CCompTransform * transform = new CCompTransform(et, 0, 0, 0);
@@ -136,14 +139,14 @@ void CEntitiesFactory::InitEntityControls(CEntity * const entity) {
 	} else if (entity->GetSide() == EGS_PLAYER_2) {
 		player = cDoc["player2"].FindMember("controls")->value;
 	}
-
+	
 	uint16 controls[kEntityNumControls];
 	uint8 cont = 0;
 	for (rapidjson::Value::ConstMemberIterator itr = player.MemberBegin();
 	itr != player.MemberEnd(); ++itr) {
 		uint16 value = static_cast<uint16>(itr->value.GetInt());
 		memcpy(&controls[cont++], &value, sizeof(controls[0]));
-		CInputManager::Instance().Register(entity, EEC_KEYBOARD, itr->value.GetInt());
+		//CInputManager::Instance().Register(entity, EEC_KEYBOARD, itr->value.GetInt());
 	}
 
 	CCompPlayerControl * playerControl = new CCompPlayerControl(entity);
@@ -167,9 +170,10 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 		uint16 energy = static_cast<uint16>(parameters["energy"].GetInt());
 		float energyChargeRate = static_cast<float>(parameters["energyChargeRate"].GetFloat());
 		int16 hitpoints = static_cast<int16>(parameters["hitpoints"].GetInt());
-	
-		entity->AddComponent(new CCompShipParams(entity, linearSpeed, angularSpeed,
-			energy, energyChargeRate, hitpoints));
+		
+		CCompShipParams * shipParamsComp = new CCompShipParams(entity, linearSpeed, angularSpeed,
+			energy, energyChargeRate, hitpoints);
+		entity->AddComponent(shipParamsComp);
 
 		//components
 		const rapidjson::Value &components = ship.FindMember("components")->value;
@@ -177,8 +181,12 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 		for (rapidjson::Value::ConstMemberIterator itr = components.MemberBegin();
 		itr != components.MemberEnd(); ++itr) {
 			if (!strcmp(itr->name.GetString(), "ai")
-			&& !static_cast<const SShipParams *>(params)->IsAI()) {
-				continue; //WHEN TESTING, DON'T USE AI
+			&& static_cast<const SShipParams *>(params)->IsAI()) {
+				CComponent * comp = CreateAI(entity, itr->value["name"].GetString());
+				entity->AddComponent(comp);
+				//entity already has CCompShipParams, so set it's isAI to true
+				SSetAIMsg setAIMsg(true);
+				entity->ReceiveMessage(setAIMsg);
 			} else if(!strcmp(itr->name.GetString(), "primaryWeapon")) {
 				CComponent * comp = CreateWeapon(entity, 0, itr);
 				entity->AddComponent(comp);
@@ -187,7 +195,9 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 				entity->AddComponent(comp);
 			} else {
 				CComponent * newComp = CreateComponent(entity, itr);
-				entity->AddComponent(newComp);
+				if (newComp != nullptr) {
+					entity->AddComponent(newComp);
+				}
 			}
 		}
 	} else if(params->GetType() == EET_PROJECTILE) {
@@ -273,7 +283,8 @@ void CEntitiesFactory::AddComponents(CEntity * const entity, const SEntityParams
 		Sprite * sprt = new Sprite(botParams->GetImg());
 		CCompRender * compRender = new CCompRender(entity, sprt);
 		entity->AddComponent(compRender);
-		compRender->ReceiveMessage(SSetFPSMsg(20));
+		SSetFPSMsg setFpsMsg(20);
+		compRender->ReceiveMessage(setFpsMsg);
 
 		CCompTransform * transfComp = new CCompTransform(entity, botParams->GetX(),
 			botParams->GetY(), 0.f);
@@ -312,14 +323,14 @@ uint8 id, rapidjson::Value::ConstMemberIterator &compIt) {
 	if(!strcmp("fusionBlaster", compIt->value["name"].GetString())) {
 		Image * img = ResourceManager::Instance().LoadImage(compIt->value["bulletImg"].GetString());
 		CCompFusionBlaster * fusionBlasterComp = new CCompFusionBlaster(et,
-			img, id, static_cast<uint16>(compIt->value["energyConsumed"].GetInt()),
+			img, id, static_cast<float>(compIt->value["energyConsumed"].GetInt()),
 			static_cast<float>(compIt->value["cooldown"].GetFloat()),
 			static_cast<uint16>(compIt->value["damage"].GetInt()));
 		return fusionBlasterComp;
 	} else if(!strcmp("tractorBeam", compIt->value["name"].GetString())) {
 		Image * img = ResourceManager::Instance().LoadImage(compIt->value["bulletImg"].GetString());
 		CCompTractorBeam * tractorComp = new CCompTractorBeam(et,
-			img, id, static_cast<uint16>(compIt->value["energyConsumed"].GetInt()),
+			img, id, static_cast<float>(compIt->value["energyConsumed"].GetInt()),
 			static_cast<float>(compIt->value["lifetime"].GetFloat()),
 			static_cast<float>(compIt->value["cooldown"].GetFloat()),
 			static_cast<uint16>(compIt->value["damage"].GetInt()),
@@ -329,11 +340,19 @@ uint8 id, rapidjson::Value::ConstMemberIterator &compIt) {
 		Image * img = ResourceManager::Instance().LoadImage(
 			compIt->value["bulletImg"].GetString(), 8, 8);
 		CCompChoppyThrower * choppyComp = new CCompChoppyThrower(et,
-			img, id, static_cast<uint16>(compIt->value["energyConsumed"].GetInt()),
+			img, id, static_cast<float>(compIt->value["energyConsumed"].GetInt()),
 			static_cast<float>(compIt->value["lifetime"].GetFloat()),
 			static_cast<float>(compIt->value["cooldown"].GetFloat()),
 			static_cast<uint16>(compIt->value["damage"].GetInt()),
 			static_cast<float>(compIt->value["speed"].GetFloat()));
 		return choppyComp;
 	} else return nullptr;
+}
+
+CComponent * CEntitiesFactory::CreateAI(CEntity * const et, const char * name) {
+	if (!strcmp(name, "defaultAI")) {
+		CCompAIShipDefault * aiShip = new CCompAIShipDefault(et);
+		return aiShip;
+	}
+	return nullptr;
 }

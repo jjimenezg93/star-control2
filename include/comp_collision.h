@@ -9,9 +9,6 @@ public:
 
 	virtual void ReceiveMessage(SMessage &ev);
 	virtual void Update(float elapsed);
-	void Render();
-private:
-	
 };
 
 #endif //!_COMP_COLLISION_H

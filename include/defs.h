@@ -11,7 +11,7 @@ enum EGameSide;
 struct SEntityParams;
 
 extern std::vector<SEntityParams *> g_entitiesParams;
-extern uint8 g_winner; //0 = player1, 1 = player2. g_entitiesParams can be used to get ship
+extern int8 g_winner; //-1 = no winner, 0 = player1, 1 = player2.
 
 extern IAppState * g_currentAppState;
 extern EStarControlAS g_wantedState;

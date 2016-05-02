@@ -24,4 +24,4 @@ search for GLFW_KEY_SPECIAL.
 ___
 
 ###Version
-Project is currently at **v0.1.8**
+Project is currently at **v1.0**

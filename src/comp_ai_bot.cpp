@@ -20,9 +20,7 @@ CCompAIBot::CCompAIBot(CEntity * et, float LifeTime):
 	m_enemyShip = getWorldMsg.GetWorld()->GetEnemyShip(m_owner->GetSide());
 }
 
-void CCompAIBot::ReceiveMessage(SMessage &msg) {
-
-}
+void CCompAIBot::ReceiveMessage(SMessage &) {}
 
 void CCompAIBot::Update(float elapsed) {
 	SGetWorldMsg getWorldMsg;

@@ -72,9 +72,9 @@ void CHud::Update() {
 		SGetEnergyMsg getEnergy1Msg;
 		SGetHitPointsMsg getHitPoints1Msg;
 		player1->ReceiveMessage(getEnergy1Msg);
-		m_shipStats[0] = getEnergy1Msg.GetEnergy();
+		m_shipStats[0] = static_cast<uint16>(getEnergy1Msg.GetEnergy());
 		player1->ReceiveMessage(getHitPoints1Msg);
-		m_shipStats[1] = getHitPoints1Msg.GetHitPoints();
+		m_shipStats[1] = static_cast<uint16>(getHitPoints1Msg.GetHitPoints());
 	}
 
 	if (player2 == nullptr) {
@@ -84,9 +84,9 @@ void CHud::Update() {
 		SGetEnergyMsg getEnergy2Msg;
 		SGetHitPointsMsg getHitPoints2Msg;
 		player2->ReceiveMessage(getEnergy2Msg);
-		m_shipStats[2] = getEnergy2Msg.GetEnergy();
+		m_shipStats[2] = static_cast<uint16>(getEnergy2Msg.GetEnergy());
 		player2->ReceiveMessage(getHitPoints2Msg);
-		m_shipStats[3] = getHitPoints2Msg.GetHitPoints();
+		m_shipStats[3] = static_cast<uint16>(getHitPoints2Msg.GetHitPoints());
 	}
 }
 

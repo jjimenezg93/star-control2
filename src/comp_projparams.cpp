@@ -32,10 +32,4 @@ void CCompProjParams::ReceiveMessage(SMessage &msg) {
 	}
 }
 
-void CCompProjParams::Update(float elapsed) {
-
-}
-
-void CCompProjParams::Render() {
-
-}
+void CCompProjParams::Update(float) {}

@@ -6,7 +6,7 @@
 
 class CCompChoppyThrower: public CCompWeapon {
 public:
-	CCompChoppyThrower(CEntity * const et, Image * img,	uint8 id, uint16 energyConsumed,
+	CCompChoppyThrower(CEntity * const et, Image * img,	uint8 id, float energyConsumed,
 		float lifeTime, float cooldown, uint16 damage, float speed);
 
 	virtual void ReceiveMessage(SMessage &ev);

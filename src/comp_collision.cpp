@@ -24,7 +24,6 @@ void CCompCollision::ReceiveMessage(SMessage & msg) {
 		Sprite * sprt = m_owner->GetRenderComp()->GetSprite();
 		if (sprt->CheckCollision(otherSprt)) {
 			if (m_owner->GetType() == EET_SHIP && isColMsg.GetOther()->GetType() == EET_SHIP) {
-				std::cout << "SHIP - SHIP" << std::endl;
 				AudioBuffer * buffer = new AudioBuffer("data/sounds/explosion3.wav");
 				AudioSource * source = new AudioSource(buffer);
 				
@@ -48,7 +47,6 @@ void CCompCollision::ReceiveMessage(SMessage & msg) {
 					getWorldMsg.GetWorld()->GetEntitiesFactory().SpawnEntity(explParams));
 			} else if (m_owner->GetType() == EET_SHIP
 			&& isColMsg.GetOther()->GetType() == EET_PROJECTILE) {
-				std::cout << "SHIP - PROJECTILE" << std::endl;
 				SGetDamageMsg getDmgMsg;
 				isColMsg.GetOther()->ReceiveMessage(getDmgMsg);
 				if (getDmgMsg.Modified()) {
@@ -64,7 +62,6 @@ void CCompCollision::ReceiveMessage(SMessage & msg) {
 				}
 			} else if (m_owner->GetType() == EET_PROJECTILE
 			&& isColMsg.GetOther()->GetType() == EET_SHIP) {
-				std::cout << "PROJECTILE - SHIP" << std::endl;
 				SGetDamageMsg getDmgMsg;
 				m_owner->ReceiveMessage(getDmgMsg);
 				if (getDmgMsg.Modified()) {
@@ -80,7 +77,6 @@ void CCompCollision::ReceiveMessage(SMessage & msg) {
 				}
 			} else if (m_owner->GetType() == EET_SHIP
 			&& isColMsg.GetOther()->GetType() == EET_DECOY) {
-				std::cout << "SHIP - DECOY" << std::endl;
 				SGetDamageMsg getDmgMsg;
 				isColMsg.GetOther()->ReceiveMessage(getDmgMsg);
 				if (getDmgMsg.Modified()) {
@@ -96,7 +92,6 @@ void CCompCollision::ReceiveMessage(SMessage & msg) {
 				}
 			} else if (m_owner->GetType() == EET_DECOY
 				&& isColMsg.GetOther()->GetType() == EET_SHIP) {
-				std::cout << "DECOY - SHIP" << std::endl;
 				SGetDamageMsg getDmgMsg;
 				m_owner->ReceiveMessage(getDmgMsg);
 				if (getDmgMsg.Modified()) {
@@ -115,8 +110,4 @@ void CCompCollision::ReceiveMessage(SMessage & msg) {
 	}
 }
 
-void CCompCollision::Update(float elapsed) {
-}
-
-void CCompCollision::Render() {
-}
+void CCompCollision::Update(float) {}

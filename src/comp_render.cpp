@@ -25,10 +25,10 @@ CComponent(et) {
 void CCompRender::ReceiveMessage(SMessage &msg) {
 	if (msg.m_type == EMT_SET_POS) {
 		SSetPosMsg &posMsg = reinterpret_cast<SSetPosMsg &>(msg);
-		m_sprite->SetPosition(posMsg.m_x, posMsg.m_y);
+		m_sprite->SetPosition(posMsg.GetX(), posMsg.GetY());
 	} else if (msg.m_type == EMT_SET_ROT) {
 		SSetRotMsg &rotMsg = reinterpret_cast<SSetRotMsg &>(msg);
-		m_sprite->SetAngle(rotMsg.m_rot);
+		m_sprite->SetAngle(rotMsg.GetRot());
 	} else if (msg.m_type == EMT_SET_FPS) {
 		SSetFPSMsg &setFPSMsg = reinterpret_cast<SSetFPSMsg &>(msg);
 		m_sprite->SetFPS(setFPSMsg.GetFPS());

@@ -20,9 +20,7 @@ CCompTractorDecoy::CCompTractorDecoy(CEntity * et, float decoyLifeTime):
 	m_enemyShip = getWorldMsg.GetWorld()->GetEnemyShip(m_owner->GetSide());
 }
 
-void CCompTractorDecoy::ReceiveMessage(SMessage &msg) {
-	
-}
+void CCompTractorDecoy::ReceiveMessage(SMessage &) {}
 
 void CCompTractorDecoy::Update(float elapsed) {
 	SGetWorldMsg getWorldMsg;

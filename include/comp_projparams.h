@@ -13,7 +13,6 @@ public:
 
 	virtual void ReceiveMessage(SMessage &msg);
 	virtual void Update(float elapsed);
-	void Render();
 private:
 	uint16 m_damage;
 };

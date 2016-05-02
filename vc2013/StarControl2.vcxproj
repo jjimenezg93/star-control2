@@ -110,6 +110,7 @@
     <ClInclude Include="..\include\collisionpixeldata.h" />
     <ClInclude Include="..\include\component.h" />
     <ClInclude Include="..\include\comp_ai_bot.h" />
+    <ClInclude Include="..\include\comp_ai_ship_default.h" />
     <ClInclude Include="..\include\comp_botparams.h" />
     <ClInclude Include="..\include\comp_choppythrower.h" />
     <ClInclude Include="..\include\comp_collision.h" />
@@ -216,6 +217,7 @@
     <ClCompile Include="..\src\collisionmanager.cpp" />
     <ClCompile Include="..\src\collisionpixeldata.cpp" />
     <ClCompile Include="..\src\comp_ai_bot.cpp" />
+    <ClCompile Include="..\src\comp_ai_ship_default.cpp" />
     <ClCompile Include="..\src\comp_botparams.cpp" />
     <ClCompile Include="..\src\comp_choppythrower.cpp" />
     <ClCompile Include="..\src\comp_collision.cpp" />

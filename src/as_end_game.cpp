@@ -28,11 +28,17 @@ ASEndGameMenu::~ASEndGameMenu() {
 void ASEndGameMenu::Init() {
 	String str; //used to send all str's by reference, then copied inside
 
-	m_text = new String(" WINNER: ");
+	if (g_winner != -1) {
+		m_text = new String(" WINNER ");
+	} else {
+		m_text = new String(" NO WINNER!");
+	}
 	m_font = ResourceManager::Instance().LoadFont(FONT_FILENAME);
 	
-	m_winnerImg = GetShipImage(
-		(static_cast<SShipParams *>(g_entitiesParams.at(g_winner)))->GetShipName());
+	if (g_winner != -1) {
+		m_winnerImg = GetShipImage(
+			(static_cast<SShipParams *>(g_entitiesParams.at(g_winner)))->GetShipName());
+	}
 
 	Image * defaultButtonImg = ResourceManager::Instance().LoadImage(BUTTON_DEFAULT_IMG);
 	defaultButtonImg->SetMidHandle();
@@ -118,9 +124,11 @@ void ASEndGameMenu::Render() {
 		Screen::Instance().GetWidth() / 2 - m_font->GetTextWidth(*m_text) / 2,
 		Screen::Instance().GetHeight() / 2 - m_font->GetTextHeight(*m_text) / 2 - 50);
 
-	Renderer::Instance().DrawImage(m_winnerImg,
-		Screen::Instance().GetWidth() / 2,
-		Screen::Instance().GetHeight() / 2);
+	if (g_winner != -1) {
+		Renderer::Instance().DrawImage(m_winnerImg,
+			Screen::Instance().GetWidth() / 2,
+			Screen::Instance().GetHeight() / 2);
+	}
 
 	Screen::Instance().Refresh();
 }

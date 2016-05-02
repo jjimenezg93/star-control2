@@ -17,11 +17,17 @@ public:
 
 	virtual void ReceiveMessage(SMessage &msg);
 	virtual void Update(float elapsed);
-	void Render();
 
 	void SetControls(uint16 controls[kEntityNumControls]);
 private:
 	bool GetLinearOffset(float &offsetX, float &offsetY) const;
+
+	void MoveUp(float elapsed);
+	void MoveDown(float elapsed);
+	void TurnLeft(float elapsed);
+	void TurnRight(float elapsed);
+	void Shoot(uint8 weaponId);
+
 	//up, down, left, right, weapon1, weapon2
 	uint16 m_controls[kEntityNumControls];
 };

@@ -10,7 +10,7 @@
 #include "../include/messages.h"
 #include "../include/world.h"
 
-CCompTractorBeam::CCompTractorBeam(CEntity * et, Image * img, uint8 id, uint16 energyConsumed,
+CCompTractorBeam::CCompTractorBeam(CEntity * et, Image * img, uint8 id, float energyConsumed,
 float lifeTime, float cooldown, uint16 damage, float attracFactor):
 CCompWeapon(et, img, id, energyConsumed, cooldown, damage),
 m_decoyLifeTime(lifeTime), m_attractFactor(attracFactor) {
@@ -37,7 +37,7 @@ void CCompTractorBeam::ReceiveMessage(SMessage &msg) {
 					new SDecoyParams(m_owner->GetSide(), GetImg(),
 						posMsg.GetX(), posMsg.GetY(), rotMsg.GetAngle(),
 						m_decoyLifeTime, GetDamage(), m_attractFactor)));
-				SUpdateEnergyMsg updateEnergyMsg(-GetEnergyConsumed());
+				SUpdateEnergyMsg updateEnergyMsg(-static_cast<float>(GetEnergyConsumed()));
 				m_owner->ReceiveMessage(updateEnergyMsg);
 				m_lastShot = 0;
 				AudioBuffer * buffer = new AudioBuffer("data/sounds/fusion_blaster_shoot.wav");

@@ -10,6 +10,7 @@ enum EEntityType;
 
 enum EMessageType {
 	EMT_INPUT,
+	EMT_AI_INPUT,
 	EMT_GET_WORLD,
 	EMT_SET_POS,
 	EMT_SET_ROT,
@@ -28,7 +29,18 @@ enum EMessageType {
 	EMT_GET_DAMAGE,
 	EMT_GET_ENTITY_TYPE,
 	EMT_SET_FPS,
-	EMT_GET_ATTRACT_FACTOR
+	EMT_GET_ATTRACT_FACTOR,
+	EMT_SET_AI,
+	EMT_GET_AI
+};
+
+enum EAIInput {
+	EAII_UP,
+	EAII_DOWN,
+	EAII_RIGHT,
+	EAII_LEFT,
+	EAII_SHOOT_PRIMARY,
+	EAII_SHOOT_SECONDARY
 };
 
 struct SMessage {
@@ -36,13 +48,22 @@ struct SMessage {
 	virtual ~SMessage() {}
 	EMessageType m_type;
 };
-
+//raw input from InputManager
 struct SInputMsg: public SMessage {
-	SInputMsg(): SMessage(EMT_INPUT) {}
 	SInputMsg(EEventController controller, uint32 id): SMessage(EMT_INPUT),
 		m_controller(controller), m_id(id) {}
+	EEventController GetController() const { return m_controller; }
+	uint32 GetId() const { return m_id; }
+private:
 	EEventController m_controller;
 	uint32 m_id;
+};
+//input from AI (hotfix)
+struct SAIInputMsg: public SMessage {
+	SAIInputMsg(EAIInput input): SMessage(EMT_AI_INPUT), m_input(input) {}
+	EAIInput GetInput() const { return m_input; }
+private:
+	EAIInput m_input;
 };
 
 struct SGetWorldMsg: public SMessage {
@@ -61,10 +82,12 @@ private:
 };
 
 struct SSetPosMsg: public SMessage {
-	SSetPosMsg(): SMessage(EMT_SET_POS) {}
 	SSetPosMsg(float x, float y): SMessage(EMT_SET_POS),
 		m_x(x), m_y(y) {
 	}
+	float GetX() const { return m_x; }
+	float GetY() const { return m_y; }
+private:
 	float m_x, m_y;
 };
 
@@ -80,18 +103,21 @@ private:
 };
 
 struct SUpdatePosMsg: public SMessage {
-	SUpdatePosMsg(): SMessage(EMT_UPDATE_POS) {}
 	SUpdatePosMsg(float offsetX, float offsetY): SMessage(EMT_UPDATE_POS),
 		m_offsetX(offsetX), m_offsetY(offsetY) {
 	}
+	float GetOffX() const { return m_offsetX; }
+	float GetOffY() const { return m_offsetY; }
+private:
 	float m_offsetX, m_offsetY;
 };
 
 struct SSetRotMsg: public SMessage {
-	SSetRotMsg(): SMessage(EMT_SET_ROT) {}
 	SSetRotMsg(float rot): SMessage(EMT_SET_ROT),
 		m_rot(rot) {
 	}
+	float GetRot() const { return m_rot; }
+private:
 	float m_rot;
 };
 
@@ -106,18 +132,21 @@ private:
 };
 
 struct SUpdateRotMsg: public SMessage {
-	SUpdateRotMsg(): SMessage(EMT_UPDATE_ROT) {}
 	SUpdateRotMsg(float offsetR): SMessage(EMT_UPDATE_ROT),
 		m_offsetRot(offsetR) {
 	}
+	float GetOffRot() const { return m_offsetRot; }
+private:
 	float m_offsetRot;
 };
 
 struct SGetHitPointsMsg: public SMessage {
 	SGetHitPointsMsg(): SMessage(EMT_GET_HP), m_hitPoints(0) {}
 	void SetHitPoints(uint16 hp) {
-		m_hitPoints = hp;
-		m_modified = true;
+		if (!m_modified) {
+			m_hitPoints = hp;
+			m_modified = true;
+		}
 	}
 	uint16 GetHitPoints() const { return m_hitPoints; }
 	bool Modified() { return m_modified; }
@@ -127,45 +156,51 @@ private:
 };
 
 struct SUpdateHitPointsMsg: public SMessage {
-	SUpdateHitPointsMsg(float dmg = 0): SMessage(EMT_UPDATE_HP), m_damage(dmg) {}
+	SUpdateHitPointsMsg(float dmg): SMessage(EMT_UPDATE_HP), m_damage(dmg) {}
+	float GetDamage() const { return m_damage; }
+private:
 	float m_damage;
 };
 
 struct SGetEnergyMsg: public SMessage {
 	SGetEnergyMsg(): SMessage(EMT_GET_ENERGY), m_energy(0) {}
-	void SetEnergy(uint16 en) {
-		m_energy = en;
-		m_modified = true;
+	void SetEnergy(float en) {
+		if (!m_modified) {
+			m_energy = en;
+			m_modified = true;
+		}
 	}
-	uint16 GetEnergy() const { return m_energy; }
+	float GetEnergy() const { return m_energy; }
 	bool Modified() { return m_modified; }
 private:
-	uint16 m_energy;
+	float m_energy;
 	bool m_modified;
 };
 
 struct SUpdateEnergyMsg: public SMessage {
-	SUpdateEnergyMsg(float energy = 0): SMessage(EMT_UPDATE_ENERGY), m_energy(energy) {}
+	SUpdateEnergyMsg(float energy): SMessage(EMT_UPDATE_ENERGY), m_energy(energy) {}
+	float GetEnergy() const { return m_energy; }
+private:
 	float m_energy;
 };
 
 struct SGetLinSpeedMsg: public SMessage {
 	SGetLinSpeedMsg(): SMessage(EMT_GET_LINEAR_SPEED), m_linSpeed(0), m_modified(false) {}
-	void SetLinSpeed(int16 lSpeed) { m_linSpeed = lSpeed; m_modified = true; }
-	int16 GetLinSpeed() const { return m_linSpeed; }
+	void SetLinSpeed(float lSpeed) { m_linSpeed = lSpeed; m_modified = true; }
+	float GetLinSpeed() const { return m_linSpeed; }
 	bool Modified() { return m_modified; }
 private:
-	int16 m_linSpeed;
+	float m_linSpeed;
 	bool m_modified;
 };
 
 struct SGetAngSpeedMsg: public SMessage {
 	SGetAngSpeedMsg(): SMessage(EMT_GET_ANGULAR_SPEED), m_angSpeed(0), m_modified(false) {}
-	void SetAngSpeed(int16 aSpeed) { m_angSpeed = aSpeed; m_modified = true; }
-	int16 GetAngSpeed() const { return m_angSpeed; }
+	void SetAngSpeed(float aSpeed) { m_angSpeed = aSpeed; m_modified = true; }
+	float GetAngSpeed() const { return m_angSpeed; }
 	bool Modified() { return m_modified; }
 private:
-	int16 m_angSpeed;
+	float m_angSpeed;
 	bool m_modified;
 };
 
@@ -180,8 +215,10 @@ struct SIsCollisionMsg: public SMessage {
 	SIsCollisionMsg(CEntity * other): SMessage(EMT_IS_COLLISION),
 		m_other(other), m_isCollision(false), m_modified(false) {}
 	void SetIsCollision(bool isCol) {
-		m_isCollision = isCol;
-		m_modified = true;
+		if (!m_modified) {
+			m_isCollision = isCol;
+			m_modified = true;
+		}
 	}
 	CEntity * GetOther() const { return m_other; }
 	bool GetIsCollision() const { return m_isCollision; }
@@ -194,16 +231,16 @@ private:
 
 struct SGetDamageMsg: public SMessage {
 	SGetDamageMsg(): SMessage(EMT_GET_DAMAGE), m_damage(0), m_modified(false) {}
-	void SetDamage(uint16 f) {
+	void SetDamage(float f) {
 		if (!m_modified) {
 			m_damage = f;
 			m_modified = true;
 		}
 	}
-	uint16 GetDamage() const { return m_damage; }
+	float GetDamage() const { return m_damage; }
 	bool Modified() const { return m_modified; }
 private:
-	uint16 m_damage;
+	float m_damage;
 	bool m_modified;
 };
 
@@ -242,6 +279,27 @@ struct SGetAttractFactorMsg: public SMessage {
 private:
 	float m_factor;
 	bool m_modified;
+};
+
+struct SSetAIMsg: public SMessage {
+	SSetAIMsg(bool isAI): SMessage(EMT_SET_AI), m_isAI(isAI) {}
+	bool IsAI() const { return m_isAI; }
+private:
+	bool m_isAI;
+};
+
+struct SGetAIMsg: public SMessage {
+	SGetAIMsg(): SMessage(EMT_GET_AI), m_modified(false), m_isAI(false) {}
+	void SetIsAI(bool isAI) {
+		if (!m_modified) {
+			m_isAI = isAI;
+			m_modified = true;
+		}
+	}
+	bool IsAI() const { return m_isAI; }
+	bool Modified() const { return m_modified; }
+private:
+	bool m_isAI, m_modified;
 };
 
 #endif //!_MESSAGES_H

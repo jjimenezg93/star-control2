@@ -10,19 +10,28 @@ enum EShipState {
 	ESS_ATTACK
 };
 
-class CCompShipDefault: public CComponent {
+class CCompAIShipDefault: public CComponent {
 public:
-	CCompShipDefault(CEntity * const et);
+	CCompAIShipDefault(CEntity * const et);
 
-	virtual void ReceiveMessage(SMessage &ev);
+	virtual void ReceiveMessage(SMessage &msg);
 	virtual void Update(float elapsed);
 
 private:
+	void Attack();
+	void Aim();
+	void Move();
+
+	void RotateToAngle(double desiredAngle);
 	
 	CEntity * m_enemyShip;
 	EShipState m_currentState;
 	float m_lastDecision;
 	float m_nextDecision;
+
+	float m_destX, m_destY;
+	bool m_moving;
+
 };
 
 #endif //!_COMP_AI_SHIP_DEFAULT_H

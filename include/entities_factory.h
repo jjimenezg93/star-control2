@@ -33,8 +33,9 @@ private:
 	void AddComponents(CEntity * const entity, const SEntityParams * params);
 	CComponent * CreateComponent(CEntity * const et,
 		rapidjson::Value::ConstMemberIterator &compIt);
-	CComponent * CEntitiesFactory::CreateWeapon(CEntity * const et,
+	CComponent * CreateWeapon(CEntity * const et,
 		uint8 id, rapidjson::Value::ConstMemberIterator &compIt);
+	CComponent * CreateAI(CEntity * const et, const char * name);
 
 	CWorld * m_world;
 
