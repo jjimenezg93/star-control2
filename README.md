@@ -8,20 +8,20 @@ Remake of the classic game **Star Control 2**, developed putting together:
 
 ___
 
-###Project description
+### Project description
 The main goal of this project is to develop a game mixing different systems previously developed.
 ___
 
-###IMPORTANT NOTES
+### IMPORTANT NOTES
 
-To configure input keys for each player, [ASCII](http://www.asciitable.com/ "ASCII table") dec codes must be set in `controls.json` file
+To configure input keys for each player, [ASCII](http://www.asciitable.com/ "ASCII table") dec codes must be set in `data/conf/controls.json` file
 
-Configurable keys allowed are all ASCII codes between 32 and 127 (defined in `event.h` -> `EKeyboardEventID`). Note that keys which need Shift are not currently
+Configurable keys allowed are all ASCII codes between 32 and 127 (defined in `include/event.h` -> `EKeyboardEventID`). Note that keys which need Shift are not currently
 supported.
 
 Special characters, such as Enter and arrow keys, must be added to `m_specialKeys` vector in `CKeyboardController::Init()`, using *`GLFW_KEY_<key_name>`*,
 search for GLFW_KEY_SPECIAL.
 ___
 
-###Version
+### Version
 Project is currently at **v1.0**
